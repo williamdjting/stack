@@ -1,0 +1,201 @@
+.container {
+  display: flex;
+  margin-left: -10px;
+}
+
+.topbarContainer {
+  display: flex;
+
+}
+
+.topbar1 {
+  width: 100%;
+  /* border-radius: 5px; */
+  height: 400px;
+  font-weight: 500;
+  padding: 20px;
+  border: 2px solid white;   
+  color: #2a68ec;
+  font-family:'font-mono';
+  justify-content: center;
+  margin-top: -30px;
+  margin-bottom: 10px;
+  background-color: #e0f2fe;
+  display: flex;
+  flex-direction: column; /* Stack elements vertically */
+  margin-right: 10px;
+}
+
+.topbar2 {
+  width: 100%;
+  /* border-radius: 5px; */
+  height: 400px;
+  font-weight: 500;
+  padding: 20px;
+  border: 2px solid white;   
+  color: #2a68ec;
+  font-family:'font-mono';
+  justify-content: center;
+  margin-top: -30px;
+  margin-bottom: 10px;
+  background-color: #e0f2fe;
+  display: flex;
+  flex-direction: column; /* Stack elements vertically */
+  /* margin-right: 10px; */
+}
+
+.projectbox {
+  width: 100%;
+  padding: 10px;
+  border: 2px solid white;
+  /* border-radius: 5px; */
+  color: #2a68ec;
+  font-family:'font-mono';
+  display: flex;
+  font-weight: 500;
+  justify-content: center;
+  background-color: #e0f2fe;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+
+.cards {
+  width: 100%;
+  /* height: 200px; */
+  /* border-radius: 5px; */
+  font-weight: 500;
+  overflow-y: auto;
+  padding: 20px;
+  border: 2px solid white;   
+  color: #2a68ec;
+  font-family:'font-mono';
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+  margin-bottom: 10px;
+  background-color: #e0f2fe;
+  margin-right: 10px;
+
+}
+
+.form {
+  width: 100%;
+  /* border-radius: 5px; */
+  height: 800px;
+  font-weight: 500;
+  padding: 20px;
+  border: 2px solid white;   
+  color: #2a68ec;
+  font-family:'font-mono';
+  justify-content: center;
+  margin-top: 0px;
+  margin-bottom: 10px;
+  background-color: #e0f2fe;
+  display: flex;
+  flex-direction: column; /* Stack elements vertically */
+  margin-left: 10px;
+}
+
+
+.form2 {
+  display: flex;
+  flex-direction: column; /* Stack elements vertically */
+  width: 100%; /* Set input width to 100% of its container */
+  padding: 10px; /* Add padding for better appearance */
+  margin-bottom: 10px; /* Add margin between input fields */
+
+}
+
+
+.form3 {
+  margin-bottom: 20px;
+  border-radius: 5px;
+}
+
+.map {
+  width: 100%;
+  /* border-radius: 5px; */
+  font-weight: 500;
+  padding: 20px;
+  border: 2px solid 2a68ec;   
+  color: #2a68ec;
+  font-family:'font-mono';
+  /* justify-content: center; */
+  margin-top: 0px;
+  margin-bottom: 10px;
+  background-color: #e0f2fe;
+  display: flex;
+  flex-direction: column; /* Stack elements vertically */
+  margin-left: 10px;
+  vertical-align: top;
+  overflow: y;
+}
+
+.mapbox {
+  width: 100%;
+  /* border-radius: 5px; */
+  font-weight: 500;
+  padding: 20px;
+  border: 5px solid white;   
+  color: #2a68ec;
+  font-family:'font-mono';
+  justify-content: center;
+  padding-top: 10px;
+  /* margin-top: 10px; */
+  margin-bottom: 10px;
+  background-color: white;
+  /* display: flex; */
+  /* flex-direction: column; */
+  /* margin-left: 10px; */
+  align-items: center;
+  vertical-align: top;
+  overflow: y;
+}
+
+.mapbox2 {
+  margin-bottom: 10px;
+  background-color: white;
+
+}
+
+
+.projectform {
+  width: 100%;
+  /* border-radius: 5px; */
+  height: 400px;
+  font-weight: 500;
+  /* padding: 20px; */
+  border: 2px solid white;   
+  color: #2a68ec;
+  font-family:'font-mono';
+  justify-content: center;
+  margin-top: 0px;
+  margin-bottom: 10px;
+  background-color: #e0f2fe;
+  display: flex;
+  flex-direction: column; /* Stack elements vertically */
+  /* margin-left: 10px; */
+}
+
+
+.projectform2 {
+  display: flex;
+  flex-direction: column; /* Stack elements vertically */
+  width: 100%; /* Set input width to 100% of its container */
+  padding: 10px; /* Add padding for better appearance */
+  margin-bottom: 10px; /* Add margin between input fields */
+
+}
+
+
+.projectform3 {
+  margin-bottom: 20px;
+  /* border-radius: 5px; */
+}
+
+.projectListContainer {
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
