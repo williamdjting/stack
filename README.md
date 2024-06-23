@@ -16,7 +16,7 @@ Install all dependencies, including updated node version: https://www.freecodeca
 First, run the development server:
 
 npm run dev
-# or
+or
 yarn dev
 
 Open http://localhost:3000/projects with your browser to see the result.
