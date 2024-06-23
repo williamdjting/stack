@@ -1,20 +1,17 @@
-To do list (in order):<br/>
-front end v1 - done<br/>
-send CSV / read CSV - done <br/>
-front end v2 <br/>
-attach database <br/>
-web scraper <br/>
-AI feature v1 <br/>
+To Do List (in order):<br/>
+
+1. front end v1, API's v1 - done<br/>
+2. send CSV / read CSV - done <br/>
+3. front end v2 <br/>
+4. attach database, API's v2 <br/>
+5. web scraper <br/>
+6. AI feature v1 <br/>
 
 
 Clone the repo
 
 Install all dependencies, including updated node version: https://www.freecodecamp.org/news/how-to-update-node-and-npm-to-the-latest-version/
-## Getting Started
 
-Clone the repo
-
-Install all dependencies, including updated node version: https://www.freecodecamp.org/news/how-to-update-node-and-npm-to-the-latest-version/
 
 First, run the development server:
 
