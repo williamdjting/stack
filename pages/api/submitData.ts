@@ -10,7 +10,7 @@ const handler: NextApiHandler = async (req, res) => {
   
   if (req.method === 'GET') {
     // process the GET request
-    
+    console.log("hello from submitData");
 
     return res.status(200).json({ success: true, message: 'GET Message success'});
   } else if (req.method === 'POST') {
@@ -20,6 +20,13 @@ const handler: NextApiHandler = async (req, res) => {
 
       // Process the submitted data as needed
       console.log('Received submittedData:', submittedData);
+
+      // Convert submittedData to CSV format
+      const csvData = convertToCSV(submittedData);
+
+      // Write CSV data to file
+      const filePath = path.join('src/app/lib', 'submittedData.csv');
+      fs.writeFileSync(filePath, csvData);
 
       // Respond with a success message
       return res.status(200).json({ success: true, message: 'POST Message success', submittedData });
@@ -35,5 +42,31 @@ const handler: NextApiHandler = async (req, res) => {
   
   
 };
+
+
+// Function to convert object to CSV format
+function convertToCSV(data: any[]): string {
+  const headers = Object.keys(data[0]);
+  const csvRows = [];
+
+  // Add header row
+  csvRows.push(headers.join(','));
+
+  // Add data rows
+  for (const item of data) {
+    const values = headers.map(header => {
+      const value = item[header];
+      // Handle nested objects
+      if (typeof value === 'object') {
+        return JSON.stringify(value);
+      } else {
+        return value;
+      }
+    });
+    csvRows.push(values.join(','));
+  }
+
+  return csvRows.join('\n');
+}
 
 export default handler;

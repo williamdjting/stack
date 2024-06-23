@@ -5,7 +5,7 @@ const TestSubmitDataDashboardSideNavGet = async () => {
   try {
     const response = await axios.get('http://localhost:3000/api/submitDataSideNav');
     console.log('Get Response:', response.data);
-    console.log("line 11")
+    console.log("line 11 TestSubmitDataDashboardSideNavGet processed")
   } catch (error) {
     console.error('Error:', error.response?.data || error.message);
     console.log("line 14")

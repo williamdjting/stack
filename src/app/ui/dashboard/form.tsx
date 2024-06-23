@@ -8,11 +8,14 @@ import {
   TestSubmitDataDashboardGet,
 } from "../../lib/api-calls";
 import { TestSubmitDataDashboardSideNavGet } from "@/app/lib/api-call-sidenav";
-import { readCSV } from "../../lib/readCSV";
+
+import { readCSV } from "../../../../pages/api/readCSV";
 
 // Define the Form component
 export function Form() {
   // State to manage form data
+
+  const filePath = 'submittedDataSideNav.csv';
 
   const [csvData, setCsvData] = useState([
     {
@@ -48,7 +51,7 @@ export function Form() {
     },
   ]);
 
-  const filepath = "submittedDataSideNav.csv";
+
 
   useEffect(() => {
     fetch("/api/submitDataSideNav") // Call the API route
@@ -90,37 +93,49 @@ export function Form() {
 
     await TestSubmitDataDashboardGet();
     await TestSubmitDataDashboardPost(submittedData);
+     
+    
   };
 
   // JSX for the form
   return (
     <>
+      <div className={styles.topbarContainer}>
+        <div className={styles.topbar1}>
+        <div className={styles.mapbox}>
+            <div>
+              <p>Collection: {csvData.projectname}</p>
+              <p>Distribution: {csvData.url}</p>
+              <p>Quality: {csvData.description}</p>
+              <p>Split: {csvData.github}</p>
+            </div>
+          </div>
+        </div>
+      </div>
 
       <div className={styles.topbarContainer}>
-      <div className={styles.topbar1}>
-        <div className={styles.mapbox}>
-          <div>
-            <p>Collection: {csvData.projectname}</p>
-            <p>Distribution: {csvData.url}</p>
-            <p>Quality: {csvData.description}</p>
-            <p>Split: {csvData.github}</p>
+        <div className={styles.topbar1}>
+          <div className={styles.mapbox}>
+            <div>
+              <p>Collection: {csvData.projectname}</p>
+              <p>Distribution: {csvData.url}</p>
+              <p>Quality: {csvData.description}</p>
+              <p>Split: {csvData.github}</p>
+            </div>
+          </div>
+        </div>
+
+        <div className={styles.topbar2}>
+          <div className={styles.mapbox}>
+            <div>
+              <p>Collection: {csvData.projectname}</p>
+              <p>Distribution: {csvData.url}</p>
+              <p>Quality: {csvData.description}</p>
+              <p>Split: {csvData.github}</p>
+            </div>
           </div>
         </div>
       </div>
-
-      <div className={styles.topbar2}>
-        <div className={styles.mapbox}>
-          <div>
-            <p>Collection: {csvData.projectname}</p>
-            <p>Distribution: {csvData.url}</p>
-            <p>Quality: {csvData.description}</p>
-            <p>Split: {csvData.github}</p>
-          </div>
-        </div>
-      </div>
-
-      </div>
-
 
       <div className={styles.container}>
         <form className={styles.form} onSubmit={handleSubmit}>

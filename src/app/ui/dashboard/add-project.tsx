@@ -76,7 +76,7 @@ export function AddProject() {
 
     console.log("this is submitted data", submittedData);
 
-    // await TestSubmitDataDashboardSideNavGet();
+    await TestSubmitDataDashboardSideNavGet();
     await TestSubmitDataDashboardSideNavPost(submittedData);
   };
 
