@@ -1,10 +1,10 @@
 To do list (in order):
-front end v1 - done
-send CSV / read CSV - done
-front end v2
-attach database
-web scraper
-AI feature v1
+front end v1 - done<br/>
+send CSV / read CSV - done <br/>
+front end v2 <br/>
+attach database <br/>
+web scraper <br/>
+AI feature v1 <br/>
 
 
 Clone the repo
