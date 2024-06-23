@@ -31,14 +31,15 @@ const handler: NextApiHandler = async (req, res) => {
           console.log("line 26 icon", values[4]);
           console.log("line 26 github", values[5]);
           console.log('\n');
-          return {
-              projectid: values[0],
-              projectname: values[1],
-              url: values[2],
-              description: values[3],
-              icon: values[4],
-              github: values[5],
-          };
+          return res.status(200).json({ success: true, message: 'GET Message success submitDataSideNav', values });
+          // return {
+          //     projectid: values[0],
+          //     projectname: values[1],
+          //     url: values[2],
+          //     description: values[3],
+          //     icon: values[4],
+          //     github: values[5],
+          // };
       } catch (innerError) {
           console.error('Error parsing row:', innerError);
           throw innerError; // Re-throw the error to bubble it up to the outer catch block

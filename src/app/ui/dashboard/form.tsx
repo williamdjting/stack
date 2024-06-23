@@ -8,14 +8,17 @@ import {
   TestSubmitDataDashboardGet,
 } from "../../lib/api-calls";
 import { TestSubmitDataDashboardSideNavGet } from "@/app/lib/api-call-sidenav";
-
-import { readCSV } from "../../../../pages/api/readCSV";
+import Papa from "papaparse";
+import { readCSV } from "../../lib/readCSV";
 
 // Define the Form component
 export function Form() {
   // State to manage form data
 
-  const filePath = 'submittedDataSideNav.csv';
+  const filePath = "submittedDataSideNav.csv";
+
+  const [data, setData] = useState([]);
+  const [headers, setHeaders] = useState([]);
 
   const [csvData, setCsvData] = useState([
     {
@@ -51,13 +54,27 @@ export function Form() {
     },
   ]);
 
-
+  // useEffect(() => {
+  //   fetch("/api/readCsvDataPapa") // Call the API route
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       console.log("Fetched data:", data);
+  //       setCsvData(data);
+  //     })
+  //     .catch((error) => console.error("Error fetching CSV data:", error));
+  // }, []);
 
   useEffect(() => {
-    fetch("/api/submitDataSideNav") // Call the API route
-      .then((response) => response.json())
-      .then((data) => setCsvData(data))
-      .catch((error) => console.error("Error fetching CSV data:", error));
+    const fetchData = async () => {
+      const response = await fetch("/api/readCSV");
+      const result = await response.json();
+      console.log("line 73", result);
+      setData(result);
+      if (result.length > 0) {
+        setHeaders(Object.keys(result[0]));
+      }
+    };
+    fetchData();
   }, []);
 
   // Handler to update form data
@@ -89,12 +106,12 @@ export function Form() {
 
     console.log("this is formdata", formData);
 
+    console.log("this is csvdata", csvData);
+
     console.log("this is submitted data", submittedData);
 
     await TestSubmitDataDashboardGet();
     await TestSubmitDataDashboardPost(submittedData);
-     
-    
   };
 
   // JSX for the form
@@ -102,12 +119,50 @@ export function Form() {
     <>
       <div className={styles.topbarContainer}>
         <div className={styles.topbar1}>
-        <div className={styles.mapbox}>
+          <div className={styles.mapbox}>
+            <h1>Project Data</h1>
+            <table>
+              <thead>
+                <tr>
+                  <th>Project ID</th>
+                  <th>Project Name</th>
+                  <th>URL</th>
+                  <th>Description</th>
+                  <th>Icon</th>
+                  <th>Github</th>
+                </tr>
+              </thead>
+              <tbody>
+                {data.map((row, index) => (
+                  <tr key={index}>
+                    <td>{row.projectid}</td>
+                    <td>{row.projectname}</td>
+                    <td>
+                      <a href={row.url}>{row.url}</a>
+                    </td>
+                    <td>{row.description}</td>
+                    <td>
+                      <img src={row.icon} alt={`${row.projectname} icon`} />
+                    </td>
+                    <td>
+                      <a href={row.github}>{row.github}</a>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div className={styles.topbarContainer}>
+        <div className={styles.topbar1}>
+          <div className={styles.mapbox}>
             <div>
-              <p>Collection: {csvData.projectname}</p>
-              <p>Distribution: {csvData.url}</p>
-              <p>Quality: {csvData.description}</p>
-              <p>Split: {csvData.github}</p>
+              <p>Top Collection: {csvData.projectname}</p>
+              <p>Top Distribution: {csvData.url}</p>
+              <p>Top Quality: {csvData.description}</p>
+              <p>Top Split: {csvData.github}</p>
             </div>
           </div>
         </div>
