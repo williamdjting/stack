@@ -120,16 +120,16 @@ export function Form() {
       <div className={styles.topbarContainer}>
         <div className={styles.topbar1}>
           <div className={styles.mapbox}>
-            <h1>Project Data</h1>
+            <h1>Job Applications</h1>
             <table>
               <thead>
                 <tr>
-                  <th>Project ID</th>
-                  <th>Project Name</th>
-                  <th>URL</th>
-                  <th>Description</th>
+                  <th>Job Title</th>
+                  <th>Company</th>
+                  <th>Job Link</th>
+                  <th>Resume</th>
                   <th>Icon</th>
-                  <th>Github</th>
+                  <th>Cover Letter</th>
                 </tr>
               </thead>
               <tbody>

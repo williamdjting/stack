@@ -31,22 +31,22 @@ export function AddProject() {
   const pathname = usePathname();
 
   const [projectData, setProjectData] = useState({
-    projectid: '',
-    projectname: '',
-    url: '',
-    description: '',
+    Job_Title: '',
+    Company: '',
+    Job_Link: '',
+    Resume: '',
     icon: DocumentDuplicateIcon,
-    github: '',
+    Cover_Letter: '',
   });
 
   const [submittedData, setSubmittedData] = useState([
     {
-      projectid: '',
-      projectname: 'Projects',
-      url: '',
-      description: '',
+      Job_Title: '',
+      Company: 'Projects',
+      Job_Link: '',
+      Resume: '',
       icon: DocumentDuplicateIcon,
-      github: '',
+      Cover_Letter: '',
     },
   ]);
 
@@ -88,44 +88,44 @@ export function AddProject() {
           <input
             className={styles.projectform3}
             type="number"
-            name="projectid"
-            value={projectData.projectid}
+            name="Job_Title"
+            value={projectData.Job_Title}
             onChange={handleChange}
-            placeholder="projectid"
+            placeholder="Job Title"
           />
           <input
             className={styles.projectform3}
-            name="projectname"
-            value={projectData.projectname}
+            name="Company"
+            value={projectData.Company}
             onChange={handleChange}
-            placeholder="projectname"
+            placeholder="Company"
             rows={1}
             cols={25}
           />
           <textarea
             className={styles.projectform3}
-            name="url"
-            value={projectData.url}
+            name="Job_Link"
+            value={projectData.Job_Link}
             onChange={handleChange}
-            placeholder="url"
+            placeholder="Job Link"
             rows={1}
             cols={25}
           />
           <textarea
             className={styles.projectform3}
-            name="description"
-            value={projectData.description}
+            name="Resume"
+            value={projectData.Resume}
             onChange={handleChange}
-            placeholder="description"
+            placeholder="Resume"
             rows={1}
             cols={25}
           />
           <textarea
             className={styles.projectform3}
-            name="github"
-            value={projectData.github}
+            name="Cover_Letter"
+            value={projectData.Cover_Letter}
             onChange={handleChange}
-            placeholder="github"
+            placeholder="Cover Letter"
             rows={1}
             cols={25}
           />
