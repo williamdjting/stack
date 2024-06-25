@@ -72,6 +72,9 @@ const handler: NextApiHandler = async (req, res) => {
 
     // return res.status(200).json({ success: true, message: 'GET Message success submitDataSideNav'});
   } else if (req.method === 'POST') {
+
+    let header = 'Job_Title,Company,Job_Link,Resume,icon,Cover_Letter\n';
+
     try {
       // Parse the incoming data from the request body
       const submittedData = req.body;
@@ -84,7 +87,26 @@ const handler: NextApiHandler = async (req, res) => {
 
       // Write CSV data to file
       const filePath = path.join('src/app/lib', 'submittedDataSideNav.csv');
-      fs.writeFileSync(filePath, csvData);
+      // fs.writeFileSync(filePath, csvData); // deprecate
+
+      try {
+        // Check if the file exists and if it has content
+        // let fileExists = fs.existsSync(filePath);
+        // let fileContent = fileExists ? fs.readFileSync(filePath, 'utf8') : '';
+      
+        // // If the file does not exist or is empty, write the header first
+        // if (!fileExists) {
+        //   fs.writeFileSync(filePath, header);
+        // }
+      
+        // Append the new data
+        fs.appendFileSync(filePath, csvData);
+      
+        console.log('Data successfully appended to the file.');
+      } catch (err) {
+        console.error('Error appending data to the file:', err);
+      }
+
 
       // Respond with a success message
       return res.status(200).json({ success: true, message: 'POST Message success submitDataSideNav', submittedData });

@@ -31,22 +31,22 @@ export function AddProject() {
   const pathname = usePathname();
 
   const [projectData, setProjectData] = useState({
-    Job_Title: '',
-    Company: '',
-    Job_Link: '',
-    Resume: '',
+    Job_Title: "",
+    Company: "",
+    Job_Link: "",
+    Resume: "",
     icon: DocumentDuplicateIcon,
-    Cover_Letter: '',
+    Cover_Letter: "",
   });
 
   const [submittedData, setSubmittedData] = useState([
     {
-      Job_Title: '',
-      Company: 'Projects',
-      Job_Link: '',
-      Resume: '',
+      Job_Title: "",
+      Company: "Projects",
+      Job_Link: "",
+      Resume: "",
       icon: DocumentDuplicateIcon,
-      Cover_Letter: '',
+      Cover_Letter: "",
     },
   ]);
 
@@ -87,7 +87,6 @@ export function AddProject() {
         <div className={styles.projectform2}>
           <input
             className={styles.projectform3}
-            type="number"
             name="Job_Title"
             value={projectData.Job_Title}
             onChange={handleChange}
@@ -102,80 +101,37 @@ export function AddProject() {
             rows={1}
             cols={25}
           />
-          <textarea
+
+          <input
+            type="text"
             className={styles.projectform3}
             name="Job_Link"
             value={projectData.Job_Link}
             onChange={handleChange}
             placeholder="Job Link"
-            rows={1}
-            cols={25}
+            
           />
-          <textarea
+
+          <input
+            type="file"
             className={styles.projectform3}
             name="Resume"
             value={projectData.Resume}
             onChange={handleChange}
             placeholder="Resume"
-            rows={1}
-            cols={25}
           />
-          <textarea
+          <input
+            type="file"
             className={styles.projectform3}
             name="Cover_Letter"
             value={projectData.Cover_Letter}
             onChange={handleChange}
-            placeholder="Cover Letter"
-            rows={1}
-            cols={25}
           />
           <button type="submit">Submit</button>
         </div>
       </form>
 
-      {/* {links.map((link) => {
-        const LinkIcon = link.icon;
-        return (
-          <Link
-            key={link.name}
-            href={link.href}
-            className={clsx(
-              'flex h-[48px] grow items-center justify-center gap-2 rounded-md bg-gray-50 p-3 text-sm font-medium hover:bg-sky-100 hover:text-blue-600 md:flex-none md:justify-start md:p-2 md:px-3',
-              {
-                'bg-sky-100 text-blue-600': pathname === link.href,
-              },
-            )}
-          >
-            <LinkIcon className="w-6" />
-            <p className="hidden md:block">{link.name}</p>
-          </Link>
-        );
-      })}  */}
-
-      {/* {datasheetData.map((data) => {
-        const LinkIcon = data.icon;
-        return (
-          <Link
-            key={data.id}
-            href={`/projects/${data.id}`} // Add the missing href property
-            className={clsx(
-              'flex h-[48px] grow items-center justify-center gap-2 rounded-md bg-gray-50 p-3 text-sm font-medium hover:bg-sky-100 hover:text-blue-600 md:flex-none md:justify-start md:p-2 md:px-3',
-              {
-                'bg-sky-100 text-blue-600': pathname === data.href,
-              },
-            )}
-          >
-            
-            
-            <li className={styles.projectbox}>
-            <LinkIcon className="w-6" />
-            {data.name}</li>
-          </Link>
-        );
-      })} */}
-
-      <div className={styles.projectListContainer}>
-
+      {/* <div className={styles.projectListContainer}>
 
       {submittedData.map((data) => {
         const LinkIcon = data.icon;
@@ -197,8 +153,7 @@ export function AddProject() {
           </Link>
         );
       })}
-      </div>
-
+      </div> */}
     </>
   );
 }

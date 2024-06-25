@@ -54,15 +54,6 @@ export function Form() {
     },
   ]);
 
-  // useEffect(() => {
-  //   fetch("/api/readCsvDataPapa") // Call the API route
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       console.log("Fetched data:", data);
-  //       setCsvData(data);
-  //     })
-  //     .catch((error) => console.error("Error fetching CSV data:", error));
-  // }, []);
 
   useEffect(() => {
     const fetchData = async () => {
