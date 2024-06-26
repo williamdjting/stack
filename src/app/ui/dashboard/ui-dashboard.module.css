@@ -8,6 +8,44 @@
 
 }
 
+.topbarContainer0 {
+  display: flex;
+  /* overflow-y: scroll; */
+}
+
+.tbody{
+  height: 100px;
+  
+
+  
+}
+
+.tcol{
+  width: 50px;
+  overflow-x: auto;
+  
+
+  
+}
+
+.topbar0 {
+  width: 100%;
+  /* border-radius: 5px; */
+  height: auto;
+  font-weight: 500;
+  padding: 10px;
+  border: 2px solid white;   
+  color: #2a68ec;
+  font-family:'font-mono';
+  justify-content: center;
+  /* margin-top: -30px; */
+  margin-bottom: 100px;
+  background-color: #e0f2fe;
+  display: flex;
+  flex-direction: column; /* Stack elements vertically */
+  /* margin-right: 10px; */
+}
+
 .topbar1 {
   width: 100%;
   /* border-radius: 5px; */

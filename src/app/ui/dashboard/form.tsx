@@ -108,8 +108,8 @@ export function Form() {
   // JSX for the form
   return (
     <>
-      <div className={styles.topbarContainer}>
-        <div className={styles.topbar1}>
+      <div className={styles.topbarContainer0}>
+        <div className={styles.topbar0}>
           <div className={styles.mapbox}>
             <h1>Job Applications</h1>
             <table>
@@ -119,23 +119,19 @@ export function Form() {
                   <th>Company</th>
                   <th>Job Link</th>
                   <th>Resume</th>
-                  <th>Icon</th>
                   <th>Cover Letter</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody >
                 {data.map((row, index) => (
-                  <tr key={index}>
-                    <td>{row.projectid}</td>
-                    <td>{row.projectname}</td>
-                    <td>
+                  <tr className={styles.tbody} key={index}>
+                    <td className={styles.tcol}>{row.projectid}</td>
+                    <td className={styles.tcol}>{row.projectname}</td>
+                    <td className={styles.tcol}>
                       <a href={row.url}>{row.url}</a>
                     </td>
-                    <td>{row.description}</td>
-                    <td>
-                      <img src={row.icon} alt={`${row.projectname} icon`} />
-                    </td>
-                    <td>
+                    <td className={styles.tcol}>{row.description}</td>
+                    <td className={styles.tcol}>
                       <a href={row.github}>{row.github}</a>
                     </td>
                   </tr>
