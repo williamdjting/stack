@@ -111,9 +111,9 @@ export function Form() {
       <div className={styles.topbarContainer0}>
         <div className={styles.topbar0}>
           <div className={styles.mapbox}>
-            <h1>Job Applications</h1>
+            <h1 className="font-size:36px"><b>Job Applications</b></h1>
             <table>
-              <thead>
+              <thead className={styles.thead}>
                 <tr>
                   <th>Job Title</th>
                   <th>Company</th>

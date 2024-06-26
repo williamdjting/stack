@@ -16,9 +16,14 @@
 
 .tbody{
   height: 50px;
-  border-bottom: 2px solid #2a68ec ;
+  border-bottom: 1px solid #2a68ec ;
 
   
+}
+
+.thead {
+  border-bottom: 2px solid #2a68ec;
+  border-top: 2px solid #2a68ec;
 }
 
 /* .tcol{
