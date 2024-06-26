@@ -22,9 +22,9 @@ const links = [
   {
     name: "Project Findings",
     href: "/projects",
-    icon: DocumentDuplicateIcon,
+    // icon: DocumentDuplicateIcon,
   },
-  { name: "Project Discussion", href: "/projects", icon: UserGroupIcon },
+  { name: "Project Discussion", href: "/projects" },
 ];
 
 export function AddProject() {
