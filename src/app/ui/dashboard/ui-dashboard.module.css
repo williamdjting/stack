@@ -35,7 +35,7 @@
 } */
 
 .topbar0 {
-  width: 100%;
+  /* width: 100%; */
   /* border-radius: 5px; */
   height: auto;
   font-weight: 500;
@@ -242,4 +242,18 @@
   overflow-y: auto;
   display: flex;
   flex-direction: column;
+}
+
+.submitButton {
+  border: 1px solid #2a68ec;
+  padding: 3px 5px 3px 5px;
+  border-radius: 5px;
+  background-color: white;
+}
+
+.submitButtonContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
 }

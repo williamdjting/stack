@@ -83,7 +83,7 @@ export function AddProject() {
       <form className={styles.projectform} onSubmit={handleSubmit}>
         {/* Input fields for each property */}
         <div className={styles.projectform2}>
-          <p>Add a Job Application</p>
+          <p><b>Add a Job Application</b></p>
         </div>
         <div className={styles.projectform2}>
           <input
@@ -132,7 +132,9 @@ export function AddProject() {
             onChange={handleChange}
             required
           />
-          <button type="submit">Submit</button>
+          <div className={styles.submitButtonContainer}>
+          <button className={styles.submitButton}type="submit"><b>Submit</b></button>
+          </div>
         </div>
       </form>
 
