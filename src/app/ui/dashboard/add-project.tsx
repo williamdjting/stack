@@ -83,13 +83,17 @@ export function AddProject() {
       <form className={styles.projectform} onSubmit={handleSubmit}>
         {/* Input fields for each property */}
         <div className={styles.projectform2}>
+          <p>Add a Job Application</p>
+        </div>
+        <div className={styles.projectform2}>
           <input
             className={styles.projectform3}
             name="Job_Title"
             value={projectData.Job_Title}
             onChange={handleChange}
             placeholder="Job Title"
-            required />
+            required
+          />
           <input
             className={styles.projectform3}
             name="Company"
@@ -98,7 +102,8 @@ export function AddProject() {
             placeholder="Company"
             rows={1}
             cols={25}
-            required />
+            required
+          />
 
           <input
             type="text"
@@ -107,8 +112,8 @@ export function AddProject() {
             value={projectData.Job_Link}
             onChange={handleChange}
             placeholder="Job Link"
-            
-            required />
+            required
+          />
 
           <input
             type="file"
@@ -117,14 +122,16 @@ export function AddProject() {
             value={projectData.Resume}
             onChange={handleChange}
             placeholder="Resume"
-            required />
+            required
+          />
           <input
             type="file"
             className={styles.projectform3}
             name="Cover_Letter"
             value={projectData.Cover_Letter}
             onChange={handleChange}
-            required />
+            required
+          />
           <button type="submit">Submit</button>
         </div>
       </form>

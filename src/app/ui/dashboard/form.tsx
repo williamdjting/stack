@@ -124,7 +124,7 @@ export function Form() {
               </thead>
               <tbody >
                 {data.map((row, index) => (
-                  <tr className={styles.tbody} key={index}>
+                  <tr className={index ? styles.tbody : ''} key={index}>
                     <td className={styles.tcol}>{row.projectid}</td>
                     <td className={styles.tcol}>{row.projectname}</td>
                     <td className={styles.tcol}>

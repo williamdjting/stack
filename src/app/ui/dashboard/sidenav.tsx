@@ -7,9 +7,9 @@ import { PowerIcon } from '@heroicons/react/24/outline';
 
 export default function SideNav() {
   return (
-    <div className="display:flex overflow-y: auto">
+    <div className="display:flex">
       {/* <div> */}
-      <Link
+      {/* <Link
         className="mb-2 flex h-20 items-end justify-center border-radius:5px bg-blue-600 p-4 md:h-40 align-items:center display:flex justify-contents: center"
         href="/projects"
       >
@@ -17,9 +17,9 @@ export default function SideNav() {
           <PowerIcon />
           <div>Datamind</div>
         </div>
-      </Link>
+      </Link> */}
       {/* <div className="flex grow flex-row justify-between space-x-2 md:flex-col md:space-x-0 md:space-y-2"> */}
-      <div className="overflow-y: auto">
+      <div >
         {/* <NavLinks /> */}
         {/* <ProjectLinks /> */}
         <AddProject />
