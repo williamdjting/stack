@@ -35,17 +35,15 @@ export function AddProject() {
     Company: "",
     Job_Link: "",
     Resume: "",
-    icon: DocumentDuplicateIcon,
     Cover_Letter: "",
   });
 
   const [submittedData, setSubmittedData] = useState([
     {
       Job_Title: "",
-      Company: "Projects",
+      Company: "",
       Job_Link: "",
       Resume: "",
-      icon: DocumentDuplicateIcon,
       Cover_Letter: "",
     },
   ]);
@@ -91,7 +89,7 @@ export function AddProject() {
             value={projectData.Job_Title}
             onChange={handleChange}
             placeholder="Job Title"
-          />
+            required />
           <input
             className={styles.projectform3}
             name="Company"
@@ -100,7 +98,7 @@ export function AddProject() {
             placeholder="Company"
             rows={1}
             cols={25}
-          />
+            required />
 
           <input
             type="text"
@@ -110,7 +108,7 @@ export function AddProject() {
             onChange={handleChange}
             placeholder="Job Link"
             
-          />
+            required />
 
           <input
             type="file"
@@ -119,14 +117,14 @@ export function AddProject() {
             value={projectData.Resume}
             onChange={handleChange}
             placeholder="Resume"
-          />
+            required />
           <input
             type="file"
             className={styles.projectform3}
             name="Cover_Letter"
             value={projectData.Cover_Letter}
             onChange={handleChange}
-          />
+            required />
           <button type="submit">Submit</button>
         </div>
       </form>

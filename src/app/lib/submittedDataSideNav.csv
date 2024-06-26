@@ -1,5 +1,7 @@
-Job_Title,Company,Job_Link,Resume,icon,Cover_Letter
-Job_Title,Company,Job_Link,Resume,icon,Cover_Letter
-,Projects,,,{},Job_Title,Company,Job_Link,Resume,icon,Cover_Letter
-,Projects,,,{},
-123,123,123,C:\fakepath\316-asn3.pdf,{},
+Job_Title,Company,Job_Link,Resume,Cover_Letter
+,,,,Job_Title,Company,Job_Link,Resume,Cover_Letter
+,,,,
+1,1,1,C:\fakepath\316-asn3.pdf,C:\fakepath\316-asn3.pdfJob_Title,Company,Job_Link,Resume,Cover_Letter
+,,,,
+1,1,1,C:\fakepath\316-asn3.pdf,C:\fakepath\316-asn3.pdf
+1,1,1,C:\fakepath\316-asn3.pdf,C:\fakepath\316-asn3.pdf

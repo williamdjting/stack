@@ -17,8 +17,7 @@ function readCSV(filePath: string): any[] {
       projectname: values[1], // Replace 'field2' with the actual field name
       url: values[2],
       description: values[3],
-      icon: values[4],
-      github: values[5],
+      github: values[4],
     };
     return rowData;
   });

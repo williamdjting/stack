@@ -61,9 +61,9 @@ export function Form() {
       const result = await response.json();
       console.log("line 73", result);
       setData(result);
-      if (result.length > 0) {
-        setHeaders(Object.keys(result[0]));
-      }
+      // if (result.length > 0) {
+      //   setHeaders(Object.keys(result[0]));
+      // }
     };
     fetchData();
   }, []);
