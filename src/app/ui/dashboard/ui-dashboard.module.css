@@ -9,9 +9,8 @@
 }
 
 .topbarContainer0 {
-  display: flex;
+  /* display: flex; */
   /* overflow-y: scroll; */
-
 }
 
 .tbody{
@@ -37,6 +36,7 @@
 .topbar0 {
   /* width: 100%; */
   /* border-radius: 5px; */
+  margin-left: 20px;
   height: auto;
   font-weight: 500;
   padding: 10px;
@@ -48,7 +48,7 @@
   margin-bottom: 100px;
   background-color: #e0f2fe;
   display: flex;
-  flex-direction: column; /* Stack elements vertically */
+  flex-direction: column; 
   /* margin-right: 10px; */
 }
 

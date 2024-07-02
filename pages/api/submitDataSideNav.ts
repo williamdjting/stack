@@ -47,26 +47,7 @@ const handler: NextApiHandler = async (req, res) => {
           throw innerError; // Re-throw the error to bubble it up to the outer catch block
         }
       });
-      //   try {
-      //     const values = rowToProcess.split(',');
-      //     const data = {
-      //         projectid: values[0],
-      //         projectname: values[1],
-      //         url: values[2],
-      //         description: values[3],
 
-      //         github: values[5],
-      //     };
-
-      //     // Log the response data
-      //     console.log('Response data:', data);
-
-      //     // Send the response
-      //     res.status(200).json(data);
-      // } catch (innerError) {
-      //     console.error('Error parsing row:', innerError);
-      //     res.status(500).json({ error: 'Internal Server Error' });
-      // }
     } catch (error) {
       console.error("Error reading CSV file:", error);
       res.status(500).json({ error: "Internal Server Error" });

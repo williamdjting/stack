@@ -10,13 +10,16 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import clsx from 'clsx';
 
+
+// NOT BEING USED //
+
 const links = [
   {
-    name: 'Project Findings',
+    name: 'Dashboard',
     href: '/dashboard',
     icon: DocumentDuplicateIcon,
   },
-  { name: 'Project Discussion', href: '/dashboard', icon: UserGroupIcon },
+  { name: 'Dashboard', href: '/dashboard', icon: UserGroupIcon },
 ];
 
 export default function NavLinks() {

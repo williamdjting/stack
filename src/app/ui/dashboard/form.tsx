@@ -11,6 +11,9 @@ import { TestSubmitDataDashboardSideNavGet } from "@/app/lib/api-call-sidenav";
 import Papa from "papaparse";
 import { readCSV } from "../../lib/readCSV";
 
+
+
+
 // Define the Form component
 export function Form() {
   // State to manage form data
@@ -106,6 +109,7 @@ export function Form() {
   };
 
   // JSX for the form
+  // commented out form elements are not being used, only the topbarContainer0 div block is used as the display list for the CSV 
   return (
     <>
       <div className={styles.topbarContainer0}>
@@ -141,8 +145,9 @@ export function Form() {
           </div>
         </div>
       </div>
+      
 
-      <div className={styles.topbarContainer}>
+      {/* <div className={styles.topbarContainer}>
         <div className={styles.topbar1}>
           <div className={styles.mapbox}>
             <div>
@@ -153,9 +158,9 @@ export function Form() {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
 
-      <div className={styles.topbarContainer}>
+      {/* <div className={styles.topbarContainer}>
         <div className={styles.topbar1}>
           <div className={styles.mapbox}>
             <div>
@@ -165,9 +170,9 @@ export function Form() {
               <p>Split: {csvData.github}</p>
             </div>
           </div>
-        </div>
+        </div> */}
 
-        <div className={styles.topbar2}>
+        {/* <div className={styles.topbar2}>
           <div className={styles.mapbox}>
             <div>
               <p>Collection: {csvData.projectname}</p>
@@ -177,11 +182,11 @@ export function Form() {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
 
-      <div className={styles.container}>
+      {/* <div className={styles.container}>
         <form className={styles.form} onSubmit={handleSubmit}>
-          {/* Input fields for each property */}
+ 
           <div className={styles.form2}>
             <input
               className={styles.form3}
@@ -253,27 +258,16 @@ export function Form() {
               placeholder="Outcome"
               rows={3}
               cols={25}
-            />
-            {/* Submit button */}
-            {/* <button onClick={downloadCSV} type="submit">Submit</button> */}
-            <button type="submit">Submit</button>
-          </div>
-          {/* {formData && (
-        <div>
-          <p>ProjectID: {formData.projectid}</p>
-          <p>Collection: {formData.collection}</p>
-          <p>Distribution: {formData.distribution}</p>
-          <p>Quality: {formData.quality}</p>
-          <p>Split: {formData.split}</p>
-          <p>Bias: {formData.bias}</p>
-          <p>Influence: {formData.influence}</p>
-          <p>Outcome: {formData.outcome}</p>
-        </div>
-      )} */}
-        </form>
-        {/* <Testing submittedData={submittedData}/>     */}
+            /> */}
 
-        <div className={styles.map}>
+            {/* <button onClick={downloadCSV} type="submit">Submit</button>
+            <button type="submit">Submit</button> */}
+          {/* </div>
+
+        </form> */}
+
+
+        {/* <div className={styles.map}>
           <div className={styles.mapbox}>
             {submittedData.map((dataItem, index) => (
               <div className={styles.mapbox2} key={index}>
@@ -288,8 +282,8 @@ export function Form() {
               </div>
             ))}
           </div>
-        </div>
-      </div>
+        </div> */}
+      {/* </div> */}
     </>
   );
 }
