@@ -11,8 +11,7 @@ import { TestSubmitDataDashboardSideNavGet } from "@/app/lib/api-call-sidenav";
 import Papa from "papaparse";
 import { readCSV } from "../../lib/readCSV";
 
-
-
+import Link from "next/link";
 
 // Define the Form component
 export function Form() {
@@ -56,7 +55,6 @@ export function Form() {
       outcome: "",
     },
   ]);
-
 
   useEffect(() => {
     const fetchData = async () => {
@@ -109,13 +107,15 @@ export function Form() {
   };
 
   // JSX for the form
-  // commented out form elements are not being used, only the topbarContainer0 div block is used as the display list for the CSV 
+  // commented out form elements are not being used, only the topbarContainer0 div block is used as the display list for the CSV
   return (
     <>
       <div className={styles.topbarContainer0}>
         <div className={styles.topbar0}>
           <div className={styles.mapbox}>
-            <h1 className="font-size:36px"><b>Job Applications</b></h1>
+            <h1 className="font-size:36px">
+              <b>Job Applications</b>
+            </h1>
             <table>
               <thead className={styles.thead}>
                 <tr>
@@ -126,9 +126,9 @@ export function Form() {
                   <th>Cover Letter</th>
                 </tr>
               </thead>
-              <tbody >
+              <tbody>
                 {data.map((row, index) => (
-                  <tr className={index ? styles.tbody : ''} key={index}>
+                  <tr className={index ? styles.tbody : ""} key={index}>
                     <td className={styles.tcol}>{row.projectid}</td>
                     <td className={styles.tcol}>{row.projectname}</td>
                     <td className={styles.tcol}>
@@ -138,6 +138,11 @@ export function Form() {
                     <td className={styles.tcol}>
                       <a href={row.github}>{row.github}</a>
                     </td>
+                    <li key={index}>
+                      <Link href={`/applications/${row.projectid}`}>
+                        Go to Application {row.projectid}
+                      </Link>
+                    </li>
                   </tr>
                 ))}
               </tbody>
@@ -145,7 +150,6 @@ export function Form() {
           </div>
         </div>
       </div>
-      
 
       {/* <div className={styles.topbarContainer}>
         <div className={styles.topbar1}>
@@ -172,7 +176,7 @@ export function Form() {
           </div>
         </div> */}
 
-        {/* <div className={styles.topbar2}>
+      {/* <div className={styles.topbar2}>
           <div className={styles.mapbox}>
             <div>
               <p>Collection: {csvData.projectname}</p>
@@ -260,14 +264,13 @@ export function Form() {
               cols={25}
             /> */}
 
-            {/* <button onClick={downloadCSV} type="submit">Submit</button>
+      {/* <button onClick={downloadCSV} type="submit">Submit</button>
             <button type="submit">Submit</button> */}
-          {/* </div>
+      {/* </div>
 
         </form> */}
 
-
-        {/* <div className={styles.map}>
+      {/* <div className={styles.map}>
           <div className={styles.mapbox}>
             {submittedData.map((dataItem, index) => (
               <div className={styles.mapbox2} key={index}>
