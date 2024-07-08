@@ -1,5 +1,7 @@
 // pages/index.js
 
+// source: https://chatgpt.com/c/7b3706ca-945c-43ab-863e-a8d355b62d6f
+
 import Link from 'next/link';
 
 // Mock data

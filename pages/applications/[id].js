@@ -1,5 +1,7 @@
 // pages/applications/[id].js
 
+// source: https://chatgpt.com/c/7b3706ca-945c-43ab-863e-a8d355b62d6f
+
 import { useRouter } from 'next/router';
 
 // Mock data
