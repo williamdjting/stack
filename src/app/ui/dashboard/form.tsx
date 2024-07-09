@@ -124,7 +124,7 @@ export function Form() {
                   <th>Job Link</th>
                   <th>Resume</th>
                   <th>Cover Letter</th>
-                  <th>Go to Application</th>
+                  <th>Application</th>
                 </tr>
               </thead>
               <tbody>
