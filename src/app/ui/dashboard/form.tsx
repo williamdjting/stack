@@ -1,7 +1,8 @@
 "use client";
 // Import React and CSS module
 import React, { createContext, useState, useEffect, useContext } from "react";
-import styles from "./ui-dashboard.module.css";
+//import styles from "./ui-dashboard.module.css";
+import styles from "./dashboard.module.css";
 import axios from "axios"; // Import Axios
 import {
   TestSubmitDataDashboardPost,
@@ -110,6 +111,42 @@ export function Form() {
   // commented out form elements are not being used, only the topbarContainer0 div block is used as the display list for the CSV
   return (
     <>
+    <div className={styles.jobcontainer}>
+      <h1>Jobs you have applied for</h1>
+      <table>
+        <thead>
+          <tr>
+            <th>Job Title</th>
+            <th>Company</th>
+            <th>Job Link</th>
+            <th>Resume</th>
+            <th>Cover Letter</th>
+            <th>Application</th>
+          </tr>
+        </thead>
+        <tbody>
+          {data.map((row, index) => (
+          <tr className={index ? styles.tbody : ""} key={index}>
+            <td className={styles.tcol}>{row.projectid}</td>
+            <td className={styles.tcol}>{row.projectname}</td>
+            <td className={styles.tcol}>
+              <a href={row.url}>{row.url}</a>
+            </td>
+            <td className={styles.tcol}>hello</td>
+            <td className={styles.tcol}>
+              test
+            </td>
+            <li key={index}>
+              <Link href={`/applications/${row.projectid}`}>
+                Go to Application {row.projectid}
+              </Link>
+            </li>
+          </tr>
+        ))}
+        </tbody>
+      </table>
+      </div>
+    {/*}
       <div className={styles.topbarContainer0}>
         <div className={styles.topbar0}>
           <div className={styles.mapbox}>
@@ -150,7 +187,10 @@ export function Form() {
             </table>
           </div>
         </div>
-      </div>
+      </div>*/}
+
+
+      {/* This is the end of the original code */}
 
       {/* <div className={styles.topbarContainer}>
         <div className={styles.topbar1}>
