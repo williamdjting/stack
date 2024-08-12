@@ -1,9 +1,5 @@
 'use client'
-
 import styles from './ui-dashboard.module.css'
-
-
-
 
 export function Card({
   key,
@@ -21,7 +17,6 @@ export function Card({
   return (
     <>
     <div className={styles.cards}>
-      
       <span>
         <ul>{title}</ul>
         <ul>{value}</ul>
