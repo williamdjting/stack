@@ -57,18 +57,53 @@ export function Form() {
     },
   ]);
 
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const response = await fetch("/api/readCSV");
+  //     const result = await response.json();
+  //     console.log("line 73", result);
+  //     setData(result);
+  //     // if (result.length > 0) {
+  //     //   setHeaders(Object.keys(result[0]));
+  //     // }
+  //   };
+  //   fetchData();
+  // }, []);
+
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch("/api/readCSV");
-      const result = await response.json();
-      console.log("line 73", result);
-      setData(result);
-      // if (result.length > 0) {
-      //   setHeaders(Object.keys(result[0]));
-      // }
+      // Create dummy data
+      const dummyData = [
+        {
+          projectid: "1",
+          projectname: "Project Alpha",
+          url: "https://example.com/alpha",
+          description: "A sample project",
+          github: "https://github.com/user/alpha"
+        },
+        {
+          projectid: "2",
+          projectname: "Project Beta",
+          url: "https://example.com/beta",
+          description: "Another sample project",
+          github: "https://github.com/user/beta"
+        },
+        {
+          projectid: "3",
+          projectname: "Project Gamma",
+          url: "https://example.com/gamma",
+          description: "Yet another sample project",
+          github: "https://github.com/user/gamma"
+        }
+      ];
+  
+      // Simulate setting data fetched from an API
+      setData(dummyData);
     };
+  
     fetchData();
   }, []);
+  
 
   // Handler to update form data
   const handleChange = (e) => {
