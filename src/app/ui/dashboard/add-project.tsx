@@ -116,7 +116,7 @@ export function AddProject() {
           />
 
           <input
-            type="file"
+            type="text"
             className={styles.projectform3}
             name="Resume"
             value={projectData.Resume}
@@ -125,7 +125,7 @@ export function AddProject() {
             required
           />
           <input
-            type="file"
+            type="text"
             className={styles.projectform3}
             name="Cover_Letter"
             value={projectData.Cover_Letter}
