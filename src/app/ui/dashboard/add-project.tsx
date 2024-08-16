@@ -34,8 +34,12 @@ export function AddProject() {
     Job_Title: "",
     Company: "",
     Job_Link: "",
-    Resume: "",
-    Cover_Letter: "",
+    ResumeExperience: "",
+    ResumeProjects: "",
+    ResumeSkills: "",
+    ResumeEducation: "",
+    CoverLetterContactInfo: "",
+    CoverLetterStyleRequest: "",
   });
 
   const [submittedData, setSubmittedData] = useState([
@@ -43,8 +47,12 @@ export function AddProject() {
       Job_Title: "",
       Company: "",
       Job_Link: "",
-      Resume: "",
-      Cover_Letter: "",
+      ResumeExperience: "",
+      ResumeProjects: "",
+      ResumeSkills: "",
+      ResumeEducation: "",
+      CoverLetterContactInfo: "",
+      CoverLetterStyleRequest: "",
     },
   ]);
 
@@ -118,18 +126,55 @@ export function AddProject() {
           <input
             type="text"
             className={styles.projectform3}
-            name="Resume"
+            name="ResumeExperience"
             value={projectData.Resume}
             onChange={handleChange}
-            placeholder="Resume"
+            placeholder="Resume - Experience"
             required
           />
           <input
             type="text"
             className={styles.projectform3}
-            name="Cover_Letter"
+            name="ResumeProjects"
+            value={projectData.Resume}
+            onChange={handleChange}
+            placeholder="Resume - Projects"
+            required
+          />
+          <input
+            type="text"
+            className={styles.projectform3}
+            name="ResumeSkills"
+            value={projectData.Resume}
+            onChange={handleChange}
+            placeholder="Resume - Skills"
+            required
+          />
+          <input
+            type="text"
+            className={styles.projectform3}
+            name="ResumeEducation"
+            value={projectData.Resume}
+            onChange={handleChange}
+            placeholder="Resume - Education"
+            required
+          />
+          <input
+            type="text"
+            className={styles.projectform3}
+            name="CoverLetterContactInfo"
             value={projectData.Cover_Letter}
             onChange={handleChange}
+            placeholder="Cover Letter - Contact Info"
+            required
+          />
+          <input
+            type="text"
+            className={styles.projectform3}
+            name="CoverLetterStyleRequest"
+            value={projectData.Cover_Letter}
+            onChange={handleChange}
+            placeholder="Cover Letter - Style Request"
             required
           />
           <div className={styles.submitButtonContainer}>
