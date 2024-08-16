@@ -31,9 +31,9 @@ export function AddProject() {
   const pathname = usePathname();
 
   const [projectData, setProjectData] = useState({
-    Job_Title: "",
+    JobTitle: "",
     Company: "",
-    Job_Link: "",
+    JobDescription: "",
     ResumeExperience: "",
     ResumeProjects: "",
     ResumeSkills: "",
@@ -44,9 +44,9 @@ export function AddProject() {
 
   const [submittedData, setSubmittedData] = useState([
     {
-      Job_Title: "",
+      JobTitle: "",
       Company: "",
-      Job_Link: "",
+      JobDescription: "",
       ResumeExperience: "",
       ResumeProjects: "",
       ResumeSkills: "",
@@ -96,10 +96,10 @@ export function AddProject() {
         <div className={styles.projectform2}>
           <input
             className={styles.projectform3}
-            name="Job_Title"
-            value={projectData.Job_Title}
+            name="JobTitle"
+            value={projectData.JobTitle}
             onChange={handleChange}
-            placeholder="Job Title"
+            placeholder="1. Job Title"
             required
           />
           <input
@@ -107,7 +107,7 @@ export function AddProject() {
             name="Company"
             value={projectData.Company}
             onChange={handleChange}
-            placeholder="Company"
+            placeholder="2. Company"
             rows={1}
             cols={25}
             required
@@ -116,10 +116,10 @@ export function AddProject() {
           <input
             type="text"
             className={styles.projectform3}
-            name="Job_Link"
-            value={projectData.Job_Link}
+            name="JobDescription"
+            value={projectData.JobLink}
             onChange={handleChange}
-            placeholder="Job Link"
+            placeholder="3. Job Description"
             required
           />
 
@@ -129,7 +129,7 @@ export function AddProject() {
             name="ResumeExperience"
             value={projectData.Resume}
             onChange={handleChange}
-            placeholder="Resume - Experience"
+            placeholder="4. Resume - Experience"
             required
           />
           <input
@@ -138,7 +138,7 @@ export function AddProject() {
             name="ResumeProjects"
             value={projectData.Resume}
             onChange={handleChange}
-            placeholder="Resume - Projects"
+            placeholder="5. Resume - Projects"
             required
           />
           <input
@@ -147,7 +147,7 @@ export function AddProject() {
             name="ResumeSkills"
             value={projectData.Resume}
             onChange={handleChange}
-            placeholder="Resume - Skills"
+            placeholder="6. Resume - Skills"
             required
           />
           <input
@@ -156,7 +156,7 @@ export function AddProject() {
             name="ResumeEducation"
             value={projectData.Resume}
             onChange={handleChange}
-            placeholder="Resume - Education"
+            placeholder="7. Resume - Education"
             required
           />
           <input
@@ -165,7 +165,7 @@ export function AddProject() {
             name="CoverLetterContactInfo"
             value={projectData.Cover_Letter}
             onChange={handleChange}
-            placeholder="Cover Letter - Contact Info"
+            placeholder="8. Cover Letter - Contact Info"
             required
           />
           <input
@@ -174,7 +174,7 @@ export function AddProject() {
             name="CoverLetterStyleRequest"
             value={projectData.Cover_Letter}
             onChange={handleChange}
-            placeholder="Cover Letter - Style Request"
+            placeholder="9. Cover Letter - Style Request"
             required
           />
           <div className={styles.submitButtonContainer}>
