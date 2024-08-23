@@ -147,43 +147,44 @@ export function Form() {
   // JSX for the form
   // commented out form elements are not being used, only the topbarContainer0 div block is used as the display list for the CSV
   return (
-    <>
-    <div className={styles.jobcontainer}>
-      <h1>Jobs you have applied for</h1>
-      <table>
-        <thead>
-          <tr>
-            <th>Job Title</th>
-            <th>Company</th>
-            <th>Job Link</th>
-            <th>Resume</th>
-            <th>Cover Letter</th>
-            <th>Application</th>
-          </tr>
-        </thead>
-        <tbody>
-          {data.map((row, index) => (
-          <tr className={index ? styles.tbody : ""} key={index}>
-            <td className={styles.tcol}>{row.projectid}</td>
-            <td className={styles.tcol}>{row.projectname}</td>
-            <td className={styles.tcol}>
-              <a href={row.url}>{row.url}</a>
-            </td>
-            <td className={styles.tcol}>hello</td>
-            <td className={styles.tcol}>
-              test
-            </td>
-            <li key={index}>
-              <Link href={`/applications/${row.projectid}`}>
-                Go to Application {row.projectid}
-              </Link>
-            </li>
-          </tr>
-        ))}
-        </tbody>
-      </table>
-      </div>
+    <></>
+    // <>
+    // <div className={styles.jobcontainer}>
+    //   <h1>Jobs you have applied for</h1>
+    //   <table>
+    //     <thead>
+    //       <tr>
+    //         <th>Job Title</th>
+    //         <th>Company</th>
+    //         <th>Job Link</th>
+    //         <th>Resume</th>
+    //         <th>Cover Letter</th>
+    //         <th>Application</th>
+    //       </tr>
+    //     </thead>
+    //     <tbody>
+    //       {data.map((row, index) => (
+    //       <tr className={index ? styles.tbody : ""} key={index}>
+    //         <td className={styles.tcol}>{row.projectid}</td>
+    //         <td className={styles.tcol}>{row.projectname}</td>
+    //         <td className={styles.tcol}>
+    //           <a href={row.url}>{row.url}</a>
+    //         </td>
+    //         <td className={styles.tcol}>hello</td>
+    //         <td className={styles.tcol}>
+    //           test
+    //         </td>
+    //         <li key={index}>
+    //           <Link href={`/applications/${row.projectid}`}>
+    //             Go to Application {row.projectid}
+    //           </Link>
+    //         </li>
+    //       </tr>
+    //     ))}
+    //     </tbody>
+    //   </table>
+    //   </div>
     
-    </>
+    // </>
   );
 }
