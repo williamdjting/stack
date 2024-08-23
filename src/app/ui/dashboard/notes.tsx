@@ -3,9 +3,9 @@
 // youtube2: https://www.youtube.com/watch?v=VjohMDwjty4
 // using notes1 table
 
-"use client";
+// "use client";
 
-// import { createClient } from '/src/app/lib/supabase/server';
+import { createClient } from '@/app/lib/supabase/server';
 
 // import supabase from "@/app/lib/supabase/server";
 
@@ -15,87 +15,13 @@ import styles from "./dashboard.module.css";
 
 import Link from "next/link";
 
-import {createClient } from '@supabase/supabase-js'
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
-const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 
-const supabase = createClient(supabaseUrl, supabaseKey)
+export default async function Notes() {
+  const supabase = createClient();
+  const { data: notes } = await supabase.from("notes2").select();
 
-export function Notes() {
-  const [fetchError, setFetchError] = useState(null);
-  const [smoothies, setSmoothies] = useState(null);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const { data, error } = await supabase.from("notes1").select();
-
-      if (error) {
-        setFetchError("Could not fetch the data");
-        setSmoothies(null);
-        console.log(error);
-      }
-
-      if (data) {
-        setSmoothies(smoothies);
-        setFetchError(null);
-      }
-    };
-
-    fetchData() 
-  }, []);
-
-  return (
-    <>
-      <div>
-        {fetchError && (<p>{fetchError}</p>)}
-        {smoothies && (
-          <div>
-            {smoothies.map(smoothie => (
-              <p>{smoothie.jobtitle}</p>
-            ))}
-          </div>
-        )}
-      </div>
-
-      <div>hello</div>
-
-      {/* <div className={styles.jobcontainer}>
-      <h1>Jobs you have applied for</h1>
-      <table>
-        <thead>
-          <tr>
-            <th>Job Title</th>
-            <th>Company</th>
-            <th>Job Description</th>
-            <th>Resume Experience</th>
-            <th>Cover Letter</th>
-            <th>Application</th>
-          </tr>
-        </thead>
-        <tbody>
-  
-          {data.map((row, index) => (
-          <tr className={index ? styles.tbody : ""} key={index}>
-            <td className={styles.tcol}>{row.jobtitle}</td>
-            <td className={styles.tcol}>{row.company}</td>
-            <td className={styles.tcol}>{row.joblink}</td>
-            <td className={styles.tcol}>{row.resume}</td>
-            <td className={styles.tcol}>{row.coverletter}</td>
-            <ul>
-            <li key={index}>
-              <Link href={`/applications/${row.applicationdetails}`}>
-                Go to Application {row.projectid}
-              </Link>
-            </li>
-            </ul>
-          </tr>
-        ))}
-        </tbody>
-      </table>
-      </div> */}
-    </>
-  );
+  return <pre>{JSON.stringify(notes, null, 2)}</pre>
 }
 
 // export async function Notes() {

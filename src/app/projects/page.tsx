@@ -1,7 +1,7 @@
 import { Card } from "../ui/dashboard/cards";
 import { datasheetData } from "../lib/datasheet-data";
 import { Form } from "../ui/dashboard/form";
-import { Notes } from "../ui/dashboard/notes";
+import Notes  from "../ui/dashboard/notes";
 
 import { Header } from "@/app/ui/dashboard/header";
 
