@@ -18,3 +18,5 @@ export async function insertNote(jobtitle: string, company: string, jobdescripti
 
   return { data };
 }
+
+
