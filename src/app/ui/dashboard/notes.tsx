@@ -28,21 +28,21 @@ export default async function Notes() {
   
   return (
     <>
-    <div className={styles.jobcontainer}>
-      <h1>Jobs you have applied for</h1>
-      <table>
-        <thead>
-          <tr>
-            <th>Job Title</th>
-            <th>Company</th>
-            <th>Job Link</th>
-            <th>Resume</th>
-            <th>Cover Letter</th>
-            <th>Application</th>
-          </tr>
-        </thead>
-        <tbody>
-          {notes.map((note, index) => (
+  <div className={styles.jobcontainer}>
+    <h1>Jobs you have applied for</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>Job Title</th>
+          <th>Company</th>
+          <th>Job Link</th>
+          <th>Resume</th>
+          <th>Cover Letter</th>
+          <th>Application</th>
+        </tr>
+      </thead>
+      <tbody>
+        {notes.map((note, index) => (
           <tr className={index ? styles.tbody : ""} key={index}>
             <td className={styles.tcol}>{note.jobtitle}</td>
             <td className={styles.tcol}>{note.company}</td>
@@ -51,17 +51,18 @@ export default async function Notes() {
             </td>
             <td className={styles.tcol}>{note.resume}</td>
             <td className={styles.tcol}>{note.coverletter}</td>
-            {/* <li key={index}>
+            <td className={styles.tcol}>
               <Link href={`/applications/${note.id}`}>
                 Go to Application {note.id}
               </Link>
-            </li> */}
+            </td>
           </tr>
         ))}
-        </tbody>
-      </table>
-      </div>
-    </>
+      </tbody>
+    </table>
+  </div>
+</>
+
   );
 }
 
