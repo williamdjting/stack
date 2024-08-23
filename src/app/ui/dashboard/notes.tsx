@@ -1,4 +1,6 @@
-// from here https://www.youtube.com/watch?v=VjohMDwjty4
+// from here 
+// youtube1: https://www.youtube.com/watch?v=Gz9bvYybaws&
+// youtube2: https://www.youtube.com/watch?v=VjohMDwjty4
 // using notes1 table
 
 "use client";
@@ -35,7 +37,7 @@ export function Notes() {
       }
 
       if (data) {
-        setSmoothies(data);
+        setSmoothies(smoothies);
         setFetchError(null);
       }
     };
@@ -46,7 +48,7 @@ export function Notes() {
   return (
     <>
       <div>
-        {fetchError && <p>{fetchError}</p>}
+        {fetchError && (<p>{fetchError}</p>)}
         {smoothies && (
           <div>
             {smoothies.map(smoothie => (
