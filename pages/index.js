@@ -4,7 +4,7 @@
 
 import Link from 'next/link';
 
-// Mock data
+// Mock data - need to rewrite to pull from supabase
 const items = [
   { id: '1', name: 'Item 1', description: 'Description for Item 1' },
   { id: '2', name: 'Item 2', description: 'Description for Item 2' },
