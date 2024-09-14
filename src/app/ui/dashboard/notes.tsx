@@ -6,7 +6,8 @@
 
 // "use client";
 
-import { createClient } from '@/app/lib/supabase/server';
+// import { createClient } from '@/app/lib/supabase/server';
+import { supabase } from '@/app/lib/supabase/server';
 
 // import supabase from "@/app/lib/supabase/server";
 
@@ -17,7 +18,7 @@ import styles from "./dashboard.module.css";
 import Link from "next/link";
 
 export default async function Notes() {
-  const supabase = createClient();
+  // const supabase = createClient();
   const { data: notes } = await supabase.from("notes1").select();
   // const [data, setData] = useState([]);
 

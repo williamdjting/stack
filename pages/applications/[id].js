@@ -6,8 +6,7 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
-
-
+import { supabase } from '@/app/lib/supabase/server';
 
 // Mock data - need to rewrite to pull from supabase
 const items = [
@@ -20,14 +19,45 @@ const ItemPage = ({ item }) => {
 
   const [data, setData] = useState([]);
 
+  useEffect(() => {
+    // Fetch data on component mount
+    const fetchData = async () => {
+      const { data, error } = await supabase
+        .from('notes1')
+        .select(); // Adjust this to your table and query
+
+      if (error) {
+        setError(error.message);
+      } else {
+        setData(data);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+
+
   const router = useRouter();
   const { id } = router.query;
 
 
+  // return (
+  //   <div>
+  //     <h1>Item: {item.name}</h1>
+  //     <p>Description: {item.description}</p>
+  //   </div>
+  // );
   return (
     <div>
-      <h1>Item: {item.name}</h1>
-      <p>Description: {item.description}</p>
+      <h1>Users List</h1>
+      <ul>
+        {data.map((user) => (
+          // <ul key={user.id}>
+            <li key={user.id}>{user.jobtitle}</li>
+          // </ul>
+        ))}
+      </ul>
     </div>
   );
 };
