@@ -2,23 +2,23 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { createClient } from '@/app/lib/supabase/server';
 
-const supabase = createClient();
+// const supabase = createClient();
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  try {
-    const { data, error } = await supabase.from("notes1").select();
 
-    console.log('Supabase query data:', data);
-    console.error('Supabase query error:', error);
+  try {
+    const supabase = createClient();  // Call createClient() within the request scope
+    const { data, error } = await supabase.from("notes1").select();
+    console.log('Supabase Data:', data);
+    console.log('Supabase Error:', error);
 
     if (error) {
-      res.status(500).json({ error: error.message });
-      return;
+      console.error(error);
+      return res.status(500).json({ error: err.message || 'An unexpected error occurred.' });
     }
 
-    // Ensure to return JSON
-    res.status(200).json(data);
-  } catch (error) {
-    res.status(500).json({ error: "Server error" });
+    return res.status(200).json({ data });
+  } catch (err) {
+    return res.status(500).json({ error: 'An unexpected error occurred.' });
   }
 }

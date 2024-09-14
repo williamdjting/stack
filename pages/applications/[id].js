@@ -2,7 +2,12 @@
 
 // source: https://chatgpt.com/c/7b3706ca-945c-43ab-863e-a8d355b62d6f
 
+
 import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+
+
+
 
 // Mock data - need to rewrite to pull from supabase
 const items = [
@@ -12,8 +17,12 @@ const items = [
 ];
 
 const ItemPage = ({ item }) => {
+
+  const [data, setData] = useState([]);
+
   const router = useRouter();
   const { id } = router.query;
+
 
   return (
     <div>
@@ -25,6 +34,9 @@ const ItemPage = ({ item }) => {
 
 export async function getStaticPaths() {
   // Generate paths for each item using mock data
+  
+  
+  
   const paths = items.map(item => ({
     params: { id: item.id },
   }));

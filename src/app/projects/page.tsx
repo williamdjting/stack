@@ -9,7 +9,7 @@ import { Header } from "@/app/ui/dashboard/header";
 
 import { Footer } from "@/app/ui/dashboard/footer";
 
-import { AddProject } from "../ui/dashboard/add-project";
+// import { AddProject } from "../ui/dashboard/add-project";
 import  styles  from './dashboard.module.css';
 import { isDataView } from "util/types";
 
@@ -21,7 +21,7 @@ export default function Page() {
 
         <div>
           <Header />
-          <Form />
+          {/* <Form /> */}
           <Notes />
           <Notes1/>
           <Footer/>
