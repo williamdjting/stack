@@ -17,30 +17,47 @@ const items = [
 
 const ItemPage = ({ item }) => {
 
+  const router = useRouter();
+
+  const { id } = router.query; // extract 'id' from the URL params
+
+  console.log( {id}, 'the params id');
+  console.log( id, 'the params id'); 
+
   const [data, setData] = useState([]);
+
+  const [error, setError] = useState(null);
+
+  
 
   useEffect(() => {
     // Fetch data on component mount
+    if (!id) return; 
+
     const fetchData = async () => {
       const { data, error } = await supabase
         .from('notes1')
-        .select(); // Adjust this to your table and query
+        .select() // Adjust this to your table and query
+        .eq('id', id)    // Filter where 'id' equals the passed id
+        .single();       // Expect only a single row (returns an error if multiple)
+    
 
       if (error) {
-        setError(error.message);
+        console.error(error);
+        setError(error.message);  // Set error if there's an issue
       } else {
         setData(data);
       }
     };
 
     fetchData();
-  }, []);
 
+    console.log("line 47", id);
+  }, [id]);
 
-
-  const router = useRouter();
-  const { id } = router.query;
-
+  if (!data) {
+    return <div>Loading...</div>;  // Show loading while data is being fetched
+  }
 
   // return (
   //   <div>
@@ -51,34 +68,60 @@ const ItemPage = ({ item }) => {
   return (
     <div>
       <h1>Users List</h1>
-      <ul>
+      {/* <ul>
         {data.map((user) => (
           // <ul key={user.id}>
             <li key={user.id}>{user.jobtitle}</li>
           // </ul>
         ))}
+      </ul> */}
+      <ul>
+        {data.id}
       </ul>
+      <ul>
+        {data.jobtitle}
+      </ul>
+
     </div>
   );
 };
 
 export async function getStaticPaths() {
-  // Generate paths for each item using mock data
+  // Fetch available IDs from Supabase if needed
+  const { data: items } = await supabase
+    .from('notes1')
+    .select('id');
   
   
-  
+  // const paths = items.map(item => ({
+  //   params: { id: item.id },
+  // }));
+
   const paths = items.map(item => ({
-    params: { id: item.id },
+    params: { id: item.id.toString() },  // Generate paths dynamically
   }));
+
 
   return { paths, fallback: false };
 }
 
 export async function getStaticProps({ params }) {
   // Find the item based on the id from the mock data
-  const item = items.find(item => item.id === params.id);
+  // const item = items.find(item => item.id === params.id);
 
-  return { props: { item } };
+  // return { props: { item } };
+
+  // Fetch the item from Supabase for the given 'id'
+  const { data: item, error } = await supabase
+    .from('notes1')
+    .select()
+    .eq('id', params.id)
+    .single();
+
+  return {
+    props: { item },
+    revalidate: 10,  // Optional: Revalidate data every 10 seconds
+  };
 }
 
 export default ItemPage;

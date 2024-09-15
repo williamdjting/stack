@@ -9,6 +9,8 @@ const items = [
   { id: '1', name: 'Item 1', description: 'Description for Item 1' },
   { id: '2', name: 'Item 2', description: 'Description for Item 2' },
   { id: '3', name: 'Item 3', description: 'Description for Item 3' },
+  { id: '58', name: 'Item 58', description: 'Description for Item 58' },
+  { id: '59', name: 'Item 59', description: 'Description for Item 59' },
 ];
 
 const Home = () => {
