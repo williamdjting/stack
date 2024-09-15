@@ -27,7 +27,7 @@ const ItemPage = ({}) => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    // Fetch data on component mount
+    // Fetch data at specific ID on component mount
     if (!id) {
       console.log("this ID does not exist");
       return;
@@ -56,6 +56,8 @@ const ItemPage = ({}) => {
   if (!data) {
     return <div>Loading...</div>; // Show loading while data is being fetched
   }
+
+  // on Submit need to update the Supabase database with the updated entered value and then execute the Submit button action (either create resume or create cover letter)
 
   return (
     <div>
