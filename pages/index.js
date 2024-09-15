@@ -13,20 +13,22 @@ const items = [
   { id: '59', name: 'Item 59', description: 'Description for Item 59' },
 ];
 
+// Sept 14 - I'm not sure what this page is used for...
+
 const Home = () => {
   return (
-    <div>
-      <h1>Items List</h1>
-      <ul>
-        {items.map(item => (
-          <li key={item.id}>
-            <Link href={`/items/${item.id}`}>
-              <a>{item.name}</a>
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </div>
+    // <div>
+    //   <h1>Items List</h1>
+    //   <ul>
+    //     {items.map(item => (
+    //       <li key={item.id}>
+    //         <Link href={`/items/${item.id}`}>
+    //           <a>{item.name}</a>
+    //         </Link>
+    //       </li>
+    //     ))}
+    //   </ul>
+    // </div>
   );
 };
 

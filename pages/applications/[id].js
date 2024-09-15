@@ -14,7 +14,7 @@ import { supabase } from "@/app/lib/supabase/server";
 //   { id: "3", name: "Item 3", description: "Description for Item 3" },
 // ];
 
-const ItemPage = ({  }) => {
+const ItemPage = ({}) => {
   const router = useRouter();
 
   const { id } = router.query; // extract 'id' from the URL params
@@ -28,8 +28,10 @@ const ItemPage = ({  }) => {
 
   useEffect(() => {
     // Fetch data on component mount
-    if (!id) return;
-
+    if (!id) {
+      console.log("this ID does not exist");
+      return;
+    }
     const fetchData = async () => {
       const { data, error } = await supabase
         .from("notes2")
@@ -39,6 +41,7 @@ const ItemPage = ({  }) => {
 
       if (error) {
         console.error(error);
+        console.log("line 44");
         setError(error.message); // Set error if there's an issue
       } else {
         setData(data);
@@ -56,22 +59,105 @@ const ItemPage = ({  }) => {
 
   return (
     <div>
-      <h1>Users List {data.id}</h1>
+      <h1>Application Page {data.id}</h1>
+      <form>
+        <div>
+          Job Title:
+          <input
+            name="JobTitle"
+            defaultValue={data.jobtitle}
+            placeholder={data.jobtitle}
+            required
+          />
+        </div>
+        <br></br>
+        <div>
+          Company:
+          <input
+            name="Company"
+            defaultValue={data.company}
+            placeholder={data.company}
+            required
+          />
+        </div>
+        <br></br>
+        <div>
+          Job Description:
+          <input
+            name="Job_Description:"
+            defaultValue={data.jobdescription}
+            placeholder={data.jobdescription}
+            required
+          />
+        </div>
+        <br></br>
+        <div>
+          Resume - Experience:
+          <input
+            name="resumexperience:"
+            defaultValue={data.resumexperience}
+            placeholder={data.resumexperience}
+            required
+          />
+        </div>
+        <br></br>
+        <div>
+          Resume - Projects:
+          <input
+            name="resumeprojects:"
+            defaultValue={data.resumeprojects}
+            placeholder={data.resumeprojects}
+            required
+          />
+        </div>
+        <br></br>
+        <div>
+          Resume - Skills:
+          <input
+            name="resumeskills:"
+            defaultValue={data.resumeskills}
+            placeholder={data.resumeskills}
+            required
+          />
+        </div>
+        <br></br>
+        <div>
+          Resume - Education:
+          <input
+            name="resumeeducation:"
+            defaultValue={data.resumeeducation}
+            placeholder={data.resumeeducation}
+            required
+          />
+        </div>
+        <br></br>
+        <div>
+          Cover Letter - Contact Info:
+          <input
+            name="coverlettercontactinfo:"
+            defaultValue={data.coverlettercontactinfo}
+            placeholder={data.coverlettercontactinfo}
+            required
+          />
+        </div>
+        <br></br>
+        <div>
+          Cover Letter - Style Request:
+          <input
+            name="coverletterstylerequest:"
+            defaultValue={data.coverletterstylerequest}
+            placeholder={data.coverletterstylerequest}
+            required
+          />
+        </div>
+        <br></br>
+        <br></br>
 
-      <ul>Job Title: {data.jobtitle}</ul>
-      <ul>Company: {data.company}</ul>
-      <ul>Job Description: {data.jobdescription}</ul>
-      <ul>Resume - Experience: {data.resumexperience}</ul>
-
-      <ul>Resume - Projects: {data.resumeprojects}</ul>
-
-      <ul>Resume - Skills: {data.resumeskills}</ul>
-
-      <ul>Resume - Education: {data.resumeeducation}</ul>
-
-      <ul>Cover Letter - Contact Info: {data.coverlettercontactinfo}</ul>
-
-      <ul>Cover Letter - Style Request: {data.coverletterstylerequest}</ul>
+        <input type="submit" value="Create Resume" />
+        <br></br>
+        <br></br>
+        <input type="submit" value="Create Cover Letter" />
+      </form>
     </div>
   );
 };
@@ -82,8 +168,6 @@ const ItemPage = ({  }) => {
 export async function getStaticPaths() {
   // Fetch available IDs from Supabase if needed
   const { data: items } = await supabase.from("notes2").select("id");
-
-
 
   const paths = items.map((item) => ({
     params: { id: item.id.toString() }, // Generate paths dynamically
@@ -107,4 +191,3 @@ export async function getStaticProps({ params }) {
 }
 
 export default ItemPage;
-
