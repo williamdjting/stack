@@ -112,8 +112,8 @@ const ItemPage = ({}) => {
           Resume - Experience:
           <textarea
             name="resumexperience:"
-            defaultValue={data.resumexperience}
-            placeholder={data.resumexperience}
+            defaultValue={data.resumeexperience}
+            placeholder={data.resumeexperience}
             rows={5} cols={25}
             required
           />

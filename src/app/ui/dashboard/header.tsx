@@ -12,9 +12,11 @@ export async function Header() {
 
   return (
   <div className={styles.headerParent}>
-    <div className={styles.headerTitle}>
-    StackAI 
-    </div>
+    <Link href="/applications/new" 
+      className={styles.headerTitle}  
+    >
+    StackAI
+    </Link>
 
     <Link href="/applications/new" 
       className={styles.headerNew}  
