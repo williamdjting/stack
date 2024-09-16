@@ -3,6 +3,9 @@
 // source: https://chatgpt.com/c/7b3706ca-945c-43ab-863e-a8d355b62d6f
 
 import { useRouter } from "next/router";
+
+// import { useRouter } from "next/navigation";
+
 import { useEffect, useState } from "react";
 
 import { supabase } from "@/app/lib/supabase/server";
@@ -25,6 +28,15 @@ const ItemPage = ({}) => {
   const [data, setData] = useState([]);
 
   const [error, setError] = useState(null);
+
+  const [redirectTo, setRedirectTo] = useState(null);
+  const router2 = useRouter();
+
+  useEffect(() => {
+    if (redirectTo) {
+      router.push(redirectTo);
+    }
+  }, [redirectTo, router2]);
 
   useEffect(() => {
     // Fetch data at specific ID on component mount
