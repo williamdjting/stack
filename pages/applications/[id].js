@@ -65,90 +65,99 @@ const ItemPage = ({}) => {
       <form>
         <div>
           Job Title:
-          <input
+          <textarea
             name="JobTitle"
             defaultValue={data.jobtitle}
             placeholder={data.jobtitle}
+            rows={5} cols={25}
             required
           />
         </div>
         <br></br>
         <div>
           Company:
-          <input
+          <textarea
             name="Company"
             defaultValue={data.company}
             placeholder={data.company}
+            rows={5} cols={25}
             required
           />
         </div>
         <br></br>
         <div>
           Job Description:
-          <input
+          <textarea
             name="Job_Description:"
             defaultValue={data.jobdescription}
             placeholder={data.jobdescription}
+            rows={5} cols={25}
             required
           />
         </div>
         <br></br>
         <div>
           Resume - Experience:
-          <input
+          <textarea
             name="resumexperience:"
             defaultValue={data.resumexperience}
             placeholder={data.resumexperience}
+            rows={5} cols={25}
             required
           />
         </div>
         <br></br>
         <div>
           Resume - Projects:
-          <input
+          <textarea
             name="resumeprojects:"
             defaultValue={data.resumeprojects}
             placeholder={data.resumeprojects}
+            rows={5} cols={25}
             required
           />
         </div>
         <br></br>
         <div>
           Resume - Skills:
-          <input
+          <textarea
             name="resumeskills:"
             defaultValue={data.resumeskills}
             placeholder={data.resumeskills}
+            rows={5} cols={25}
             required
           />
         </div>
         <br></br>
         <div>
           Resume - Education:
-          <input
+          <textarea
             name="resumeeducation:"
             defaultValue={data.resumeeducation}
             placeholder={data.resumeeducation}
+            rows={5} cols={25}
             required
           />
         </div>
         <br></br>
         <div>
           Cover Letter - Contact Info:
-          <input
+          <textarea
             name="coverlettercontactinfo:"
             defaultValue={data.coverlettercontactinfo}
             placeholder={data.coverlettercontactinfo}
+            rows={5} cols={25}
             required
           />
         </div>
         <br></br>
         <div>
           Cover Letter - Style Request:
-          <input
+          <textarea
             name="coverletterstylerequest:"
             defaultValue={data.coverletterstylerequest}
             placeholder={data.coverletterstylerequest}
+            rows={5} cols={25}
             required
           />
         </div>
