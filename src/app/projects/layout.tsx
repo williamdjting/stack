@@ -1,6 +1,6 @@
 import SideNav from '@/app/ui/dashboard/sidenav';
 
-// import { Header } from "@/app/ui/dashboard/header";
+import { Header } from "@/app/ui/dashboard/header";
  
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -8,7 +8,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <div>
         {/* <Header /> */}
 
-        <SideNav />
+        {/* <SideNav /> */}
 
       </div>
 

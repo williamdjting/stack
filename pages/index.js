@@ -4,27 +4,31 @@
 
 import Link from 'next/link';
 
-// Mock data
+// Mock data - need to rewrite to pull from supabase
 const items = [
   { id: '1', name: 'Item 1', description: 'Description for Item 1' },
   { id: '2', name: 'Item 2', description: 'Description for Item 2' },
   { id: '3', name: 'Item 3', description: 'Description for Item 3' },
+  { id: '58', name: 'Item 58', description: 'Description for Item 58' },
+  { id: '59', name: 'Item 59', description: 'Description for Item 59' },
 ];
+
+// Sept 14 - I'm not sure what this page is used for...
 
 const Home = () => {
   return (
-    <div>
-      <h1>Items List</h1>
-      <ul>
-        {items.map(item => (
-          <li key={item.id}>
-            <Link href={`/items/${item.id}`}>
-              <a>{item.name}</a>
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </div>
+    // <div>
+    //   <h1>Items List</h1>
+    //   <ul>
+    //     {items.map(item => (
+    //       <li key={item.id}>
+    //         <Link href={`/items/${item.id}`}>
+    //           <a>{item.name}</a>
+    //         </Link>
+    //       </li>
+    //     ))}
+    //   </ul>
+    // </div>
   );
 };
 

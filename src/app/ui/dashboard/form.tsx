@@ -1,4 +1,4 @@
-"use client";
+// "use client";
 // Import React and CSS module
 import React, { createContext, useState, useEffect, useContext } from "react";
 //import styles from "./ui-dashboard.module.css";
@@ -147,224 +147,44 @@ export function Form() {
   // JSX for the form
   // commented out form elements are not being used, only the topbarContainer0 div block is used as the display list for the CSV
   return (
-    <>
-    <div className={styles.jobcontainer}>
-      <h1>Jobs you have applied for</h1>
-      <table>
-        <thead>
-          <tr>
-            <th>Job Title</th>
-            <th>Company</th>
-            <th>Job Link</th>
-            <th>Resume</th>
-            <th>Cover Letter</th>
-            <th>Application</th>
-          </tr>
-        </thead>
-        <tbody>
-          {data.map((row, index) => (
-          <tr className={index ? styles.tbody : ""} key={index}>
-            <td className={styles.tcol}>{row.projectid}</td>
-            <td className={styles.tcol}>{row.projectname}</td>
-            <td className={styles.tcol}>
-              <a href={row.url}>{row.url}</a>
-            </td>
-            <td className={styles.tcol}>hello</td>
-            <td className={styles.tcol}>
-              test
-            </td>
-            <li key={index}>
-              <Link href={`/applications/${row.projectid}`}>
-                Go to Application {row.projectid}
-              </Link>
-            </li>
-          </tr>
-        ))}
-        </tbody>
-      </table>
-      </div>
-    {/*}
-      <div className={styles.topbarContainer0}>
-        <div className={styles.topbar0}>
-          <div className={styles.mapbox}>
-            <h1 className="font-size:36px">
-              <b>Job Applications</b>
-            </h1>
-            <table>
-              <thead className={styles.thead}>
-                <tr>
-                  <th>Job Title</th>
-                  <th>Company</th>
-                  <th>Job Link</th>
-                  <th>Resume</th>
-                  <th>Cover Letter</th>
-                  <th>Application</th>
-                </tr>
-              </thead>
-              <tbody>
-                {data.map((row, index) => (
-                  <tr className={index ? styles.tbody : ""} key={index}>
-                    <td className={styles.tcol}>{row.projectid}</td>
-                    <td className={styles.tcol}>{row.projectname}</td>
-                    <td className={styles.tcol}>
-                      <a href={row.url}>{row.url}</a>
-                    </td>
-                    <td className={styles.tcol}>{row.description}</td>
-                    <td className={styles.tcol}>
-                      <a href={row.github}>{row.github}</a>
-                    </td>
-                    <li key={index}>
-                      <Link href={`/applications/${row.projectid}`}>
-                        Go to Application {row.projectid}
-                      </Link>
-                    </li>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>*/}
-
-
-      {/* This is the end of the original code */}
-
-      {/* <div className={styles.topbarContainer}>
-        <div className={styles.topbar1}>
-          <div className={styles.mapbox}>
-            <div>
-              <p>Top Collection: {csvData.projectname}</p>
-              <p>Top Distribution: {csvData.url}</p>
-              <p>Top Quality: {csvData.description}</p>
-              <p>Top Split: {csvData.github}</p>
-            </div>
-          </div>
-        </div>
-      </div> */}
-
-      {/* <div className={styles.topbarContainer}>
-        <div className={styles.topbar1}>
-          <div className={styles.mapbox}>
-            <div>
-              <p>Collection: {csvData.projectname}</p>
-              <p>Distribution: {csvData.url}</p>
-              <p>Quality: {csvData.description}</p>
-              <p>Split: {csvData.github}</p>
-            </div>
-          </div>
-        </div> */}
-
-      {/* <div className={styles.topbar2}>
-          <div className={styles.mapbox}>
-            <div>
-              <p>Collection: {csvData.projectname}</p>
-              <p>Distribution: {csvData.url}</p>
-              <p>Quality: {csvData.description}</p>
-              <p>Split: {csvData.github}</p>
-            </div>
-          </div>
-        </div>
-      </div> */}
-
-      {/* <div className={styles.container}>
-        <form className={styles.form} onSubmit={handleSubmit}>
- 
-          <div className={styles.form2}>
-            <input
-              className={styles.form3}
-              type="number"
-              name="projectid"
-              value={formData.projectid}
-              onChange={handleChange}
-              placeholder="projectid"
-            />
-            <textarea
-              className={styles.form3}
-              name="collection"
-              value={formData.collection}
-              onChange={handleChange}
-              placeholder="Collection"
-              rows={3}
-              cols={25}
-            />
-            <textarea
-              className={styles.form3}
-              name="distribution"
-              value={formData.distribution}
-              onChange={handleChange}
-              placeholder="Distribution"
-              rows={3}
-              cols={25}
-            />
-            <textarea
-              className={styles.form3}
-              name="quality"
-              value={formData.quality}
-              onChange={handleChange}
-              placeholder="Quality"
-              rows={3}
-              cols={25}
-            />
-            <textarea
-              className={styles.form3}
-              name="split"
-              value={formData.split}
-              onChange={handleChange}
-              placeholder="Split"
-              rows={3}
-              cols={25}
-            />
-            <textarea
-              className={styles.form3}
-              name="bias"
-              value={formData.bias}
-              onChange={handleChange}
-              placeholder="Bias"
-              rows={3}
-              cols={25}
-            />
-            <textarea
-              className={styles.form3}
-              name="influence"
-              value={formData.influence}
-              onChange={handleChange}
-              placeholder="Influence"
-              rows={3}
-              cols={25}
-            />
-            <textarea
-              className={styles.form3}
-              name="outcome"
-              value={formData.outcome}
-              onChange={handleChange}
-              placeholder="Outcome"
-              rows={3}
-              cols={25}
-            /> */}
-
-      {/* <button onClick={downloadCSV} type="submit">Submit</button>
-            <button type="submit">Submit</button> */}
-      {/* </div>
-
-        </form> */}
-
-      {/* <div className={styles.map}>
-          <div className={styles.mapbox}>
-            {submittedData.map((dataItem, index) => (
-              <div className={styles.mapbox2} key={index}>
-                <p>ProjectID: {dataItem.projectid}</p>
-                <p>Collection: {dataItem.collection}</p>
-                <p>Distribution: {dataItem.distribution}</p>
-                <p>Quality: {dataItem.quality}</p>
-                <p>Split: {dataItem.split}</p>
-                <p>Bias: {dataItem.bias}</p>
-                <p>Influence: {dataItem.influence}</p>
-                <p>Outcome: {dataItem.outcome}</p>
-              </div>
-            ))}
-          </div>
-        </div> */}
-      {/* </div> */}
-    </>
+    <></>
+    // <>
+    // <div className={styles.jobcontainer}>
+    //   <h1>Jobs you have applied for</h1>
+    //   <table>
+    //     <thead>
+    //       <tr>
+    //         <th>Job Title</th>
+    //         <th>Company</th>
+    //         <th>Job Link</th>
+    //         <th>Resume</th>
+    //         <th>Cover Letter</th>
+    //         <th>Application</th>
+    //       </tr>
+    //     </thead>
+    //     <tbody>
+    //       {data.map((row, index) => (
+    //       <tr className={index ? styles.tbody : ""} key={index}>
+    //         <td className={styles.tcol}>{row.projectid}</td>
+    //         <td className={styles.tcol}>{row.projectname}</td>
+    //         <td className={styles.tcol}>
+    //           <a href={row.url}>{row.url}</a>
+    //         </td>
+    //         <td className={styles.tcol}>hello</td>
+    //         <td className={styles.tcol}>
+    //           test
+    //         </td>
+    //         <li key={index}>
+    //           <Link href={`/applications/${row.projectid}`}>
+    //             Go to Application {row.projectid}
+    //           </Link>
+    //         </li>
+    //       </tr>
+    //     ))}
+    //     </tbody>
+    //   </table>
+    //   </div>
+    
+    // </>
   );
 }

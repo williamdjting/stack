@@ -1,4 +1,4 @@
-.headerParent {
+.footerParent {
 
   display: flex;
   position: relative;
@@ -11,22 +11,15 @@
   padding-right: 20px;
 }
 
-.headerTitle {
-  font-size: larger;
+.footerTitle {
+  font-size: regular;
 
 }
 
 
-.headerMyAccount {
+.footerMyAccount {
   position: absolute; 
   right: 0;
 
   margin-right: 20px;
-}
-
-.headerNew {
-  position: absolute; 
-  right: 0;
-
-  margin-right: 160px;
 }

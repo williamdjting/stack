@@ -4,6 +4,9 @@ import React, { createContext, useState, useEffect, useContext } from "react";
 
 import styles from "./header.module.css";
 
+import Link from 'next/link';
+
+
 export async function Header() {
   
 
@@ -13,9 +16,18 @@ export async function Header() {
     StackAI 
     </div>
 
-    <div className={styles.headerMyAccount}>
+    <Link href="/applications/new" 
+      className={styles.headerNew}  
+    >
+    New Application
+    </Link>
+
+    <Link href="/myaccount" 
+      className={styles.headerMyAccount}  
+    >
     My Account
-    </div>
+    </Link>
+    
 
   </div>
 
