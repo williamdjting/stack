@@ -10,16 +10,16 @@
 
 .box1 {
   width: 15%; /* Box 1 occupies 20% of the width */
-  background-color: #black;
+  background-color: black;
   padding: 20px;
   text-align: center;
-  border: 1px solid #000;
+  border: 1px solid black;
 }
 
 
 .box2 {
   width: 85%; /* Box 2 occupies the remaining 80% of the width */
-  background-color: white;
+  background-color: #f5f7f8;
   padding: 20px;
   text-align: center;
   border: 1px solid #000;

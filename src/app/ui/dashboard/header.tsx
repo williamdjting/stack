@@ -18,16 +18,11 @@ export async function Header() {
     StackAI
     </Link>
 
-    <Link href="/applications/new" 
-      className={styles.headerNew}  
-    >
-    New Application
-    </Link>
-
-    <Link href="/myaccount" 
+    
+    <Link href="/logout" 
       className={styles.headerMyAccount}  
     >
-    My Account
+    Sign Out
     </Link>
     
 
