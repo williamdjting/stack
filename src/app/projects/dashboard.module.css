@@ -1,10 +1,26 @@
-.dashboard {
+/* .dashboard {
   display: flex;
   
+} */
+
+.container {
+  display: flex;
+  width: 100vw; /* Ensures the container takes the full viewport width */
+}
+
+.box1 {
+  width: 15%; /* Box 1 occupies 20% of the width */
+  background-color: white;
+  padding: 20px;
+  text-align: center;
+  border: 1px solid #000;
+}
 
 
-
-
-
-
+.box2 {
+  width: 85%; /* Box 2 occupies the remaining 80% of the width */
+  background-color: lightblue;
+  padding: 20px;
+  text-align: center;
+  border: 1px solid #000;
 }
