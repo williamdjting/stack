@@ -38,6 +38,8 @@ const ItemPage = ({}) => {
     }
   }, [redirectTo, router2]);
 
+  // need to add a handleSubmit to update the DB with the new updated data and then redirect back home
+
   useEffect(() => {
     // Fetch data at specific ID on component mount
     if (!id) {
@@ -57,6 +59,7 @@ const ItemPage = ({}) => {
         setError(error.message); // Set error if there's an issue
       } else {
         setData(data);
+
       }
     };
 
