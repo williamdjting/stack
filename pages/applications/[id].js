@@ -25,7 +25,17 @@ const ItemPage = ({}) => {
   console.log({ id }, "the params id");
   console.log(id, "the params id");
 
-  const [data, setData] = useState([]);
+  const [data, setData] = useState({
+    jobtitle: "",
+    company: "",
+    jobdescription: "",
+    resumeexperience: "",
+    resumeskills: "",
+    resumeprojects: "",
+    resumeeducation: "",
+    coverlettercontactinfo: "",
+    coverletterstylerequest: "",
+  });
 
   const [error, setError] = useState(null);
 
@@ -65,6 +75,18 @@ const ItemPage = ({}) => {
 
     fetchData();
 
+    setData({
+      jobtitle: data.JobTitle,
+      company: data.Company,
+      jobdescription: data.JobDescription,
+      resumeexperience: data.ResumeExperience,
+      resumeskills: data.ResumeSkills,
+      resumeprojects: data.ResumeProjects,
+      resumeeducation: data.ResumeEducation,
+      coverlettercontactinfo: data.CoverLetterContactInfo,
+      coverletterstylerequest: data.CoverLetterStyleRequest,
+    });
+
     console.log("line 47", id);
   }, [id]);
 
@@ -72,18 +94,58 @@ const ItemPage = ({}) => {
     return <div>Loading...</div>; // Show loading while data is being fetched
   }
 
+
+  // Handler to update form data
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setData((prevFormData) => ({
+      ...prevFormData,
+      [name]: value,
+    }));
+  };
+
+
   // on Submit need to update the Supabase database with the updated entered value and then execute the Submit button action (either create resume or create cover letter)
+  // Handler to submit form data to Supabase
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    // Insert new data to Supabase
+    const { data, error } = await supabase
+      .from("notes2")
+      .update({
+        jobtitle: data.JobTitle,
+        company: data.Company,
+        jobdescription: data.JobDescription,
+        resumeexperience: data.ResumeExperience,
+        resumeskills: data.ResumeSkills,
+        resumeprojects: data.ResumeProjects,
+        resumeeducation: data.ResumeEducation,
+        coverlettercontactinfo: data.CoverLetterContactInfo,
+        coverletterstylerequest: data.CoverLetterStyleRequest,
+      })
+      .eq('id', id)
+      .select()
+
+    if (error) {
+      console.error("Insert error:", error);
+    } else {
+      console.log("Insert successful - printing data", data);
+      // setRedirectTo("/projects");
+    }
+  };
 
   return (
     <div>
       <h1>Application Page {data.id}</h1>
-      <form>
+      <form onSubmit={handleSubmit}>
         <div>
           Job Title:
           <textarea
             name="JobTitle"
             defaultValue={data.jobtitle}
             placeholder={data.jobtitle}
+            onChange={handleChange}
             rows={5} cols={25}
             required
           />
@@ -95,6 +157,7 @@ const ItemPage = ({}) => {
             name="Company"
             defaultValue={data.company}
             placeholder={data.company}
+            onChange={handleChange}
             rows={5} cols={25}
             required
           />
@@ -103,10 +166,12 @@ const ItemPage = ({}) => {
         <div>
           Job Description:
           <textarea
-            name="Job_Description:"
+            name="JobDescription"
             defaultValue={data.jobdescription}
             placeholder={data.jobdescription}
             rows={5} cols={25}
+            onChange={handleChange}
+
             required
           />
         </div>
@@ -114,10 +179,12 @@ const ItemPage = ({}) => {
         <div>
           Resume - Experience:
           <textarea
-            name="resumexperience:"
+            name="ResumeExperience"
             defaultValue={data.resumeexperience}
             placeholder={data.resumeexperience}
             rows={5} cols={25}
+            onChange={handleChange}
+
             required
           />
         </div>
@@ -125,10 +192,12 @@ const ItemPage = ({}) => {
         <div>
           Resume - Projects:
           <textarea
-            name="resumeprojects:"
+            name="ResumeProjects"
             defaultValue={data.resumeprojects}
             placeholder={data.resumeprojects}
             rows={5} cols={25}
+            onChange={handleChange}
+
             required
           />
         </div>
@@ -136,10 +205,12 @@ const ItemPage = ({}) => {
         <div>
           Resume - Skills:
           <textarea
-            name="resumeskills:"
+            name="ResumeSkills"
             defaultValue={data.resumeskills}
             placeholder={data.resumeskills}
             rows={5} cols={25}
+            onChange={handleChange}
+
             required
           />
         </div>
@@ -147,9 +218,11 @@ const ItemPage = ({}) => {
         <div>
           Resume - Education:
           <textarea
-            name="resumeeducation:"
+            name="ResumeEducation"
             defaultValue={data.resumeeducation}
             placeholder={data.resumeeducation}
+            onChange={handleChange}
+
             rows={5} cols={25}
             required
           />
@@ -158,10 +231,12 @@ const ItemPage = ({}) => {
         <div>
           Cover Letter - Contact Info:
           <textarea
-            name="coverlettercontactinfo:"
+            name="CoverLetterContactInfo"
             defaultValue={data.coverlettercontactinfo}
             placeholder={data.coverlettercontactinfo}
             rows={5} cols={25}
+            onChange={handleChange}
+
             required
           />
         </div>
@@ -169,10 +244,12 @@ const ItemPage = ({}) => {
         <div>
           Cover Letter - Style Request:
           <textarea
-            name="coverletterstylerequest:"
+            name="CoverLetterStyleRequest"
             defaultValue={data.coverletterstylerequest}
             placeholder={data.coverletterstylerequest}
             rows={5} cols={25}
+            onChange={handleChange}
+
             required
           />
         </div>
