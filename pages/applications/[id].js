@@ -126,9 +126,7 @@ const ItemPage = ({}) => {
 
     if (error) {
       console.error("Insert error:", error);
-    } 
-    
-    if (data) {
+    } else {
       console.log("Insert successful - printing data", data);
       setRedirectTo("/projects");
     }
