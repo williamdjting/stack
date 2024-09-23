@@ -25,7 +25,7 @@ const ItemPage = ({}) => {
   console.log({ id }, "the params id");
   console.log(id, "the params id");
 
-  const [data, setData] = useState({
+  const [newData, setNewData] = useState({
     jobtitle: "",
     company: "",
     jobdescription: "",
@@ -68,37 +68,34 @@ const ItemPage = ({}) => {
         console.log("line 44");
         setError(error.message); // Set error if there's an issue
       } else {
-        setData(data);
+        setNewData(data);
 
       }
     };
 
     fetchData();
 
-    setData({
-      jobtitle: data.JobTitle,
-      company: data.Company,
-      jobdescription: data.JobDescription,
-      resumeexperience: data.ResumeExperience,
-      resumeskills: data.ResumeSkills,
-      resumeprojects: data.ResumeProjects,
-      resumeeducation: data.ResumeEducation,
-      coverlettercontactinfo: data.CoverLetterContactInfo,
-      coverletterstylerequest: data.CoverLetterStyleRequest,
-    });
+    // setNewData({
+    //   jobtitle: newData.JobTitle,
+    //   company: newData.Company,
+    //   jobdescription: newData.JobDescription,
+    //   resumeexperience: newData.ResumeExperience,
+    //   resumeskills: newData.ResumeSkills,
+    //   resumeprojects: newData.ResumeProjects,
+    //   resumeeducation: newData.ResumeEducation,
+    //   coverlettercontactinfo: newData.CoverLetterContactInfo,
+    //   coverletterstylerequest: newData.CoverLetterStyleRequest,
+    // });
 
     console.log("line 47", id);
   }, [id]);
 
-  if (!data) {
-    return <div>Loading...</div>; // Show loading while data is being fetched
-  }
-
+  
 
   // Handler to update form data
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setData((prevFormData) => ({
+    setNewData((prevFormData) => ({
       ...prevFormData,
       [name]: value,
     }));
@@ -114,37 +111,39 @@ const ItemPage = ({}) => {
     const { data, error } = await supabase
       .from("notes2")
       .update({
-        jobtitle: data.JobTitle,
-        company: data.Company,
-        jobdescription: data.JobDescription,
-        resumeexperience: data.ResumeExperience,
-        resumeskills: data.ResumeSkills,
-        resumeprojects: data.ResumeProjects,
-        resumeeducation: data.ResumeEducation,
-        coverlettercontactinfo: data.CoverLetterContactInfo,
-        coverletterstylerequest: data.CoverLetterStyleRequest,
+        jobtitle: newData.JobTitle,
+        company: newData.Company,
+        jobdescription: newData.JobDescription,
+        resumeexperience: newData.ResumeExperience,
+        resumeskills: newData.ResumeSkills,
+        resumeprojects: newData.ResumeProjects,
+        resumeeducation: newData.ResumeEducation,
+        coverlettercontactinfo: newData.CoverLetterContactInfo,
+        coverletterstylerequest: newData.CoverLetterStyleRequest,
       })
       .eq('id', id)
       .select()
 
     if (error) {
       console.error("Insert error:", error);
-    } else {
+    } 
+    
+    if (data) {
       console.log("Insert successful - printing data", data);
-      // setRedirectTo("/projects");
+      setRedirectTo("/projects");
     }
   };
 
   return (
     <div>
-      <h1>Application Page {data.id}</h1>
+      <h1>Application Page {newData.id}</h1>
       <form onSubmit={handleSubmit}>
         <div>
           Job Title:
           <textarea
             name="JobTitle"
-            defaultValue={data.jobtitle}
-            placeholder={data.jobtitle}
+            defaultValue={newData.jobtitle}
+            placeholder={newData.jobtitle}
             onChange={handleChange}
             rows={5} cols={25}
             required
@@ -155,8 +154,8 @@ const ItemPage = ({}) => {
           Company:
           <textarea
             name="Company"
-            defaultValue={data.company}
-            placeholder={data.company}
+            defaultValue={newData.company}
+            placeholder={newData.company}
             onChange={handleChange}
             rows={5} cols={25}
             required
@@ -167,8 +166,8 @@ const ItemPage = ({}) => {
           Job Description:
           <textarea
             name="JobDescription"
-            defaultValue={data.jobdescription}
-            placeholder={data.jobdescription}
+            defaultValue={newData.jobdescription}
+            placeholder={newData.jobdescription}
             rows={5} cols={25}
             onChange={handleChange}
 
@@ -180,8 +179,8 @@ const ItemPage = ({}) => {
           Resume - Experience:
           <textarea
             name="ResumeExperience"
-            defaultValue={data.resumeexperience}
-            placeholder={data.resumeexperience}
+            defaultValue={newData.resumeexperience}
+            placeholder={newData.resumeexperience}
             rows={5} cols={25}
             onChange={handleChange}
 
@@ -193,8 +192,8 @@ const ItemPage = ({}) => {
           Resume - Projects:
           <textarea
             name="ResumeProjects"
-            defaultValue={data.resumeprojects}
-            placeholder={data.resumeprojects}
+            defaultValue={newData.resumeprojects}
+            placeholder={newData.resumeprojects}
             rows={5} cols={25}
             onChange={handleChange}
 
@@ -206,8 +205,8 @@ const ItemPage = ({}) => {
           Resume - Skills:
           <textarea
             name="ResumeSkills"
-            defaultValue={data.resumeskills}
-            placeholder={data.resumeskills}
+            defaultValue={newData.resumeskills}
+            placeholder={newData.resumeskills}
             rows={5} cols={25}
             onChange={handleChange}
 
@@ -219,8 +218,8 @@ const ItemPage = ({}) => {
           Resume - Education:
           <textarea
             name="ResumeEducation"
-            defaultValue={data.resumeeducation}
-            placeholder={data.resumeeducation}
+            defaultValue={newData.resumeeducation}
+            placeholder={newData.resumeeducation}
             onChange={handleChange}
 
             rows={5} cols={25}
@@ -232,8 +231,8 @@ const ItemPage = ({}) => {
           Cover Letter - Contact Info:
           <textarea
             name="CoverLetterContactInfo"
-            defaultValue={data.coverlettercontactinfo}
-            placeholder={data.coverlettercontactinfo}
+            defaultValue={newData.coverlettercontactinfo}
+            placeholder={newData.coverlettercontactinfo}
             rows={5} cols={25}
             onChange={handleChange}
 
@@ -245,8 +244,8 @@ const ItemPage = ({}) => {
           Cover Letter - Style Request:
           <textarea
             name="CoverLetterStyleRequest"
-            defaultValue={data.coverletterstylerequest}
-            placeholder={data.coverletterstylerequest}
+            defaultValue={newData.coverletterstylerequest}
+            placeholder={newData.coverletterstylerequest}
             rows={5} cols={25}
             onChange={handleChange}
 
