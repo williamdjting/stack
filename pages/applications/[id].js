@@ -25,7 +25,17 @@ const ItemPage = ({}) => {
   console.log({ id }, "the params id");
   console.log(id, "the params id");
 
-  const [data, setData] = useState([]);
+  const [newData, setNewData] = useState({
+    jobtitle: "",
+    company: "",
+    jobdescription: "",
+    resumeexperience: "",
+    resumeskills: "",
+    resumeprojects: "",
+    resumeeducation: "",
+    coverlettercontactinfo: "",
+    coverletterstylerequest: "",
+  });
 
   const [error, setError] = useState(null);
 
@@ -37,6 +47,8 @@ const ItemPage = ({}) => {
       router.push(redirectTo);
     }
   }, [redirectTo, router2]);
+
+  // need to add a handleSubmit to update the DB with the new updated data and then redirect back home
 
   useEffect(() => {
     // Fetch data at specific ID on component mount
@@ -56,31 +68,81 @@ const ItemPage = ({}) => {
         console.log("line 44");
         setError(error.message); // Set error if there's an issue
       } else {
-        setData(data);
+        setNewData(data);
+
       }
     };
 
     fetchData();
 
+    // setNewData({
+    //   jobtitle: newData.JobTitle,
+    //   company: newData.Company,
+    //   jobdescription: newData.JobDescription,
+    //   resumeexperience: newData.ResumeExperience,
+    //   resumeskills: newData.ResumeSkills,
+    //   resumeprojects: newData.ResumeProjects,
+    //   resumeeducation: newData.ResumeEducation,
+    //   coverlettercontactinfo: newData.CoverLetterContactInfo,
+    //   coverletterstylerequest: newData.CoverLetterStyleRequest,
+    // });
+
     console.log("line 47", id);
   }, [id]);
 
-  if (!data) {
-    return <div>Loading...</div>; // Show loading while data is being fetched
-  }
+  
+
+  // Handler to update form data
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setNewData((prevFormData) => ({
+      ...prevFormData,
+      [name]: value,
+    }));
+  };
+
 
   // on Submit need to update the Supabase database with the updated entered value and then execute the Submit button action (either create resume or create cover letter)
+  // Handler to submit form data to Supabase
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    // Insert new data to Supabase
+    const { data, error } = await supabase
+      .from("notes2")
+      .update({
+        jobtitle: newData.JobTitle,
+        company: newData.Company,
+        jobdescription: newData.JobDescription,
+        resumeexperience: newData.ResumeExperience,
+        resumeskills: newData.ResumeSkills,
+        resumeprojects: newData.ResumeProjects,
+        resumeeducation: newData.ResumeEducation,
+        coverlettercontactinfo: newData.CoverLetterContactInfo,
+        coverletterstylerequest: newData.CoverLetterStyleRequest,
+      })
+      .eq('id', id)
+      .select()
+
+    if (error) {
+      console.error("Insert error:", error);
+    } else {
+      console.log("Insert successful - printing data", data);
+      setRedirectTo("/projects");
+    }
+  };
 
   return (
     <div>
-      <h1>Application Page {data.id}</h1>
-      <form>
+      <h1>Application Page {newData.id}</h1>
+      <form onSubmit={handleSubmit}>
         <div>
           Job Title:
           <textarea
             name="JobTitle"
-            defaultValue={data.jobtitle}
-            placeholder={data.jobtitle}
+            defaultValue={newData.jobtitle}
+            placeholder={newData.jobtitle}
+            onChange={handleChange}
             rows={5} cols={25}
             required
           />
@@ -90,8 +152,9 @@ const ItemPage = ({}) => {
           Company:
           <textarea
             name="Company"
-            defaultValue={data.company}
-            placeholder={data.company}
+            defaultValue={newData.company}
+            placeholder={newData.company}
+            onChange={handleChange}
             rows={5} cols={25}
             required
           />
@@ -100,10 +163,12 @@ const ItemPage = ({}) => {
         <div>
           Job Description:
           <textarea
-            name="Job_Description:"
-            defaultValue={data.jobdescription}
-            placeholder={data.jobdescription}
+            name="JobDescription"
+            defaultValue={newData.jobdescription}
+            placeholder={newData.jobdescription}
             rows={5} cols={25}
+            onChange={handleChange}
+
             required
           />
         </div>
@@ -111,10 +176,12 @@ const ItemPage = ({}) => {
         <div>
           Resume - Experience:
           <textarea
-            name="resumexperience:"
-            defaultValue={data.resumexperience}
-            placeholder={data.resumexperience}
+            name="ResumeExperience"
+            defaultValue={newData.resumeexperience}
+            placeholder={newData.resumeexperience}
             rows={5} cols={25}
+            onChange={handleChange}
+
             required
           />
         </div>
@@ -122,10 +189,12 @@ const ItemPage = ({}) => {
         <div>
           Resume - Projects:
           <textarea
-            name="resumeprojects:"
-            defaultValue={data.resumeprojects}
-            placeholder={data.resumeprojects}
+            name="ResumeProjects"
+            defaultValue={newData.resumeprojects}
+            placeholder={newData.resumeprojects}
             rows={5} cols={25}
+            onChange={handleChange}
+
             required
           />
         </div>
@@ -133,10 +202,12 @@ const ItemPage = ({}) => {
         <div>
           Resume - Skills:
           <textarea
-            name="resumeskills:"
-            defaultValue={data.resumeskills}
-            placeholder={data.resumeskills}
+            name="ResumeSkills"
+            defaultValue={newData.resumeskills}
+            placeholder={newData.resumeskills}
             rows={5} cols={25}
+            onChange={handleChange}
+
             required
           />
         </div>
@@ -144,9 +215,11 @@ const ItemPage = ({}) => {
         <div>
           Resume - Education:
           <textarea
-            name="resumeeducation:"
-            defaultValue={data.resumeeducation}
-            placeholder={data.resumeeducation}
+            name="ResumeEducation"
+            defaultValue={newData.resumeeducation}
+            placeholder={newData.resumeeducation}
+            onChange={handleChange}
+
             rows={5} cols={25}
             required
           />
@@ -155,10 +228,12 @@ const ItemPage = ({}) => {
         <div>
           Cover Letter - Contact Info:
           <textarea
-            name="coverlettercontactinfo:"
-            defaultValue={data.coverlettercontactinfo}
-            placeholder={data.coverlettercontactinfo}
+            name="CoverLetterContactInfo"
+            defaultValue={newData.coverlettercontactinfo}
+            placeholder={newData.coverlettercontactinfo}
             rows={5} cols={25}
+            onChange={handleChange}
+
             required
           />
         </div>
@@ -166,10 +241,12 @@ const ItemPage = ({}) => {
         <div>
           Cover Letter - Style Request:
           <textarea
-            name="coverletterstylerequest:"
-            defaultValue={data.coverletterstylerequest}
-            placeholder={data.coverletterstylerequest}
+            name="CoverLetterStyleRequest"
+            defaultValue={newData.coverletterstylerequest}
+            placeholder={newData.coverletterstylerequest}
             rows={5} cols={25}
+            onChange={handleChange}
+
             required
           />
         </div>

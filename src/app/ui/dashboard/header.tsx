@@ -12,20 +12,17 @@ export async function Header() {
 
   return (
   <div className={styles.headerParent}>
-    <div className={styles.headerTitle}>
-    StackAI 
-    </div>
-
     <Link href="/applications/new" 
-      className={styles.headerNew}  
+      className={styles.headerTitle}  
     >
-    New Application
+    StackAI
     </Link>
 
-    <Link href="/myaccount" 
+    
+    <Link href="/logout" 
       className={styles.headerMyAccount}  
     >
-    My Account
+    Sign Out
     </Link>
     
 
