@@ -7,14 +7,13 @@ if (!openAIApiKey) {
 }
 
 export const llm = new ChatOpenAI({
-  openAIApiKey,
   modelName: "gpt-4o-mini",
-  temperature: 0.9,
+  temperature: 0,
 });
 
-export const embeddings = new OpenAIEmbeddings(
-  {
-    openAIApiKey,
-  },
-  { maxRetries: 0 }
-);
+// export const embeddings = new OpenAIEmbeddings(
+//   {
+//     openAIApiKey,
+//   },
+//   { maxRetries: 0 }
+// );
