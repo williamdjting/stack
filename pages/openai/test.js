@@ -18,23 +18,23 @@ const AIpage = ({}) => {
   const resume1 = z.object({
     jobDescription: z.string(),
     responsibilities: z.string(),
-    output: z.string(),
+    output1: z.string(),
   });
   
   const structuredLlm1 = llm.withStructuredOutput(resume1);
 
-  const prompt1 = `Given the ${jobDescriptionVal} and ${resumeExperienceVal} list out four bullet points ordered by number that describe the experiences as it relates to the job description. Please ensure there are empirical measurements.`;
+  const prompt1 = `Given the ${jobDescriptionVal} and ${resumeExperienceVal} list out four bullet points ordered by number that describe the experiences as it relates to the job description. Please ensure there are empirical measurements. Please ensure the technical stack is highlighted.`;
 
 
   const resume2 = z.object({
     jobDescription: z.string(),
     projects: z.string(),
-    output: z.string(),
+    output2: z.string(),
   });
   
-  const structuredLlm2 = llm.withStructuredOutput(resume1);
+  const structuredLlm2 = llm.withStructuredOutput(resume2);
 
-  const prompt2 = `Given the ${jobDescriptionVal} and ${resumeProjectsVal} create four bullet points for each project from ${resumeProjectsVal}. Please ensure there are empirical measurements.`;
+  const prompt2 = `Given the ${jobDescriptionVal} and ${resumeProjectsVal} list out four bullet points ordered by number for each project as it relates to job description. Please ensure there are empirical measurements. Please ensure the technical stack is highlighted.`;
 
 
 
