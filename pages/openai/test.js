@@ -16,11 +16,12 @@ const AIpage = ({}) => {
   const resumeIntoLLM = z.object({
     job: z.string(),
     responsibilities: z.string(),
+    rating: z.number().optional(),
   });
   
   const structuredLlm = llm.withStructuredOutput(resumeIntoLLM);
 
-  const prompt = `Given the ${jobDescriptionVal}, list out four responsibilites of related to the job, given past experience: ${resumeExperienceVal}`;
+  const prompt = `Given the ${jobDescriptionVal}, list out in four bullet points  given past experience: ${resumeExperienceVal}, the responsibilites of related to the job`;
 
 
 
