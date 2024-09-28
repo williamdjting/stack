@@ -35,7 +35,7 @@ const AIpage = ({}) => {
   const structuredLlm2 = llm.withStructuredOutput(resume2);
 
   // const prompt2 = `Given the ${jobDescriptionVal} and $
-    const prompt2 = `Given the ${resumeProjectsVal}, list out four bullet points ordered by number for each project as it relates to job description. Please ensure there are empirical measurements. Please ensure the technical stack is highlighted.`;
+    const prompt2 = `Given the ${resumeProjectsVal}, list out four bullet points ordered by number for each project as it relates to job description . Please ensure there are empirical measurements. Please ensure the technical stack is highlighted. `;
 
 
 
