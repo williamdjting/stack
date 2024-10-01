@@ -129,7 +129,13 @@ const ItemPage = ({}) => {
 	};
 
 	const downloadDocx = async () => {
-		const response = await fetch('/api/generate-docx-test');
+		const response = await fetch('/api/generate-docx-test', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({ text: newData.jobtitle }),
+		});
 		if (!response.ok) {
 			console.error('Failed to generate document');
 			return;
