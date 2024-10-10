@@ -16,6 +16,8 @@ const openai = new OpenAI({
   apiKey: process.env.NEXT_PUBLIC_OPENAI_API_KEY || "", 
   dangerouslyAllowBrowser: true // Pass API key for authentication
 });
+// need to protect the API key using https://chatgpt.com/share/67075d4f-24a8-8008-9637-32900bb98ef1
+
 
 const AIpage = ({}) => {
 
