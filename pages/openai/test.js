@@ -10,6 +10,7 @@ import { zodResponseFormat } from "openai/helpers/zod";
 
 import OpenAI from "openai";
 
+// import  openai2  from "@/app/lib/openai/openai2"
 
 const openai = new OpenAI({
   apiKey: process.env.NEXT_PUBLIC_OPENAI_API_KEY || "", 
