@@ -36,14 +36,18 @@ const AIpage = ({}) => {
 
   const prompt1 = `Given the ${jobDescriptionVal} and ${resumeExperienceVal} list out four bullet points ordered by number that describe the experiences as it relates to the job description. Please ensure there are empirical measurements. Please ensure the technical stack is highlighted.`;
 
-  const Project = z.object({
+  const ProjectBullets = z.object({
+    project_bullets: z.string(),
+  });
+
+  const ProjectDetails = z.object({
     project_description: z.string(),
-    project_details: z.string(),
+    project_details: z.array(ProjectBullets),
   });
 
   const Projects = z.object({
-    projects: z.array(Project),
-    summary_of_projects: z.string(),
+    projects: z.array(ProjectDetails),
+    // summary_of_projects: z.string(),
   });
 
   const resume2 = z.object({
@@ -64,11 +68,11 @@ const AIpage = ({}) => {
 
     const fetchData = async () => {
       try {
-        const returnVal1 = await structuredLlm1.invoke(`${prompt1}`);
-        console.log("This is the returnVal1 in test.js", returnVal1);
+        // const returnVal1 = await structuredLlm1.invoke(`${prompt1}`);
+        // console.log("This is the returnVal1 in test.js", returnVal1);
 
-        const returnVal2 = await structuredLlm2.invoke(`${prompt2}`);
-        console.log("This is the returnVal2 in test.js", returnVal2);
+        // const returnVal2 = await structuredLlm2.invoke(`${prompt2}`);
+        // console.log("This is the returnVal2 in test.js", returnVal2);
 
         const completion = await openai.beta.chat.completions.parse({
           model: "gpt-4o-2024-08-06",
