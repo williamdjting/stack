@@ -50,6 +50,7 @@ const AIpage = ({}) => {
   const Projects = z.object({
     projects: z.array(ProjectDetails),
     // summary_of_projects: z.string(),
+    project_description: z.string(),
   });
 
   const resume2 = z.object({
