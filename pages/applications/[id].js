@@ -37,6 +37,31 @@ const ItemPage = ({}) => {
 		coverletterstylerequest: '',
 	});
 
+	//exmaple json for projects
+	const [projects, setProjects] = useState([
+		{
+			ProjectDetails: {
+				title: 'Data Visualization Dashboard',
+				ProjectBullets: [
+					'Developed interactive dashboards using Tableau, resulting in a 30% increase in data accessibility for stakeholders.',
+					'Implemented real-time data processing with Apache Kafka, improving data refresh rates by 50%.',
+					'Utilized SQL for data extraction and transformation, reducing query execution time by 40%.',
+					'Collaborated with cross-functional teams to gather requirements, leading to a 25% reduction in project delivery time.',
+				],
+			},
+		},
+		{
+			ProjectDetails: {
+				title: 'Sales Forecasting Model',
+				ProjectBullets: [
+					'Built predictive models using Python and Scikit-learn, achieving an accuracy rate of 85% in sales predictions.',
+					'Integrated time series analysis with ARIMA, enhancing forecast reliability by 20%. Employed data visualization techniques with Matplotlib to present forecasting results, improving stakeholder understanding by 35%.',
+					'Conducted A/B testing on different forecasting methods, resulting in a 15% increase in forecast precision.',
+				],
+			},
+		},
+	]);
+
 	const [error, setError] = useState(null);
 
 	const [redirectTo, setRedirectTo] = useState(null);
@@ -128,7 +153,34 @@ const ItemPage = ({}) => {
 		}
 	};
 
-	const downloadDocx = async () => {
+	const downloadDocx = async (event) => {
+		// const response = await fetch('/api/generate-docx', {
+		// 	method: 'POST',
+		// 	headers: {
+		// 		'Content-Type': 'application/json',
+		// 	},
+		// 	body: JSON.stringify(jsonData),
+		// 	//body: JSON.stringify(projectData),
+		// 	//{
+		// 	// coverlettercontactinfo: newData.coverlettercontactinfo,
+		// 	// resumeeducation: newData.resumeeducation,
+		// 	// resumeexperience: newData.resumeexperience,
+		// 	// resumeprojects: newData.resumeprojects,
+		// 	// resumeskills: newData.resumeskills,}
+		// });
+		// if (!response.ok) {
+		// 	console.error('Failed to generate document');
+		// 	return;
+		// }
+		// const blob = await response.blob();
+		// const url = window.URL.createObjectURL(blob);
+		// const link = document.createElement('a');
+		// link.href = url;
+		// link.setAttribute('download', 'document.docx');
+		// document.body.appendChild(link);
+		// link.click();
+		// link.parentNode.removeChild(link);
+		event.preventDefault();
 		const response = await fetch('/api/generate-docx', {
 			method: 'POST',
 			headers: {
@@ -136,24 +188,40 @@ const ItemPage = ({}) => {
 			},
 			body: JSON.stringify({
 				coverlettercontactinfo: newData.coverlettercontactinfo,
-				resumeeducation: newData.resumeeducation,
-				resumeexperience: newData.resumeexperience,
-				resumeprojects: newData.resumeprojects,
-				resumeskills: newData.resumeskills,
+				projects,
 			}),
 		});
-		if (!response.ok) {
+
+		if (response.ok) {
+			const blob = await response.blob();
+			const url = window.URL.createObjectURL(blob);
+			const a = document.createElement('a');
+			a.href = url;
+			a.download = 'ProjectReport.docx';
+			document.body.appendChild(a);
+			a.click();
+			a.remove();
+		} else {
 			console.error('Failed to generate document');
-			return;
 		}
-		const blob = await response.blob();
-		const url = window.URL.createObjectURL(blob);
-		const link = document.createElement('a');
-		link.href = url;
-		link.setAttribute('download', 'document.docx');
-		document.body.appendChild(link);
-		link.click();
-		link.parentNode.removeChild(link);
+		// try {
+		// 	const response = await fetch('/api/generate-docx');
+		// 	if (!response.ok) {
+		// 		console.error('Failed to download the document');
+		// 		return;
+		// 	}
+		// 	const blob = await response.blob();
+		// 	const url = window.URL.createObjectURL(blob);
+		// 	const a = document.createElement('a');
+		// 	a.href = url;
+		// 	a.download = 'NestedReport.docx';
+		// 	document.body.appendChild(a);
+		// 	a.click();
+		// 	a.remove();
+		// 	window.URL.revokeObjectURL(url);
+		// } catch (error) {
+		// 	console.error('error downloading document:', error);
+		// }
 	};
 
 	return (
