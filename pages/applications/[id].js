@@ -134,6 +134,8 @@ const ItemPage = ({}) => {
     // }
     console.log("line 135")
     
+
+    // need to rewrite this to a custom hook to call the AI function
     try {
       const aiResponse = await executeAI(newData.resumeskills); // Adjust the argument based on your function definition
       console.log("AI Response:", aiResponse);
