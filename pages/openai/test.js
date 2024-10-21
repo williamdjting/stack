@@ -1,29 +1,29 @@
-import { useEffect } from "react";
-
+import { useState, useEffect } from "react";
 import { z } from "zod";
-
-import { llm } from "@/app/lib/openai/openai"
-
-
 import { zodResponseFormat } from "openai/helpers/zod";
-
-
+import { technicalskills_AI, education_AI, project_AI } from './openai_functions';
+import { executeAllSequentially } from './openai_functions'
 import OpenAI from "openai";
 
-// import  openai2  from "@/app/lib/openai/openai2"
-
 const openai = new OpenAI({
-  apiKey: process.env.NEXT_PUBLIC_OPENAI_API_KEY || "", 
+  apiKey: process.env.NEXT_PUBLIC_OPENAI_API_KEY || "",
   dangerouslyAllowBrowser: true // Pass API key for authentication
 });
 // need to protect the API key using https://chatgpt.com/share/67075d4f-24a8-8008-9637-32900bb98ef1
 
+const AIpage = ({ }) => {
 
-const AIpage = ({}) => {
+
+  const [inputValue, setInputValue] = useState('');
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    alert(`Submitted: ${inputValue}`);
+  };
 
 
-  const jobdescription = 
-  `Responsibilities
+  const jobdescription =
+    `Responsibilities
 * Work with engineers across the company to build new features and products
 * Work side-by-side with user-facing teams (Sales, Support) to best understand the needs of our customers
 * Own problems end-to-end, thinking through everything from user experience, data models, scalability, operability, and ongoing metrics
@@ -48,14 +48,76 @@ Bonus points
 * Basic experience with design tools
 * Experience driving initiatives at a broader level across an organization or company
   `
+  const technicalskills_prompt = `You are a technical recruiter. You will be given a paragraph with information about an applicants techincal skills and should categorize it into the given data schema.
+  //               If the answer is not detailed enough in certain fields, please modify it and elaborate with more detail. Please relate it to the ${jobdescription}. No sentences, short form only.`
 
+  const technicalskills_content = `C/C++, JavaScript (ES7), TypeScript, Python, HTML/CSS, SQL
+// OOP, Relational DB, Web Development, Restful API, Systems Design, Networking, Testing, OS
+// Git, Jira, Confluence, Docker, Postman, AWS, Bash, Pg Admin, NPM, Webpack, Component Libraries
+// React, Node.js, Next.js, React Native, PostGres`
+
+
+  const education_prompt = `You are a technical recruiter. 
+            You will be given a paragraph with information about an applicants education history and should convert it into the given structure.
+            If the answer is not detailed enough in certain fields, please modify it and elaborate with more detail. 
+            If the answer is missing, please state that it is not specified.
+            The user should have at least one education history stated.`
+
+  const education_content = `
+  Simon Fraser University, Burnaby, BC								   Sept 2021 - Present
+Bachelor of Science in Computer Science
+Minor in Mathematics 
+AWS Certified Developer - Associate (In Progress)`
+
+  const project_prompt = `You are a technical recruiter. 
+        //       You will be given a paragraph with information about an applicants projects and should convert it into the given structure.
+        //       If the answer is not detailed enough in certain fields, please modify it and elaborate with more detail. 
+        //       If the answer is missing, please state that it is not specified.   `
+  //       Please make the projects relevant and detailed to the job description: ${jobdescription}..`
+
+  const project_content = `1. Data Visualization Dashboard:\n   - 
+  Developed interactive dashboards using Tableau, resulting in a 30% increase in data accessibility for stakeholders.
+  \n   - Implemented real-time data processing with Apache Kafka, improving data refresh rates by 50%.\n   - Utilized SQL for data extraction and transformation, reducing query execution time by 40%.\n   - Collaborated with cross-functional teams to gather requirements, leading to a 25% reduction in project delivery time.\n\n2. Sales Forecasting Model:\n   - Built predictive models using Python and Scikit-learn, achieving an accuracy rate of 85% in sales predictions.\n   - Integrated time series analysis with ARIMA, enhancing forecast reliability by 20%.\n   - Employed data visualization techniques with Matplotlib to present forecasting results, improving stakeholder understanding by 35%.\n   - 
+  Conducted A/B testing on different forecasting methods, resulting in a 15% increase in forecast precision.`
+
+  const workexperience_prompt = `You are a technical recruiter. 
+        You will be given multiple paragraphs with information about an applicants work experience. 
+        Please parse it into the relevant data schema. 
+        If the answer is detailed, please do not modify it. 
+        If the answer is not detailed enough in certain fields, 
+        please modify it and elaborate with more detail. 
+        If the answer is missing, please state that it is not specified. 
+        Please make the work experience relevant and detailed to the ${jobdescription}.`
+
+  const workexperience_content = `
+Co-Founder / Software Developer [Company: StackAI ]					      Jul 2024 - Present
+Developed a full stack web application using JavaScript, TypeScript, React, and Next.js.
+Built a robust Docx and Pdf creator with text editing capabilities using Docx library.
+Integrated AI features to generate intelligent resumes and cover letters using Langchain and OpenAI API.
+Created robust microservices backend, API’s and Database that uses Supabase Storage, Database, and Edge functions to manage the core features of the application.
+Deploying on Vercel and Supabase to ensure architecture is scalability and high performance.
+Collaborated with the technical team to align technical solutions with customer requirements.
+Managed product development cycle, UX design process to reflect iterative deployment of features.
+
+Front End Developer Co-op [Company: Viridis Research ]					  Aug 2023 - Dec 2023
+Hired to develop a modern website using Gatsby, React, Javascript, HTML / CSS for a clean tech startup.
+Used front end frameworks including CSS, Webpack, and UI Component libraries to manage UI design.
+Integrated multiple third party services from Google API, Mailchimp, Contently to as website services.
+New website has been used for the company's marketing and to raise venture capital investments.
+Engaged in weekly leadership meetings with cross functional team to address business requirements and used agile tools (JIRA, Trello) for project management.
+Conducted testing and debugging to ensure new changes would integrate well into existing project.
+
+Technical Support Specialist / IT Technician [Company: Simon Fraser University ]		   Sept 2021 - Present
+Developed a web app with React and Node.js that consolidated multiple streams of video data into a dashboard for internal use by 20+ AV staff.
+Provided technical support to 500+ service request tickets addressing issues related to end user devices, MFA, networking troubleshooting, hardware, customer support.
+Helped install, update, and troubleshoot Linux, Windows and Mac workstations.
+`
   const TechnicalSkills = z.object({
     technicalskills_programminglanguages: z.string(),
     technicalskills_concepts: z.string().optional(),
     technicalskills_applications: z.string().optional(),
     technicalskills_frameworks: z.string().optional(),
   })
-
 
   const Education = z.object({
     education_degree: z.string(),
@@ -65,7 +127,6 @@ Bonus points
     education_school: z.string(),
     education_location: z.string(),
   })
-
 
   const ProjectBullets = z.object({
     project_bullets: z.string(),
@@ -101,117 +162,69 @@ Bonus points
 
   });
 
-
-
   useEffect(() => {
     // Add your side effects here
-
     const fetchData = async () => {
-
-
-
-
       try {
 
+        // const technicalskills_response = technicalskills_AI(technicalskills_prompt, technicalskills_content)
+        // console.log("This is the technicalskills_response in test.js", technicalskills_response);
         const technicalskills_completion = await openai.beta.chat.completions.parse({
           model: "gpt-4o-2024-08-06",
           messages: [
-            { role: "system", content: `You are a technical recruiter. You will be given a paragraph with information about an applicants techincal skills and should categorize it into the given data schema.
-              If the answer is not detailed enough in certain fields, please modify it and elaborate with more detail. Please relate it to the ${jobdescription}. No sentences, short form only.` },
-            { role: "user", content: `C/C++, JavaScript (ES7), TypeScript, Python, HTML/CSS, SQL
-OOP, Relational DB, Web Development, Restful API, Systems Design, Networking, Testing, OS
-Git, Jira, Confluence, Docker, Postman, AWS, Bash, Pg Admin, NPM, Webpack, Component Libraries
-React, Node.js, Next.js, React Native, PostGres
-						` },
+            { role: "system", content: `${technicalskills_prompt}` },
+            { role: "user", content: `${technicalskills_content}` },
           ],
           response_format: zodResponseFormat(TechnicalSkills, "technical_skills"),
         });
-        
+
         const technicalskillsDetails = technicalskills_completion.choices[0].message.parsed;
         console.log("This is the technicalskillsDetails in test.js", technicalskillsDetails);
 
-
+        // const education_response = education_AI(education_prompt, education_content);
+        // console.log("This is the education_response in test.js", education_response);
         const education_completion = await openai.beta.chat.completions.parse({
           model: "gpt-4o-2024-08-06",
           messages: [
-            { role: "system", content: `You are a technical recruiter. You will be given a paragraph with information about an applicants education history and should convert it into the given structure.
-              If the answer is not detailed enough in certain fields, please modify it and elaborate with more detail. If the answer is missing, please state that it is not specified. The user should have at least one education history stated.` },
-            { role: "user", content: `Simon Fraser University, Burnaby, BC								   Sept 2021 - Present
-Bachelor of Science in Computer Science
-Minor in Mathematics 
-AWS Certified Developer - Associate (In Progress)
-						` },
+            { role: "system", content: `${education_prompt}` },
+            { role: "user", content: `${education_content}` },
           ],
           response_format: zodResponseFormat(Education, "education"),
         });
-        
+
         const educationDetails = education_completion.choices[0].message.parsed;
         console.log("This is the educationDetails in test.js", educationDetails);
 
-
+        // const project_response = project_AI(project_prompt, project_content);
+        // console.log("This is the project_response in test.js", project_response);
         const project_completion = await openai.beta.chat.completions.parse({
           model: "gpt-4o-2024-08-06",
           messages: [
-            { role: "system", content: `You are a technical recruiter. 
-              You will be given a paragraph with information about an applicants projects and should convert it into the given structure.
-              If the answer is not detailed enough in certain fields, please modify it and elaborate with more detail. 
-              If the answer is missing, please state that it is not specified. 
-              Please make the projects relevant and detailed to the ${jobdescription}..` },
-            { role: "user", content: "1. Data Visualization Dashboard:\n   - Developed interactive dashboards using Tableau, resulting in a 30% increase in data accessibility for stakeholders.\n   - Implemented real-time data processing with Apache Kafka, improving data refresh rates by 50%.\n   - Utilized SQL for data extraction and transformation, reducing query execution time by 40%.\n   - Collaborated with cross-functional teams to gather requirements, leading to a 25% reduction in project delivery time.\n\n2. Sales Forecasting Model:\n   - Built predictive models using Python and Scikit-learn, achieving an accuracy rate of 85% in sales predictions.\n   - Integrated time series analysis with ARIMA, enhancing forecast reliability by 20%.\n   - Employed data visualization techniques with Matplotlib to present forecasting results, improving stakeholder understanding by 35%.\n   - Conducted A/B testing on different forecasting methods, resulting in a 15% increase in forecast precision." },
+            { role: "system", content: `${project_prompt}` },
+            { role: "user", content: `${project_content}` },
           ],
           response_format: zodResponseFormat(Projects, "projects"),
         });
-        
+
         const projectDetails = project_completion.choices[0].message.parsed;
         console.log("This is the projectDetails in test.js", projectDetails);
 
-        // try {
+
         const work_experience_completion = await openai.beta.chat.completions.parse({
           model: "gpt-4o-2024-08-06",
           messages: [
-            { role: "system", content: 
-        `You are a technical recruiter. 
-        You will be given multiple paragraphs with information about an applicants work experience. 
-        Please parse it into the relevant data schema. 
-        If the answer is detailed, please do not modify it. 
-        If the answer is not detailed enough in certain fields, 
-        please modify it and elaborate with more detail. 
-        If the answer is missing, please state that it is not specified. 
-        Please make the work experience relevant and detailed to the ${jobdescription}.` },
-            { role: "user", content: `
-Co-Founder / Software Developer [Company: StackAI ]					      Jul 2024 - Present
-Developed a full stack web application using JavaScript, TypeScript, React, and Next.js.
-Built a robust Docx and Pdf creator with text editing capabilities using Docx library.
-Integrated AI features to generate intelligent resumes and cover letters using Langchain and OpenAI API.
-Created robust microservices backend, API’s and Database that uses Supabase Storage, Database, and Edge functions to manage the core features of the application.
-Deploying on Vercel and Supabase to ensure architecture is scalability and high performance.
-Collaborated with the technical team to align technical solutions with customer requirements.
-Managed product development cycle, UX design process to reflect iterative deployment of features.
-
-Front End Developer Co-op [Company: Viridis Research ]					  Aug 2023 - Dec 2023
-Hired to develop a modern website using Gatsby, React, Javascript, HTML / CSS for a clean tech startup.
-Used front end frameworks including CSS, Webpack, and UI Component libraries to manage UI design.
-Integrated multiple third party services from Google API, Mailchimp, Contently to as website services.
-New website has been used for the company's marketing and to raise venture capital investments.
-Engaged in weekly leadership meetings with cross functional team to address business requirements and used agile tools (JIRA, Trello) for project management.
-Conducted testing and debugging to ensure new changes would integrate well into existing project.
-
-Technical Support Specialist / IT Technician [Company: Simon Fraser University ]		   Sept 2021 - Present
-Developed a web app with React and Node.js that consolidated multiple streams of video data into a dashboard for internal use by 20+ AV staff.
-Provided technical support to 500+ service request tickets addressing issues related to end user devices, MFA, networking troubleshooting, hardware, customer support.
-Helped install, update, and troubleshoot Linux, Windows and Mac workstations.
-` },
+            {
+              role: "system", content:
+                `${workexperience_prompt}`
+            },
+            { role: "user", content: `${workexperience_content}` },
           ],
           response_format: zodResponseFormat(WorkExperience, "work_experience"),
         });
-        
+
         const workExperienceDetails = work_experience_completion.choices[0].message.parsed;
         console.log("This is the workExperienceDetails in test.js", workExperienceDetails);
-      // }
 
-      // catch (error) {
-      //   console.error("Error while invoking work experience", error);
-      // }
 
       } catch (error) {
         console.error("Error while invoking project experience", error);
@@ -224,7 +237,18 @@ Helped install, update, and troubleshoot Linux, Windows and Mac workstations.
 
   return (
     <>
-      <div>Test.js</div>
+      {/* <div>Test.js</div> */}
+
+      <form onSubmit={handleSubmit}>
+      <textarea
+        rows="10" // Sets the textarea to 10 rows
+        value={inputValue}
+        onChange={(e) => setInputValue(e.target.value)}
+        placeholder="Enter some text"
+        style={{ width: '50%', resize: 'none' }} // Optional styling
+      />
+      <button type="submit">Submit</button>
+    </form>
     </>
   );
 };
