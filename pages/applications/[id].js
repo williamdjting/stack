@@ -17,13 +17,15 @@ import { supabase } from "@/app/lib/supabase/server";
 //   { id: "3", name: "Item 3", description: "Description for Item 3" },
 // ];
 
+import { executeAI }  from '../openai/executeai'
+
 const ItemPage = ({}) => {
   const router = useRouter();
 
   const { id } = router.query; // extract 'id' from the URL params
 
   console.log({ id }, "the params id");
-  console.log(id, "the params id");
+  // console.log(id, "the params id");
 
   const [newData, setNewData] = useState({
     jobtitle: "",
@@ -124,11 +126,19 @@ const ItemPage = ({}) => {
       .eq('id', id)
       .select()
 
-    if (error) {
-      console.error("Insert error:", error);
-    } else {
-      console.log("Insert successful - printing data", data);
-      setRedirectTo("/projects");
+    // if (error) {
+    //   console.error("Insert error:", error);
+    // } else {
+    //   console.log("Insert successful - printing data", data);
+    //   setRedirectTo("/projects");
+    // }
+    console.log("line 135")
+    
+    try {
+      const aiResponse = await executeAI(newData.resumeskills); // Adjust the argument based on your function definition
+      console.log("AI Response:", aiResponse);
+    } catch (error) {
+      console.error("Error calling executeAI:", error);
     }
   };
 

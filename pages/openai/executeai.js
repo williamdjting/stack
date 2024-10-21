@@ -11,7 +11,7 @@ const openai = new OpenAI({
 });
 // need to protect the API key using https://chatgpt.com/share/67075d4f-24a8-8008-9637-32900bb98ef1
 
-const AIpage = ({ }) => {
+export const executeAI = ({ }) => {
 
 
   const [inputValue, setInputValue] = useState(``);
@@ -268,4 +268,4 @@ Helped install, update, and troubleshoot Linux, Windows and Mac workstations.
   );
 };
 
-export default AIpage;
+export default executeAI;
