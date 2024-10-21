@@ -14,11 +14,26 @@ const openai = new OpenAI({
 const AIpage = ({ }) => {
 
 
-  const [inputValue, setInputValue] = useState('');
+  const [inputValue, setInputValue] = useState(``);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
+    // i need to wrap the AI call inside the handleSubmit and call it inside the handleSubmit on the webform page
     e.preventDefault();
     alert(`Submitted: ${inputValue}`);
+
+    const technicalskills_completion = await openai.beta.chat.completions.parse({
+      model: "gpt-4o-2024-08-06",
+      messages: [
+        { role: "system", content: `${technicalskills_prompt}` },
+        // { role: "user", content: `${technicalskills_content}` },
+        { role: "user", content: `${inputValue}` },
+      ],
+      response_format: zodResponseFormat(TechnicalSkills, "technical_skills"),
+    });
+
+    const technicalskillsDetails = technicalskills_completion.choices[0].message.parsed;
+    console.log("This is the technicalskillsDetails in test.js", technicalskillsDetails);
+
   };
 
 
