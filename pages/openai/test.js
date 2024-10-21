@@ -22,21 +22,50 @@ const openai = new OpenAI({
 const AIpage = ({}) => {
 
 
-  const jobDescriptionVal = 'Develop and maintain web applications';
+  const jobdescription = 
+  `Responsibilities
+* Work with engineers across the company to build new features and products
+* Work side-by-side with user-facing teams (Sales, Support) to best understand the needs of our customers
+* Own problems end-to-end, thinking through everything from user experience, data models, scalability, operability, and ongoing metrics
+* Be responsible for full software development lifecycle: design, development, testing, and operating in production
+* Uphold our high engineering standards and bring consistency to the codebases, infrastructure, and processes you will encounter
+* Serve as technical lead, contributing to and directing the execution of complex projects with other engineers
+* Mentor software engineers and set the standard for the next generation of Brex engineers
+* Design and implement experiments to improve our customers' experiences
+* Proactively identify and prioritize improvements to the team’s processes, codebases, and best practices
+Requirements
+* 3+ years of experience architecting, developing, and testing client-side code
+* Experience with modern web tooling and frameworks (such as TypeScript, React, Emotion, Apollo, Storybook, and Webpack)
+* Familiarity with software engineering development cycles 
+* Ability to hold yourself and the team to high standards
+* Strong communication and interpersonal skills
+* Ability to provide in-depth evaluation of multiple technical directions and determine tradeoffs of each
+* Strong propensity to make data-driven decisions on technical architecture and project prioritization
+* English proficiency/fluency, both written and speaking (note: interviews will be conducted in English)
+* Must be willing to work in office 2 days per week on Wednesday and Thursday, starting September 1st, 2025 when we open our Sao Paulo office
+Bonus points
+* Experience collaborating with experts in product, design, and operations
+* Basic experience with design tools
+* Experience driving initiatives at a broader level across an organization or company
+  `
 
-  const resumeExperienceVal = '3 years at WebSolutions, developed client-side features';
+  const TechnicalSkills = z.object({
+    technicalskills_programminglanguages: z.string(),
+    technicalskills_concepts: z.string().optional(),
+    technicalskills_applications: z.string().optional(),
+    technicalskills_frameworks: z.string().optional(),
+  })
 
-  const resumeProjectsVal = 'Data visualization dashboard, Sales forecasting model';
 
-  const resume1 = z.object({
-    jobDescription: z.string(),
-    responsibilities: z.string(),
-    output1: z.string(),
-  });
-  
-  const structuredLlm1 = llm.withStructuredOutput(resume1);
+  const Education = z.object({
+    education_degree: z.string(),
+    education_degree_details: z.string().optional(),
+    education_date: z.string(),
+    education_courses_taken: z.string().optional(),
+    education_school: z.string(),
+    education_location: z.string(),
+  })
 
-  const prompt1 = `Given the ${jobDescriptionVal} and ${resumeExperienceVal} list out four bullet points ordered by number that describe the experiences as it relates to the job description. Please ensure there are empirical measurements. Please ensure the technical stack is highlighted.`;
 
   const ProjectBullets = z.object({
     project_bullets: z.string(),
@@ -45,11 +74,13 @@ const AIpage = ({}) => {
   const ProjectDetails = z.object({
     project_description: z.string(),
     project_details: z.array(ProjectBullets),
+    project_date: z.string().optional(),
+    project_title: z.string(),
+    project_course: z.string().optional(),
   });
 
   const Projects = z.object({
     projects: z.array(ProjectDetails),
-    // summary_of_projects: z.string(),
     project_description: z.string(),
   });
 
@@ -67,21 +98,8 @@ const AIpage = ({}) => {
 
   const WorkExperience = z.object({
     work_experience: z.array(WorkExperienceDetails),
-    // summary_of_projects: z.string(),
-    // project_description: z.string(),
+
   });
-
-
-  // const resume2 = z.object({
-  //   // jobDescription: z.string(),
-  //   projects: z.string(),
-  //   output2: z.string(),
-  // });
-  
-  // const structuredLlm2 = llm.withStructuredOutput(resume2);
-
-  // // const prompt2 = `Given the ${jobDescriptionVal} and $
-  //   const prompt2 = `Given the ${resumeProjectsVal}, list out four bullet points ordered by number for each project as it relates to job description . Please ensure there are empirical measurements. Please ensure the technical stack is highlighted. `;
 
 
 
@@ -89,20 +107,59 @@ const AIpage = ({}) => {
     // Add your side effects here
 
     const fetchData = async () => {
-      try {
-        // const returnVal1 = await structuredLlm1.invoke(`${prompt1}`);
-        // console.log("This is the returnVal1 in test.js", returnVal1);
 
-        // const returnVal2 = await structuredLlm2.invoke(`${prompt2}`);
-        // console.log("This is the returnVal2 in test.js", returnVal2);
+
+
+
+      try {
+
+        const technicalskills_completion = await openai.beta.chat.completions.parse({
+          model: "gpt-4o-2024-08-06",
+          messages: [
+            { role: "system", content: `You are a technical recruiter. You will be given a paragraph with information about an applicants techincal skills and should categorize it into the given data schema.
+              If the answer is not detailed enough in certain fields, please modify it and elaborate with more detail. Please relate it to the ${jobdescription}. No sentences, short form only.` },
+            { role: "user", content: `C/C++, JavaScript (ES7), TypeScript, Python, HTML/CSS, SQL
+OOP, Relational DB, Web Development, Restful API, Systems Design, Networking, Testing, OS
+Git, Jira, Confluence, Docker, Postman, AWS, Bash, Pg Admin, NPM, Webpack, Component Libraries
+React, Node.js, Next.js, React Native, PostGres
+						` },
+          ],
+          response_format: zodResponseFormat(TechnicalSkills, "technical_skills"),
+        });
+        
+        const technicalskillsDetails = technicalskills_completion.choices[0].message.parsed;
+        console.log("This is the technicalskillsDetails in test.js", technicalskillsDetails);
+
+
+        const education_completion = await openai.beta.chat.completions.parse({
+          model: "gpt-4o-2024-08-06",
+          messages: [
+            { role: "system", content: `You are a technical recruiter. You will be given a paragraph with information about an applicants education history and should convert it into the given structure.
+              If the answer is not detailed enough in certain fields, please modify it and elaborate with more detail. If the answer is missing, please state that it is not specified. The user should have at least one education history stated.` },
+            { role: "user", content: `Simon Fraser University, Burnaby, BC								   Sept 2021 - Present
+Bachelor of Science in Computer Science
+Minor in Mathematics 
+AWS Certified Developer - Associate (In Progress)
+						` },
+          ],
+          response_format: zodResponseFormat(Education, "education"),
+        });
+        
+        const educationDetails = education_completion.choices[0].message.parsed;
+        console.log("This is the educationDetails in test.js", educationDetails);
+
 
         const project_completion = await openai.beta.chat.completions.parse({
           model: "gpt-4o-2024-08-06",
           messages: [
-            { role: "system", content: "You are a technical recruiter. You will be given a paragraph with information about an applicants projects and should convert it into the given structure" },
+            { role: "system", content: `You are a technical recruiter. 
+              You will be given a paragraph with information about an applicants projects and should convert it into the given structure.
+              If the answer is not detailed enough in certain fields, please modify it and elaborate with more detail. 
+              If the answer is missing, please state that it is not specified. 
+              Please make the projects relevant and detailed to the ${jobdescription}..` },
             { role: "user", content: "1. Data Visualization Dashboard:\n   - Developed interactive dashboards using Tableau, resulting in a 30% increase in data accessibility for stakeholders.\n   - Implemented real-time data processing with Apache Kafka, improving data refresh rates by 50%.\n   - Utilized SQL for data extraction and transformation, reducing query execution time by 40%.\n   - Collaborated with cross-functional teams to gather requirements, leading to a 25% reduction in project delivery time.\n\n2. Sales Forecasting Model:\n   - Built predictive models using Python and Scikit-learn, achieving an accuracy rate of 85% in sales predictions.\n   - Integrated time series analysis with ARIMA, enhancing forecast reliability by 20%.\n   - Employed data visualization techniques with Matplotlib to present forecasting results, improving stakeholder understanding by 35%.\n   - Conducted A/B testing on different forecasting methods, resulting in a 15% increase in forecast precision." },
           ],
-          response_format: zodResponseFormat(Projects, "project_details"),
+          response_format: zodResponseFormat(Projects, "projects"),
         });
         
         const projectDetails = project_completion.choices[0].message.parsed;
@@ -112,7 +169,15 @@ const AIpage = ({}) => {
         const work_experience_completion = await openai.beta.chat.completions.parse({
           model: "gpt-4o-2024-08-06",
           messages: [
-            { role: "system", content: "You are a technical recruiter. You will be given multiple paragraphs with information about an applicants work experience. Please parse it into the relevant data schema. If the answer is detailed, please do not modify it. If the answer is not detailed enough in certain fields, please modify it and elaborate with more detail." },
+            { role: "system", content: 
+        `You are a technical recruiter. 
+        You will be given multiple paragraphs with information about an applicants work experience. 
+        Please parse it into the relevant data schema. 
+        If the answer is detailed, please do not modify it. 
+        If the answer is not detailed enough in certain fields, 
+        please modify it and elaborate with more detail. 
+        If the answer is missing, please state that it is not specified. 
+        Please make the work experience relevant and detailed to the ${jobdescription}.` },
             { role: "user", content: `
 Co-Founder / Software Developer [Company: StackAI ]					      Jul 2024 - Present
 Developed a full stack web application using JavaScript, TypeScript, React, and Next.js.
