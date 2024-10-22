@@ -135,8 +135,21 @@ const ItemPage = ({ }) => {
     // this component calls executeAI which calls openAI API
     try {
       console.log("line 140 inside executeAI");
-      const aiResponse = await executeAI(); // should add a parameter to pass in as a props object to the AI
+      const aiResponse = await executeAI(newData); // pass in newData object to executeAI as param
       console.log("AI Response:", aiResponse);
+
+      // try and catch block here to call Aida's docx file generator function
+      try {
+        console.log("line 143 inside docx");
+
+
+
+        console.log("Docx response");
+      }
+      catch (error) {
+        console.error("Error calling docx file generator", error);
+      }
+
     } catch (error) {
       console.error("Error calling executeAI:", error);
     }
