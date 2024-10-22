@@ -6,7 +6,7 @@ import Link from "next/link";
 // Import the CSS module
 import styles from "./sidebar.module.css";
 
-export async function Sidebar() {
+export function Sidebar() {
   return (
     <>
       <br></br>
