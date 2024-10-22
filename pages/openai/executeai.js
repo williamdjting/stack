@@ -11,31 +11,7 @@ const openai = new OpenAI({
 });
 // need to protect the API key using https://chatgpt.com/share/67075d4f-24a8-8008-9637-32900bb98ef1
 
-export const executeAI = ({ }) => {
-
-
-  const [inputValue, setInputValue] = useState(``);
-
-  const handleSubmit = async (e) => {
-    // i need to wrap the AI call inside the handleSubmit and call it inside the handleSubmit on the webform page
-    e.preventDefault();
-    alert(`Submitted: ${inputValue}`);
-
-    const technicalskills_completion = await openai.beta.chat.completions.parse({
-      model: "gpt-4o-2024-08-06",
-      messages: [
-        { role: "system", content: `${technicalskills_prompt}` },
-        // { role: "user", content: `${technicalskills_content}` },
-        { role: "user", content: `${inputValue}` },
-      ],
-      response_format: zodResponseFormat(TechnicalSkills, "technical_skills"),
-    });
-
-    const technicalskillsDetails = technicalskills_completion.choices[0].message.parsed;
-    console.log("This is the technicalskillsDetails in test.js", technicalskillsDetails);
-
-  };
-
+export const executeAI = async () => {
 
   const jobdescription =
     `Responsibilities
@@ -177,95 +153,75 @@ Helped install, update, and troubleshoot Linux, Windows and Mac workstations.
 
   });
 
-  useEffect(() => {
-    // Add your side effects here
-    const fetchData = async () => {
-      try {
-
-        // const technicalskills_response = technicalskills_AI(technicalskills_prompt, technicalskills_content)
-        // console.log("This is the technicalskills_response in test.js", technicalskills_response);
-        const technicalskills_completion = await openai.beta.chat.completions.parse({
-          model: "gpt-4o-2024-08-06",
-          messages: [
-            { role: "system", content: `${technicalskills_prompt}` },
-            { role: "user", content: `${technicalskills_content}` },
-          ],
-          response_format: zodResponseFormat(TechnicalSkills, "technical_skills"),
-        });
-
-        const technicalskillsDetails = technicalskills_completion.choices[0].message.parsed;
-        console.log("This is the technicalskillsDetails in test.js", technicalskillsDetails);
-
-        // const education_response = education_AI(education_prompt, education_content);
-        // console.log("This is the education_response in test.js", education_response);
-        const education_completion = await openai.beta.chat.completions.parse({
-          model: "gpt-4o-2024-08-06",
-          messages: [
-            { role: "system", content: `${education_prompt}` },
-            { role: "user", content: `${education_content}` },
-          ],
-          response_format: zodResponseFormat(Education, "education"),
-        });
-
-        const educationDetails = education_completion.choices[0].message.parsed;
-        console.log("This is the educationDetails in test.js", educationDetails);
-
-        // const project_response = project_AI(project_prompt, project_content);
-        // console.log("This is the project_response in test.js", project_response);
-        const project_completion = await openai.beta.chat.completions.parse({
-          model: "gpt-4o-2024-08-06",
-          messages: [
-            { role: "system", content: `${project_prompt}` },
-            { role: "user", content: `${project_content}` },
-          ],
-          response_format: zodResponseFormat(Projects, "projects"),
-        });
-
-        const projectDetails = project_completion.choices[0].message.parsed;
-        console.log("This is the projectDetails in test.js", projectDetails);
 
 
-        const work_experience_completion = await openai.beta.chat.completions.parse({
-          model: "gpt-4o-2024-08-06",
-          messages: [
-            {
-              role: "system", content:
-                `${workexperience_prompt}`
-            },
-            { role: "user", content: `${workexperience_content}` },
-          ],
-          response_format: zodResponseFormat(WorkExperience, "work_experience"),
-        });
+  try {
 
-        const workExperienceDetails = work_experience_completion.choices[0].message.parsed;
-        console.log("This is the workExperienceDetails in test.js", workExperienceDetails);
+    // const technicalskills_response = technicalskills_AI(technicalskills_prompt, technicalskills_content)
+    // console.log("This is the technicalskills_response in test.js", technicalskills_response);
+    const technicalskills_completion = await openai.beta.chat.completions.parse({
+      model: "gpt-4o-2024-08-06",
+      messages: [
+        { role: "system", content: `${technicalskills_prompt}` },
+        { role: "user", content: `${technicalskills_content}` },
+      ],
+      response_format: zodResponseFormat(TechnicalSkills, "technical_skills"),
+    });
+
+    const technicalskillsDetails = technicalskills_completion.choices[0].message.parsed;
+    // console.log("This is the technicalskillsDetails in test.js", technicalskillsDetails);
+
+    // const education_response = education_AI(education_prompt, education_content);
+    // console.log("This is the education_response in test.js", education_response);
+    const education_completion = await openai.beta.chat.completions.parse({
+      model: "gpt-4o-2024-08-06",
+      messages: [
+        { role: "system", content: `${education_prompt}` },
+        { role: "user", content: `${education_content}` },
+      ],
+      response_format: zodResponseFormat(Education, "education"),
+    });
+
+    const educationDetails = education_completion.choices[0].message.parsed;
+    // console.log("This is the educationDetails in test.js", educationDetails);
+
+    // // const project_response = project_AI(project_prompt, project_content);
+    // // console.log("This is the project_response in test.js", project_response);
+    const project_completion = await openai.beta.chat.completions.parse({
+      model: "gpt-4o-2024-08-06",
+      messages: [
+        { role: "system", content: `${project_prompt}` },
+        { role: "user", content: `${project_content}` },
+      ],
+      response_format: zodResponseFormat(Projects, "projects"),
+    });
+
+    const projectDetails = project_completion.choices[0].message.parsed;
+    // console.log("This is the projectDetails in test.js", projectDetails);
 
 
-      } catch (error) {
-        console.error("Error while invoking project experience", error);
-      }
-    };
+    const work_experience_completion = await openai.beta.chat.completions.parse({
+      model: "gpt-4o-2024-08-06",
+      messages: [
+        {
+          role: "system", content:
+            `${workexperience_prompt}`
+        },
+        { role: "user", content: `${workexperience_content}` },
+      ],
+      response_format: zodResponseFormat(WorkExperience, "work_experience"),
+    });
 
-    fetchData(); // Call the async function
+    const workExperienceDetails = work_experience_completion.choices[0].message.parsed;
+    // console.log("This is the workExperienceDetails in test.js", workExperienceDetails);
 
-  }, []);
+    console.log("bottom of the executeAI function");
 
-  return (
-    <>
-      {/* <div>Test.js</div> */}
+    return { technicalskillsDetails, educationDetails, projectDetails, workExperienceDetails }
 
-      <form onSubmit={handleSubmit}>
-      <textarea
-        rows="10" // Sets the textarea to 10 rows
-        value={inputValue}
-        onChange={(e) => setInputValue(e.target.value)}
-        placeholder="Enter some text"
-        style={{ width: '50%', resize: 'none' }} // Optional styling
-      />
-      <button type="submit">Submit</button>
-    </form>
-    </>
-  );
+  } catch (error) {
+    console.error("Error while invoking execute AI function", error);
+  }
+
+
 };
-
-export default executeAI;

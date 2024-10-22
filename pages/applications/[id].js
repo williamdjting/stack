@@ -10,13 +10,6 @@ import { useEffect, useState } from "react";
 
 import { supabase } from "@/app/lib/supabase/server";
 
-// // Mock data - need to rewrite to pull from supabase
-// const items = [
-//   { id: "1", name: "Item 1", description: "Description for Item 1" },
-//   { id: "2", name: "Item 2", description: "Description for Item 2" },
-//   { id: "3", name: "Item 3", description: "Description for Item 3" },
-// ];
-
 import { executeAI }  from '../openai/executeai'
 
 const ItemPage = ({}) => {
@@ -89,7 +82,7 @@ const ItemPage = ({}) => {
     //   coverletterstylerequest: newData.CoverLetterStyleRequest,
     // });
 
-    console.log("line 47", id);
+    console.log("line 92", id);
   }, [id]);
 
   
@@ -126,18 +119,21 @@ const ItemPage = ({}) => {
       .eq('id', id)
       .select()
 
+
+// this redirect should occur but i think after the executeAI function is called?
     // if (error) {
     //   console.error("Insert error:", error);
     // } else {
     //   console.log("Insert successful - printing data", data);
     //   setRedirectTo("/projects");
     // }
-    console.log("line 135")
+    console.log("line 135 outside executeAI")
     
 
-    // need to rewrite this to a custom hook to call the AI function
+// this component calls executeAI which calls openAI API
     try {
-      const aiResponse = await executeAI(newData.resumeskills); // Adjust the argument based on your function definition
+      console.log("line 140 inside executeAI");
+      const aiResponse = await executeAI(); // should add a parameter to pass in as a props object to the AI
       console.log("AI Response:", aiResponse);
     } catch (error) {
       console.error("Error calling executeAI:", error);
