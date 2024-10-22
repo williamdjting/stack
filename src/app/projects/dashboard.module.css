@@ -10,7 +10,7 @@
 
 .box1 {
   width: 15%; /* Box 1 occupies 20% of the width */
-  background-color: black;
+  background-color: #f5f7f8;
   padding: 20px;
   text-align: center;
   border: 1px solid black;

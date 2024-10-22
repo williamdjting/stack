@@ -21,6 +21,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/lib/readCSV.tsx", "pages/applications/[id].js", "src/app/lib/supabase/server.ts"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/lib/readCSV.tsx", "pages/applications/[id].js", "src/app/lib/supabase/server.ts", "pages/openai/test.js"],
   "exclude": ["node_modules"]
 }
