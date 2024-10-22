@@ -138,7 +138,7 @@ const ItemPage = ({ }) => {
       const aiResponse = await executeAI(newData); // pass in newData object to executeAI as param
       console.log("AI Response:", aiResponse);
 
-      // try and catch block here to call Aida's docx file generator function
+      // try and catch block here to call Aida's docx file generator function, this docx has to be called after executeAI is successful, not before or in parallel
       try {
         console.log("line 143 inside docx");
 
