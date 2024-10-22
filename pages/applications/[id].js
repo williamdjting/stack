@@ -4,15 +4,17 @@
 
 import { useRouter } from "next/router";
 
+import Link from 'next/link';
+
 // import { useRouter } from "next/navigation";
 
 import { useEffect, useState } from "react";
 
 import { supabase } from "@/app/lib/supabase/server";
 
-import { executeAI }  from '../openai/executeai'
+import { executeAI } from '../openai/executeai'
 
-const ItemPage = ({}) => {
+const ItemPage = ({ }) => {
   const router = useRouter();
 
   const { id } = router.query; // extract 'id' from the URL params
@@ -85,7 +87,7 @@ const ItemPage = ({}) => {
     console.log("line 92", id);
   }, [id]);
 
-  
+
 
   // Handler to update form data
   const handleChange = (e) => {
@@ -120,7 +122,7 @@ const ItemPage = ({}) => {
       .select()
 
 
-// this redirect should occur but i think after the executeAI function is called?
+    // this redirect should occur but i think after the executeAI function is called?
     // if (error) {
     //   console.error("Insert error:", error);
     // } else {
@@ -128,9 +130,9 @@ const ItemPage = ({}) => {
     //   setRedirectTo("/projects");
     // }
     console.log("line 135 outside executeAI")
-    
 
-// this component calls executeAI which calls openAI API
+
+    // this component calls executeAI which calls openAI API
     try {
       console.log("line 140 inside executeAI");
       const aiResponse = await executeAI(); // should add a parameter to pass in as a props object to the AI
@@ -142,7 +144,14 @@ const ItemPage = ({}) => {
 
   return (
     <div>
-      <h1>Application Page {newData.id}</h1>
+
+      <div>
+        <Link href={`/projects`}>
+          <h1>Application Page {newData.id}</h1>
+        </Link>
+      </div>
+
+      
       <form onSubmit={handleSubmit}>
         <div>
           Job Title:

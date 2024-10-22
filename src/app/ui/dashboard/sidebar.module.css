@@ -1,0 +1,11 @@
+/* Use a class name for the text styling */
+.text {
+    color: black;
+    /* Apply black color to all div and link elements */
+    
+}
+
+.text:hover {
+    text-decoration: underline;
+}
+
