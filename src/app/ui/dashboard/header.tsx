@@ -7,7 +7,7 @@ import styles from "./header.module.css";
 import Link from 'next/link';
 
 
-export async function Header() {
+export function Header() {
   
 
   return (
