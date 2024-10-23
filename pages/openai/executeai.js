@@ -128,38 +128,37 @@ export const executeAI = async (param) => {
     education_location: z.string(),
   })
 
-  const ProjectBullets = z.object({
+  const ProjectDetails = z.object({
     project_bullets: z.string(),
   });
 
-  const ProjectDetails = z.object({
+  const Project = z.object({
     project_description: z.string(),
-    project_details: z.array(ProjectBullets),
+    project_details: z.array(ProjectDetails),
     project_date: z.string().optional(),
     project_title: z.string(),
     project_course: z.string().optional(),
   });
 
-  const Projects = z.object({
-    projects: z.array(ProjectDetails),
+  const ProjectsArray = z.object({
+    projects: z.array(Project),
     project_description: z.string(),
   });
 
-  const WorkExperienceBullets = z.object({
+  const WorkExperienceDetails = z.object({
     workexperience_bullets: z.string(),
   });
 
-  const WorkExperienceDetails = z.object({
+  const WorkExperience = z.object({
     workexperience_description: z.string(),
-    workexperience_details: z.array(WorkExperienceBullets),
+    workexperience_details: z.array(WorkExperienceDetails),
     workexperience_date: z.string(),
     workexperience_jobtitle: z.string(),
     workexperience_company: z.string(),
   });
 
-  const WorkExperience = z.object({
-    work_experience: z.array(WorkExperienceDetails),
-
+  const WorkExperienceArray = z.object({
+    work_experience: z.array(WorkExperience),
   });
 
 
@@ -202,7 +201,7 @@ export const executeAI = async (param) => {
         { role: "system", content: `${project_prompt}` },
         { role: "user", content: `${project_content}` },
       ],
-      response_format: zodResponseFormat(Projects, "projects"),
+      response_format: zodResponseFormat(ProjectsArray, "projects"),
     });
 
     const projectDetails = project_completion.choices[0].message.parsed;
@@ -218,7 +217,7 @@ export const executeAI = async (param) => {
         },
         { role: "user", content: `${workexperience_content}` },
       ],
-      response_format: zodResponseFormat(WorkExperience, "work_experience"),
+      response_format: zodResponseFormat(WorkExperienceArray, "work_experience"),
     });
 
     const workExperienceDetails = work_experience_completion.choices[0].message.parsed;

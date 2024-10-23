@@ -151,6 +151,8 @@ const ItemPage = ({ }) => {
 
         // try and catch block here to call Aida's docx file generator function, 
         // this docx has to be called after executeAI is successful - not before or in parallel
+        // if (aiResponse) {}
+        // next docx into line 154 if statement
         try {
           console.log("line 143 inside docx");
 
