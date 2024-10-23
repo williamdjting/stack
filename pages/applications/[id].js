@@ -19,7 +19,7 @@ const ItemPage = ({ }) => {
 
   const { id } = router.query; // extract 'id' from the URL params
 
-  console.log({ id }, "the params id");
+  // console.log({ id }, "the params id");
   // console.log(id, "the params id");
 
   const [newData, setNewData] = useState({
@@ -105,53 +105,71 @@ const ItemPage = ({ }) => {
     e.preventDefault();
 
     // Insert new data to Supabase
-    const { data, error } = await supabase
-      .from("notes2")
-      .update({
-        jobtitle: newData.JobTitle,
-        company: newData.Company,
-        jobdescription: newData.JobDescription,
-        resumeexperience: newData.ResumeExperience,
-        resumeskills: newData.ResumeSkills,
-        resumeprojects: newData.ResumeProjects,
-        resumeeducation: newData.ResumeEducation,
-        coverlettercontactinfo: newData.CoverLetterContactInfo,
-        coverletterstylerequest: newData.CoverLetterStyleRequest,
-      })
-      .eq('id', id)
-      .select()
-
-
-    // this redirect should occur but i think after the executeAI function is called?
-    // if (error) {
-    //   console.error("Insert error:", error);
-    // } else {
-    //   console.log("Insert successful - printing data", data);
-    //   setRedirectTo("/projects");
-    // }
-    console.log("line 135 outside executeAI")
-
-
-    // this component calls executeAI which calls openAI API
     try {
-      console.log("line 140 inside executeAI");
-      const aiResponse = await executeAI(newData); // pass in newData object to executeAI as param
-      console.log("AI Response:", aiResponse);
+      const { data, error } = await supabase
+        .from("notes2")
+        .update({
+          jobtitle: newData.JobTitle,
+          company: newData.Company,
+          jobdescription: newData.JobDescription,
+          resumeexperience: newData.ResumeExperience,
+          resumeskills: newData.ResumeSkills,
+          resumeprojects: newData.ResumeProjects,
+          resumeeducation: newData.ResumeEducation,
+          coverlettercontactinfo: newData.CoverLetterContactInfo,
+          coverletterstylerequest: newData.CoverLetterStyleRequest,
+        })
+        .eq('id', id)
+        .select()
 
-      // try and catch block here to call Aida's docx file generator function, this docx has to be called after executeAI is successful, not before or in parallel
+
+        // updates the DB with new entry then sets data in useState to be the same data
+        if (data) {
+          setNewData(data);
+        } else if (error) {
+          console.error(error);
+          setError(error.message); // Set error if there's an issue
+        }
+
+
+      // this redirect should occur but i think after the executeAI function is called?
+      // if (error) {
+      //   console.error("Insert error:", error);
+      // } else {
+      //   console.log("Insert successful - printing data", data);
+      //   setRedirectTo("/projects");
+      // }
+      console.log("line 135 outside executeAI")
+
+
+      // this component calls executeAI which calls openAI API
       try {
-        console.log("line 143 inside docx");
+        console.log("line 140 inside executeAI");
+        // use the updated data in notes2 held in useState as passed in param to executeAI
+        const aiResponse = await executeAI(newData); // pass in newData object to executeAI as param
+        console.log("AI Response:", aiResponse);
+
+        // try and catch block here to call Aida's docx file generator function, 
+        // this docx has to be called after executeAI is successful - not before or in parallel
+        try {
+          console.log("line 143 inside docx");
 
 
 
-        console.log("Docx response");
+          console.log("Docx response");
+        }
+        catch (error) {
+          console.error("Error calling docx file generator", error);
+        }
+
+      } catch (error) {
+        console.error("Error calling executeAI:", error);
       }
-      catch (error) {
-        console.error("Error calling docx file generator", error);
-      }
 
-    } catch (error) {
-      console.error("Error calling executeAI:", error);
+    }
+
+    catch (error) {
+      console.error("Error calling supabase:", error);
     }
   };
 
@@ -164,7 +182,7 @@ const ItemPage = ({ }) => {
         </Link>
       </div>
 
-      
+
       <form onSubmit={handleSubmit}>
         <div>
           Job Title:
