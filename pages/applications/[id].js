@@ -186,10 +186,7 @@ const ItemPage = ({}) => {
 							headers: {
 								'Content-Type': 'application/json',
 							},
-							body: JSON.stringify({
-								coverlettercontactinfo: newData.coverlettercontactinfo,
-								projects,
-							}),
+							body: JSON.stringify({ aiResponse }),
 						});
 
 						if (response.ok) {
