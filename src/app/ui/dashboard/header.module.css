@@ -9,19 +9,20 @@
   margin-bottom: 10px;
   padding-left: 20px;
   padding-right: 20px;
-
+  background-color: black;
 }
 
 .headerTitle {
   font-size: x-large;
   margin-left: 50px;
+  color: white;
 }
 
 
 .headerMyAccount {
   position: absolute; 
   right: 0;
-
+  color: white;
   margin-right: 20px;
 }
 

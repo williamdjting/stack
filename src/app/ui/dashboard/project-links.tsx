@@ -1,4 +1,4 @@
-'use client'
+// 'use client'
 
 import  datasheetData  from '../../lib/datasheet-data';
 

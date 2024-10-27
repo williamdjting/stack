@@ -1,15 +1,15 @@
-import  TestSubmitData  from './testing2'
+// import  TestSubmitData  from './testing2'
 
-export default function Page() {
-  return (
-    <main>
+// export default function Page() {
+//   return (
+//     <main>
 
-        hi
+//         hi
 
-        <div>
-          <TestSubmitData/>
-        </div>
+//         <div>
+//           <TestSubmitData/>
+//         </div>
 
-    </main>
-  );
-}
+//     </main>
+//   );
+// }

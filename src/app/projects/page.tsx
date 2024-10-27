@@ -13,9 +13,9 @@ import { Sidebar } from "@/app/ui/dashboard/sidebar";
 
 // import { AddProject } from "../ui/dashboard/add-project";
 import styles from "./dashboard.module.css";
-import { isDataView } from "util/types";
+// import { isDataView } from "util/types";
 
-import SideNav from '@/app/ui/dashboard/sidenav';
+// import SideNav from '@/app/ui/dashboard/sidenav';
 
 // this is the homepage where the forms get rendedred
 
@@ -37,7 +37,7 @@ export default function Page() {
 
           <div className={styles.box2}>
             <Notes />
-            <Notes1 />
+            {/* <Notes1 /> */}
           </div>
         </div>
         <Footer />

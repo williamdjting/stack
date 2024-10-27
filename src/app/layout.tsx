@@ -5,7 +5,7 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "StackAI App",
+  title: "StackUp AI",
   description: "Job Hunting Tool supercharged by AI",
 };
 

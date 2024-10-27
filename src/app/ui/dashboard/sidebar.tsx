@@ -1,33 +1,33 @@
-`use client`;
+"use client";
 
-import React, { createContext, useState, useEffect, useContext } from "react";
-
-import styles from "./sidebar.module.css";
-
+import React from "react";
 import Link from "next/link";
 
-export async function Sidebar() {
+// Import the CSS module
+import styles from "./sidebar.module.css";
+
+export function Sidebar() {
   return (
     <>
       <br></br>
 
-      <div>
+      <div className={styles.text}>
         <div>My Documents</div>
-        <div> (Resume & Cover Letters)</div>
+        <div>(Resume & Cover Letters)</div>
       </div>
 
       <br></br>
       <br></br>
 
-      <Link href="/projects">
-      Existing Applications
+      <Link href="/projects" className={styles.text}>
+        Existing Applications
       </Link>
 
       <br></br>
       <br></br>
       <br></br>
 
-      <Link href="/applications/new">
+      <Link href="/applications/new" className={styles.text}>
         New Application
       </Link>
 
@@ -35,7 +35,7 @@ export async function Sidebar() {
       <br></br>
       <br></br>
 
-      <div>Settings</div>
+      <div className={styles.text}>Settings</div>
     </>
   );
 }

@@ -1,4 +1,4 @@
-'use client'
+// 'use client'
 import styles from './ui-dashboard.module.css'
 
 export function Card({
