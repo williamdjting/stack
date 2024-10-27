@@ -175,6 +175,37 @@ const ItemPage = ({}) => {
 					console.log('line 143 inside docx');
 
 					console.log('Docx response');
+
+					if (!aiResponse || Object.keys(aiResponse).length === 0) {
+						throw new Error('Received empty or invalid data from OpenAI');
+					} else {
+						console.log('Starting to generate docx');
+
+						const response = await fetch('/api/generate-docx', {
+							method: 'POST',
+							headers: {
+								'Content-Type': 'application/json',
+							},
+							body: JSON.stringify({
+								coverlettercontactinfo: newData.coverlettercontactinfo,
+								projects,
+							}),
+						});
+
+						if (response.ok) {
+							console.log('Response is okay');
+							const blob = await response.blob();
+							const url = window.URL.createObjectURL(blob);
+							const a = document.createElement('a');
+							a.href = url;
+							a.download = 'ProjectReport.docx';
+							document.body.appendChild(a);
+							a.click();
+							a.remove();
+						} else {
+							console.error('Failed to generate document');
+						}
+					}
 				} catch (error) {
 					console.error('Error calling docx file generator', error);
 				}
@@ -183,33 +214,6 @@ const ItemPage = ({}) => {
 			}
 		} catch (error) {
 			console.error('Error calling supabase:', error);
-		}
-	};
-
-	const downloadDocx = async (event) => {
-		event.preventDefault();
-		const response = await fetch('/api/generate-docx', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify({
-				coverlettercontactinfo: newData.coverlettercontactinfo,
-				projects,
-			}),
-		});
-
-		if (response.ok) {
-			const blob = await response.blob();
-			const url = window.URL.createObjectURL(blob);
-			const a = document.createElement('a');
-			a.href = url;
-			a.download = 'ProjectReport.docx';
-			document.body.appendChild(a);
-			a.click();
-			a.remove();
-		} else {
-			console.error('Failed to generate document');
 		}
 	};
 
@@ -345,7 +349,6 @@ const ItemPage = ({}) => {
 					type="submit"
 					value="Create Resume"
 				/>
-				<button onClick={downloadDocx}>Download Docx</button>
 				<br></br>
 				<br></br>
 				<input
