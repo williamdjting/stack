@@ -34,31 +34,6 @@ const ItemPage = ({}) => {
 		coverletterstylerequest: '',
 	});
 
-	//exmaple json for projects
-	const [projects, setProjects] = useState([
-		{
-			ProjectDetails: {
-				title: 'Data Visualization Dashboard',
-				ProjectBullets: [
-					'Developed interactive dashboards using Tableau, resulting in a 30% increase in data accessibility for stakeholders.',
-					'Implemented real-time data processing with Apache Kafka, improving data refresh rates by 50%.',
-					'Utilized SQL for data extraction and transformation, reducing query execution time by 40%.',
-					'Collaborated with cross-functional teams to gather requirements, leading to a 25% reduction in project delivery time.',
-				],
-			},
-		},
-		{
-			ProjectDetails: {
-				title: 'Sales Forecasting Model',
-				ProjectBullets: [
-					'Built predictive models using Python and Scikit-learn, achieving an accuracy rate of 85% in sales predictions.',
-					'Integrated time series analysis with ARIMA, enhancing forecast reliability by 20%. Employed data visualization techniques with Matplotlib to present forecasting results, improving stakeholder understanding by 35%.',
-					'Conducted A/B testing on different forecasting methods, resulting in a 15% increase in forecast precision.',
-				],
-			},
-		},
-	]);
-
 	const [error, setError] = useState(null);
 
 	const [redirectTo, setRedirectTo] = useState(null);
@@ -186,7 +161,9 @@ const ItemPage = ({}) => {
 							headers: {
 								'Content-Type': 'application/json',
 							},
-							body: JSON.stringify({ aiResponse }),
+							body: JSON.stringify({
+								aiResponse,
+							}),
 						});
 
 						if (response.ok) {
