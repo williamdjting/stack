@@ -29,18 +29,6 @@ export default async function handler(req, res) {
                     bottom: { style: "single", size: 4, color: "000000" },
                   },
                 }),
-                new Paragraph("Education Details: "),
-                new Paragraph(`Degree: ${educationDetails.education_degree}`),
-                new Paragraph(`Degree details: ${educationDetails.education_degree_details}`),
-                new Paragraph(`Date: ${educationDetails.education_date}`),
-                new Paragraph(`Courses taken: ${educationDetails.education_courses_taken}`),
-                new Paragraph(`School name: ${educationDetails.education_school}`),
-                new Paragraph(`Location: ${educationDetails.education_location}`),
-                new Paragraph("Technical Skills: "),
-                new Paragraph(`Programming languages: ${technicalskillsDetails.technicalskills_programminglanguages}`),
-                new Paragraph(`Concepts: ${technicalskillsDetails.technicalskills_concepts}`),
-                new Paragraph(`Applications: ${technicalskillsDetails.technicalskills_applications}`),
-                new Paragraph(`Frameworks: ${technicalskillsDetails.technicalskills_frameworks}`),
               ],
             })},
             properties: {
@@ -50,29 +38,126 @@ export default async function handler(req, res) {
                 new Paragraph({
                   children: [
                     new TextRun({
+                      text: "Education",
+                      size: 24
+                    }),
+                  ],
+                spacing: {
+                before: 200,
+                after: 100,
+                },
+              }),
+              new Paragraph({
+                children: [
+                  new TextRun({
+                    text: educationDetails.education_degree,
+                    size: 20,
+                    bold: true,
+                  }),
+                ],
+              spacing: {
+              before: 100,
+              after: 100,
+              },
+            }),
+            new Paragraph({
+              children: [
+                new TextRun({
+                  text: `${educationDetails.education_school}, ${educationDetails.education_location}`,
+                  size: 20,
+                }),
+              ],
+            spacing: {
+            before: 100,
+            after: 100,
+            },
+          }),
+          new Paragraph({
+            children: [
+              new TextRun({
+                text: "Work Experience",
+                size: 24
+              }),
+            ],
+          spacing: {
+          before: 300,
+          after: 100,
+          },
+        }),
+        ...parseWorkExperienceJsonToParagraphs(workExperienceDetails),
+                new Paragraph({
+                  children: [
+                    new TextRun({
                       text: "Projects",
                       size: 24
                     }),
                   ],
                 spacing: {
-                before: 200,
-                after: 200,
+                before: 300,
+                after: 100,
                 },
               }),
                 ...parseProjectJsonToParagraphs(projectDetails),
-                new Paragraph({
-                  children: [
-                    new TextRun({
-                      text: "Work Experience",
-                      size: 24
-                    }),
-                  ],
-                spacing: {
-                before: 200,
-                after: 200,
-                },
+              new Paragraph({
+                children: [
+                  new TextRun({
+                    text: "Technical Skills",
+                    size: 24
+                  }),
+                ],
+              spacing: {
+              before: 300,
+              after: 100,
+              },
+            }),
+            new Paragraph({
+              children: [
+                new TextRun({
+                  text: `Programming languages: ${technicalskillsDetails.technicalskills_programminglanguages}`,
+                  size: 20,
+                }),
+              ],
+            spacing: {
+            before: 100,
+            after: 100,
+            },
+          }),
+          new Paragraph({
+            children: [
+              new TextRun({
+                text: `Concepts: ${technicalskillsDetails.technicalskills_concepts}`,
+                size: 20,
               }),
-              ...parseWorkExperienceJsonToParagraphs(workExperienceDetails),
+            ],
+          spacing: {
+          before: 100,
+          after: 100,
+          },
+        }),
+        new Paragraph({
+          children: [
+            new TextRun({
+              text: `Applications: ${technicalskillsDetails.technicalskills_applications}`,
+              size: 20,
+            }),
+          ],
+        spacing: {
+        before: 100,
+        after: 100,
+        },
+      }),
+      new Paragraph({
+        children: [
+          new TextRun({
+            text: `Frameworks: ${technicalskillsDetails.technicalskills_frameworks}`,
+            size: 20,
+          }),
+        ],
+      spacing: {
+      before: 100,
+      after: 100,
+      },
+    }),
               ]
           }],
       });
@@ -97,8 +182,8 @@ export default async function handler(req, res) {
                                 }),
                             ],
                             spacing: {
-                                before: 200,
-                                after: 200,
+                                before: 100,
+                                after: 100,
                                 line: 240,
                             },
                             }),
@@ -106,13 +191,13 @@ export default async function handler(req, res) {
                                 children: [
                                     new TextRun({
                                         text: project.project_description,
-                                        bold: true,
+                                        italics: true,
                                         size: 20,
                                     }),
                                 ],
                                 spacing: {
-                                    before: 200,
-                                    after: 200,
+                                    before: 100,
+                                    after: 100,
                                     line: 240,
                                 },
                             })
@@ -135,8 +220,8 @@ export default async function handler(req, res) {
                                         level: 0,
                                     },
                                     spacing: {
-                                        before: 200,
-                                        after: 200,
+                                        before: 100,
+                                        after: 100,
                                         line: 240,
                                     },
                                 }));
@@ -170,8 +255,8 @@ export default async function handler(req, res) {
                               }),
                           ],
                           spacing: {
-                              before: 200,
-                              after: 200,
+                              before: 100,
+                              after: 100,
                               line: 240,
                           },
                           }),
@@ -179,13 +264,13 @@ export default async function handler(req, res) {
                               children: [
                                   new TextRun({
                                       text: experience.workexperience_jobtitle,
-                                      bold: true,
+                                      italics: true,
                                       size: 20,
                                   }),
                               ],
                               spacing: {
-                                  before: 200,
-                                  after: 200,
+                                  before: 100,
+                                  after: 100,
                                   line: 240,
                               },
                           })
@@ -208,8 +293,8 @@ export default async function handler(req, res) {
                                       level: 0,
                                   },
                                   spacing: {
-                                      before: 200,
-                                      after: 200,
+                                      before: 100,
+                                      after: 100,
                                       line: 240,
                                   },
                               }));
