@@ -156,7 +156,7 @@ const ItemPage = ({}) => {
 					} else {
 						console.log('Starting to generate docx');
 
-						const response = await fetch('/api/generate-docx', {
+						const response = await fetch('/api/generate-resume-docx', {
 							method: 'POST',
 							headers: {
 								'Content-Type': 'application/json',
