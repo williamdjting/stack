@@ -221,12 +221,12 @@ export default async function handler(req, res) {
                 after: 200,
                 },
               }),
-                ...parseJsonToParagraphs(projectDetails),
+                ...parseProjectJsonToParagraphs(projectDetails),
               ]
           }],
       });
 
-      function parseJsonToParagraphs(data) {
+      function parseProjectJsonToParagraphs(data) {
         const paragraphs = [];
     
         if (data && typeof data === "object") {
@@ -237,6 +237,20 @@ export default async function handler(req, res) {
                     if (project.project_description) {
                         // Add project description as a paragraph
                         paragraphs.push(
+                            new Paragraph({
+                              children: [
+                                new TextRun({
+                                    text: project.project_title,
+                                    bold: true,
+                                    size: 20,
+                                }),
+                            ],
+                            spacing: {
+                                before: 200,
+                                after: 200,
+                                line: 240,
+                            },
+                            }),
                             new Paragraph({
                                 children: [
                                     new TextRun({
@@ -258,7 +272,7 @@ export default async function handler(req, res) {
                     if (project.project_details && Array.isArray(project.project_details)) {
                         project.project_details.forEach(detail => {
                             if (detail.project_bullets) {
-                                // Add project bullets
+                                // Project bullets
                                 paragraphs.push(new Paragraph({
                                     children: [
                                         new TextRun({
