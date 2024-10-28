@@ -1,7 +1,7 @@
 import { Document, Packer, Paragraph, TextRun, Header, AlignmentType } from 'docx';
 
 export default async function handler(req, res) {
-    console.log("Received request to generate DOCX");
+    console.log("Received request to generate resume DOCX");
 
     try {
       const { aiResponse } = req.body;
@@ -10,7 +10,7 @@ export default async function handler(req, res) {
     }
     const { educationDetails, projectDetails, technicalskillsDetails, workExperienceDetails } = aiResponse;
 
-        console.log("Creating document...");
+        console.log("Creating resume document...");
 
         const doc = new Document({
           sections: [{
@@ -310,7 +310,7 @@ export default async function handler(req, res) {
     
 
       const buffer = await Packer.toBuffer(doc);
-      res.setHeader('Content-Disposition', 'attachment; filename=ProjectReport.docx');
+      res.setHeader('Content-Disposition', 'attachment; filename=Resume.docx');
       res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document');
       res.setHeader('Content-Length', buffer.length);
       res.send(buffer);
