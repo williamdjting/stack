@@ -222,6 +222,19 @@ export default async function handler(req, res) {
                 },
               }),
                 ...parseProjectJsonToParagraphs(projectDetails),
+                new Paragraph({
+                  children: [
+                    new TextRun({
+                      text: "Work Experience",
+                      size: 24
+                    }),
+                  ],
+                spacing: {
+                before: 200,
+                after: 200,
+                },
+              }),
+              ...parseWorkExperienceJsonToParagraphs(workExperienceDetails),
               ]
           }],
       });
@@ -298,6 +311,79 @@ export default async function handler(req, res) {
     
         return paragraphs;
     }
+
+    function parseWorkExperienceJsonToParagraphs(data) {
+      const paragraphs = [];
+  
+      if (data && typeof data === "object") {
+          // Check if the data is of type WorkExperienceArray
+          if (data.work_experience && Array.isArray(data.work_experience)) {
+              // Iterate through each work experience
+              data.work_experience.forEach((experience) => {
+                  if (experience.workexperience_description) {
+                      // Add work experience description as a paragraph
+                      paragraphs.push(
+                          new Paragraph({
+                            children: [
+                              new TextRun({
+                                  text: experience.workexperience_company,
+                                  bold: true,
+                                  size: 20,
+                              }),
+                          ],
+                          spacing: {
+                              before: 200,
+                              after: 200,
+                              line: 240,
+                          },
+                          }),
+                          new Paragraph({
+                              children: [
+                                  new TextRun({
+                                      text: experience.workexperience_jobtitle,
+                                      bold: true,
+                                      size: 20,
+                                  }),
+                              ],
+                              spacing: {
+                                  before: 200,
+                                  after: 200,
+                                  line: 240,
+                              },
+                          })
+                      );
+                  }
+  
+                  // Process work experience details
+                  if (experience.workexperience_details && Array.isArray(experience.workexperience_details)) {
+                      experience.workexperience_details.forEach(detail => {
+                          if (detail.workexperience_bullets) {
+                              // Work experience bullets
+                              paragraphs.push(new Paragraph({
+                                  children: [
+                                      new TextRun({
+                                          text: detail.workexperience_bullets,
+                                          size: 20,
+                                      })
+                                  ],
+                                  bullet: {
+                                      level: 0,
+                                  },
+                                  spacing: {
+                                      before: 200,
+                                      after: 200,
+                                      line: 240,
+                                  },
+                              }));
+                          }
+                      });
+                  }
+              });
+          }
+      }
+  
+      return paragraphs;
+  }
     
 
       const buffer = await Packer.toBuffer(doc);
