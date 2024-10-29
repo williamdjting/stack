@@ -106,6 +106,20 @@ export const executeAI = async (param) => {
 	// Provided technical support to 500+ service request tickets addressing issues related to end user devices, MFA, networking troubleshooting, hardware, customer support.
 	// Helped install, update, and troubleshoot Linux, Windows and Mac workstations.`
 
+	//Ai for cover letter
+	const coverletter_prompt = `You are a technical recruiter. 
+        You will be given multiple paragraphs with information about an applicants projects, work experience, and skills.
+        Additionally, you will be given information about the applicant. 
+        Please parse it into the relevant data schema. 
+        If the answer is not detailed enough in certain fields, 
+        please modify it and elaborate with more detail. 
+        Please write an introduction paragraph that states the position the applicant is applying for and why they would be a good fit.
+        Please write a body paragraph that states how the applicant's project and work experience would make them an ideal fit for the position.
+        Please write a closing paragraph that states the applicant's enthusiasm for the position and why they picked this company.
+        Please make the answer relevant and detailed to the ${jobdescription}.`;
+
+	const coverletter_content = param.resumeexperience;
+
 	const TechnicalSkills = z.object({
 		technicalskills_programminglanguages: z.string(),
 		technicalskills_concepts: z.string().optional(),
@@ -153,6 +167,19 @@ export const executeAI = async (param) => {
 
 	const WorkExperienceArray = z.object({
 		work_experience: z.array(WorkExperience),
+	});
+
+	//new
+	const CoverLetter = z.object({
+		applicant_name: z.string(),
+		applicant_email: z.string().optional(),
+		applicant_phone: z.string().optional(),
+		date: z.string().optional(),
+		company_name: z.string(),
+		position_title: z.string(),
+		introduction: z.string(),
+		body: z.string(),
+		closing: z.string(),
 	});
 
 	try {
@@ -222,6 +249,23 @@ export const executeAI = async (param) => {
 			work_experience_completion.choices[0].message.parsed;
 		// console.log("This is the workExperienceDetails in test.js", workExperienceDetails);
 
+		//new
+		const cover_letter_completion = await openai.beta.chat.completions.parse({
+			model: 'gpt-4o-mini',
+			messages: [
+				{ role: 'system', content: `${coverletter_prompt}` },
+				{ role: 'user', content: `${coverletter_content}` },
+			],
+			response_format: zodResponseFormat(CoverLetter, 'cover_letter'),
+		});
+
+		const coverLetterDetails =
+			cover_letter_completion.choices[0].message.parsed;
+		console.log(
+			'This is the coverLetterDetails in test.js',
+			coverLetterDetails
+		);
+
 		console.log('bottom of the executeAI function');
 
 		return {
@@ -229,6 +273,8 @@ export const executeAI = async (param) => {
 			educationDetails,
 			projectDetails,
 			workExperienceDetails,
+			//new
+			coverLetterDetails,
 		};
 	} catch (error) {
 		console.error('Error while invoking execute AI function', error);

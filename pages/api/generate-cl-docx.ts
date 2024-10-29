@@ -8,11 +8,14 @@ export default async function handler(req, res) {
     //   if (!aiResponse ) {
     //     return res.status(400).json({ error: 'Missing required details' });
     // }
-    const { applicantName, applicantEmail, applicantPhone, date, companyName, positionTitle, introduction, body, closing} = req.body;
+    //const { applicantName, applicantEmail, applicantPhone, date, companyName, positionTitle, introduction, body, closing} = req.body;
+    const { aiResponse } = req.body;
 
-    if (!applicantName || !applicantEmail || !applicantPhone || !date || !companyName || !positionTitle || !introduction || !body || !closing) {
-      return res.status(400).json({ error: 'Missing required fields' });
-  }
+    if (!aiResponse || !aiResponse.coverLetterDetails ) {
+      return res.status(400).json({ error: 'Missing required fields for cover letter' });
+    }
+
+    const { coverLetterDetails } = aiResponse;
 
       console.log("Creating cl document...");
 
@@ -22,7 +25,7 @@ export default async function handler(req, res) {
             new Paragraph({
               children: [
                 new TextRun({
-                  text: applicantName,
+                  text: coverLetterDetails.applicant_name,
                   bold: true,
                   size: 20
                 })
@@ -35,7 +38,7 @@ export default async function handler(req, res) {
             new Paragraph({
               children: [
                 new TextRun({
-                  text: `${applicantPhone} | ${applicantEmail}`,
+                  text: `${coverLetterDetails.applicant_phone} | ${coverLetterDetails.applicant_email}`,
                   size: 20
                 })
               ],
@@ -47,7 +50,7 @@ export default async function handler(req, res) {
             new Paragraph({
               children: [
                 new TextRun({
-                  text: date,
+                  text: coverLetterDetails.date,
                   bold: true,
                   size: 20
                 })
@@ -60,7 +63,7 @@ export default async function handler(req, res) {
             new Paragraph({
               children: [
                 new TextRun({
-                  text: `${companyName} - ${positionTitle}`,
+                  text: `${coverLetterDetails.company_name} - ${coverLetterDetails.position_title}`,
                   size: 20
                 })
               ],
@@ -85,7 +88,7 @@ export default async function handler(req, res) {
               children: [
                 new TextRun({
                   //This should come from the AI
-                  text: introduction,
+                  text: coverLetterDetails.introduction,
                   size: 20
                 })
               ],
@@ -99,7 +102,7 @@ export default async function handler(req, res) {
               children: [
                 new TextRun({
                   //This should come from the AI
-                  text: body,
+                  text: coverLetterDetails.body,
                   size: 20
                 })
               ],
@@ -113,7 +116,7 @@ export default async function handler(req, res) {
               children: [
                 new TextRun({
                   //This should come from the AI
-                  text: closing,
+                  text: coverLetterDetails.closing,
                   size: 20
                 })
               ],
@@ -138,7 +141,7 @@ export default async function handler(req, res) {
             new Paragraph({
               children: [
                 new TextRun({
-                  text: applicantName,
+                  text: coverLetterDetails.applicant_name,
                   size: 20
                 })
               ],
@@ -158,6 +161,6 @@ export default async function handler(req, res) {
       res.send(buffer);
   } catch (error) {
       console.error("Error generating DOCX:", error);
-      res.status(500).json({ error: "Failed to generate document" });
+      res.status(500).json({ error: "Failed to generate cover letter document" });
   }
 }

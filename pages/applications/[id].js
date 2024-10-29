@@ -166,8 +166,18 @@ const ItemPage = ({}) => {
 							}),
 						});
 
+						const response2 = await fetch('/api/generate-cl-docx', {
+							method: 'POST',
+							headers: {
+								'Content-Type': 'application/json',
+							},
+							body: JSON.stringify({
+								aiResponse,
+							}),
+						});
+
 						if (response.ok) {
-							console.log('Response is okay');
+							console.log('Resume response is okay');
 							const blob = await response.blob();
 							const url = window.URL.createObjectURL(blob);
 							const a = document.createElement('a');
@@ -177,7 +187,29 @@ const ItemPage = ({}) => {
 							a.click();
 							a.remove();
 						} else {
-							console.error('Failed to generate document');
+							console.error(
+								'Failed to generate resume document',
+								response.statusText
+							);
+						}
+
+						console.log('starting to generate cl');
+
+						if (response2.ok) {
+							console.log('Cover Letter response is okay');
+							const blob2 = await response2.blob();
+							const url2 = window.URL.createObjectURL(blob2);
+							const a2 = document.createElement('a');
+							a2.href = url2;
+							a2.download = 'CoverLetter.docx';
+							document.body.appendChild(a2);
+							a2.click();
+							a2.remove();
+						} else {
+							console.error(
+								'Failed to generate cl document',
+								response2.statusText
+							);
 						}
 					}
 				} catch (error) {
