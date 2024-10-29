@@ -106,7 +106,7 @@ export const executeAI = async (param) => {
 	// Provided technical support to 500+ service request tickets addressing issues related to end user devices, MFA, networking troubleshooting, hardware, customer support.
 	// Helped install, update, and troubleshoot Linux, Windows and Mac workstations.`
 
-	//Ai for cover letter
+	//cover letter prompt
 	const coverletter_prompt = `You are a technical recruiter. 
         You will be given multiple paragraphs with information about an applicants projects, work experience, and skills.
         Additionally, you will be given information about the applicant. 
@@ -118,7 +118,10 @@ export const executeAI = async (param) => {
         Please write a closing paragraph that states the applicant's enthusiasm for the position and why they picked this company.
         Please make the answer relevant and detailed to the ${jobdescription}.`;
 
-	const coverletter_content = param.resumeexperience;
+	//cover letter content
+	const coverletter_content_job_description = param.jobdescription;
+	const coverletter_content_job_title = param.jobtitle;
+	const coverletter_content_company = param.company;
 
 	const TechnicalSkills = z.object({
 		technicalskills_programminglanguages: z.string(),
@@ -169,7 +172,7 @@ export const executeAI = async (param) => {
 		work_experience: z.array(WorkExperience),
 	});
 
-	//new
+	//cover letter zod structure
 	const CoverLetter = z.object({
 		applicant_name: z.string(),
 		applicant_email: z.string().optional(),
@@ -249,12 +252,17 @@ export const executeAI = async (param) => {
 			work_experience_completion.choices[0].message.parsed;
 		// console.log("This is the workExperienceDetails in test.js", workExperienceDetails);
 
-		//new
+		//cover letter completion
+		const coverLetterUserContent = `${coverletter_content_job_description}\n${coverletter_content_company}\n${coverletter_content_job_title}${workexperience_content}\n${project_content}\n${technicalskills_content}\n${education_content}`;
 		const cover_letter_completion = await openai.beta.chat.completions.parse({
 			model: 'gpt-4o-mini',
 			messages: [
 				{ role: 'system', content: `${coverletter_prompt}` },
-				{ role: 'user', content: `${coverletter_content}` },
+				// { role: 'user', content: `${coverletter_content}` },
+				{
+					role: 'user',
+					content: coverLetterUserContent,
+				},
 			],
 			response_format: zodResponseFormat(CoverLetter, 'cover_letter'),
 		});

@@ -4,11 +4,6 @@ export default async function handler(req, res) {
     console.log("Received request to generate cover letter DOCX");
 
     try {
-    //   const { aiResponse } = req.body;
-    //   if (!aiResponse ) {
-    //     return res.status(400).json({ error: 'Missing required details' });
-    // }
-    //const { applicantName, applicantEmail, applicantPhone, date, companyName, positionTitle, introduction, body, closing} = req.body;
     const { aiResponse } = req.body;
 
     if (!aiResponse || !aiResponse.coverLetterDetails ) {

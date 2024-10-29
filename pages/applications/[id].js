@@ -166,16 +166,6 @@ const ItemPage = ({}) => {
 							}),
 						});
 
-						const response2 = await fetch('/api/generate-cl-docx', {
-							method: 'POST',
-							headers: {
-								'Content-Type': 'application/json',
-							},
-							body: JSON.stringify({
-								aiResponse,
-							}),
-						});
-
 						if (response.ok) {
 							console.log('Resume response is okay');
 							const blob = await response.blob();
@@ -193,18 +183,28 @@ const ItemPage = ({}) => {
 							);
 						}
 
+						const response2 = await fetch('/api/generate-cl-docx', {
+							method: 'POST',
+							headers: {
+								'Content-Type': 'application/json',
+							},
+							body: JSON.stringify({
+								aiResponse,
+							}),
+						});
+
 						console.log('starting to generate cl');
 
 						if (response2.ok) {
 							console.log('Cover Letter response is okay');
-							const blob2 = await response2.blob();
-							const url2 = window.URL.createObjectURL(blob2);
-							const a2 = document.createElement('a');
-							a2.href = url2;
-							a2.download = 'CoverLetter.docx';
-							document.body.appendChild(a2);
-							a2.click();
-							a2.remove();
+							const blob = await response2.blob();
+							const url = window.URL.createObjectURL(blob);
+							const a = document.createElement('a');
+							a.href = url;
+							a.download = 'CoverLetter.docx';
+							document.body.appendChild(a);
+							a.click();
+							a.remove();
 						} else {
 							console.error(
 								'Failed to generate cl document',
@@ -220,52 +220,6 @@ const ItemPage = ({}) => {
 			}
 		} catch (error) {
 			console.error('Error calling supabase:', error);
-		}
-	};
-
-	//Example cover letter data
-	const coverLetterData = {
-		applicantName: 'John Doe',
-		// applicantAddress: '123 Main St, Anytown, USA',
-		applicantEmail: 'johndoe@example.com',
-		applicantPhone: '(123) 456-7890',
-		date: 'October 27, 2024',
-		// hiringManagerName: 'Jane Smith',
-		companyName: 'ABC Company',
-		// companyAddress: '456 Corporate Ave, Business City, USA',
-		positionTitle: 'Software Developer',
-		introduction:
-			'I am writing to express my interest in the Software Developer position at ABC Company, as advertised on your careers page. With a solid background in software development and a passion for creating efficient, user-friendly applications, I believe I would be a great fit for your team.',
-		body: 'In my previous role at XYZ Corp, I successfully led several projects, including the development of a customer relationship management tool that improved client satisfaction by 30%. My experience with various programming languages and frameworks, along with my strong problem-solving skills, would allow me to contribute effectively to your projects.',
-		closing:
-			'I am excited about the opportunity to bring my unique talents to ABC Company and help drive innovative solutions. Thank you for considering my application. I look forward to the possibility of discussing my qualifications further.',
-	};
-
-	const downloadCoverLetter = async (event) => {
-		event.preventDefault();
-		const response = await fetch('/api/generate-cl-docx', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			//Example data
-			body: JSON.stringify(coverLetterData),
-		});
-		console.log(
-			'Cover letter data being sent:',
-			JSON.stringify(coverLetterData, null, 2)
-		);
-		if (response.ok) {
-			const blob = await response.blob();
-			const url = window.URL.createObjectURL(blob);
-			const a = document.createElement('a');
-			a.href = url;
-			a.download = 'CoverLetter.docx';
-			document.body.appendChild(a);
-			a.click();
-			a.remove();
-		} else {
-			console.error('Failed to generate cover letter');
 		}
 	};
 
@@ -399,15 +353,14 @@ const ItemPage = ({}) => {
 
 				<input
 					type="submit"
-					value="Create Resume"
+					value="Create Resume and Cover Letter"
 				/>
 				<br></br>
 				<br></br>
-				<input
+				{/* <input
 					type="submit"
 					value="Create Cover Letter"
-				/>
-				<button onClick={downloadCoverLetter}>Download Cover Letter!</button>
+				/> */}
 			</form>
 		</div>
 	);
