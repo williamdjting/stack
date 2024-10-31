@@ -15,10 +15,6 @@ const openai = new OpenAI({
 export const executeAI = async (param) => {
 	console.log('inside executeai, line 16', param);
 
-	// const today = new Date();
-	// const options = { month: 'long', day: 'numeric' };
-	// const formattedDate = new Intl.DateTimeFormat('en-US', options).format(today);
-
 	const jobdescription = param.jobtitle;
 	//     `Responsibilities
 	// * Work with engineers across the company to build new features and products
@@ -183,7 +179,6 @@ export const executeAI = async (param) => {
 		applicant_name: z.string(),
 		applicant_email: z.string().optional(),
 		applicant_phone: z.string().optional(),
-		date: z.string().optional(),
 		company_name: z.string(),
 		position_title: z.string(),
 		introduction: z.string(),

@@ -4,6 +4,9 @@ export default async function handler(req, res) {
     console.log("Received request to generate cover letter DOCX");
 
     try {
+    const today = new Date();
+    const formattedDate =  today.toISOString().split('T')[0];
+
     const { aiResponse } = req.body;
 
     if (!aiResponse || !aiResponse.coverLetterDetails ) {
@@ -45,7 +48,7 @@ export default async function handler(req, res) {
             new Paragraph({
               children: [
                 new TextRun({
-                  text: coverLetterDetails.date,
+                  text: formattedDate,
                   bold: true,
                   size: 20
                 })
