@@ -47,15 +47,15 @@ export default function NewApplication() {
     const { data, error } = await supabase
       .from("notes2")
       .insert({
-        jobtitle: insertNewData.JobTitle,
-        company: insertNewData.Company,
-        jobdescription: insertNewData.JobDescription,
-        resumeexperience: insertNewData.ResumeExperience,
-        resumeskills: insertNewData.ResumeSkills,
-        resumeprojects: insertNewData.ResumeProjects,
-        resumeeducation: insertNewData.ResumeEducation,
-        coverlettercontactinfo: insertNewData.CoverLetterContactInfo,
-        coverletterstylerequest: insertNewData.CoverLetterStyleRequest,
+        jobtitle: insertNewData.jobtitle,
+        company: insertNewData.company,
+        jobdescription: insertNewData.jobdescription,
+        resumeexperience: insertNewData.resumeexperience,
+        resumeskills: insertNewData.resumeskills,
+        resumeprojects: insertNewData.resumeprojects,
+        resumeeducation: insertNewData.resumeeducation,
+        coverlettercontactinfo: insertNewData.coverlettercontactinfo,
+        coverletterstylerequest: insertNewData.coverletterstylerequest,
       })
       .select();
 
