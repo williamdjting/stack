@@ -322,7 +322,7 @@ const ItemPage = ({}) => {
 						required
 					/>
 				</div>
-				{/* <br></br>
+				<br></br>
 				<div>
 					Cover Letter - Contact Info:
 					<textarea
@@ -334,9 +334,9 @@ const ItemPage = ({}) => {
 						onChange={handleChange}
 						required
 					/>
-				</div> */}
+				</div>
 				<br></br>
-				{/* <div>
+				<div>
 					Cover Letter - Style Request:
 					<textarea
 						name="CoverLetterStyleRequest"
@@ -348,7 +348,7 @@ const ItemPage = ({}) => {
 						required
 					/>
 				</div>
-				<br></br> */}
+				<br></br>
 				<br></br>
 
 				<input

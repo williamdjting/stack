@@ -166,7 +166,7 @@ return (
         Job Title:
         <textarea
           name="JobTitle"
-          value={insertNewData.JobTitle}
+          value={insertNewData.jobtitle}
           onChange={handleChange}
           placeholder="Enter Job Title"
           rows={5}
@@ -179,7 +179,7 @@ return (
         Company:
         <textarea
           name="Company"
-          value={insertNewData.Company}
+          value={insertNewData.company}
           onChange={handleChange}
           placeholder="Enter Company"
           rows={5}
@@ -192,7 +192,7 @@ return (
         Job Description:
         <textarea
           name="JobDescription"
-          value={insertNewData.JobDescription}
+          value={insertNewData.jobdescription}
           onChange={handleChange}
           placeholder="Enter Job Description"
           rows={5}
@@ -205,7 +205,7 @@ return (
         Resume - Experience:
         <textarea
           name="ResumeExperience"
-          value={insertNewData.ResumeExperience}
+          value={insertNewData.resumeexperience}
           onChange={handleChange}
           placeholder="Enter Resume Experience"
           rows={5}
@@ -218,7 +218,7 @@ return (
         Resume - Projects:
         <textarea
           name="ResumeProjects"
-          value={insertNewData.ResumeProjects}
+          value={insertNewData.resumeprojects}
           onChange={handleChange}
           placeholder="Enter Resume Projects"
           rows={5}
@@ -231,7 +231,7 @@ return (
         Resume - Skills:
         <textarea
           name="ResumeSkills"
-          value={insertNewData.ResumeSkills}
+          value={insertNewData.resumeskills}
           onChange={handleChange}
           placeholder="Enter Resume Skills"
           rows={5}
@@ -244,7 +244,7 @@ return (
         Resume - Education:
         <textarea
           name="ResumeEducation"
-          value={insertNewData.ResumeEducation}
+          value={insertNewData.resumeeducation}
           onChange={handleChange}
           placeholder="Enter Resume Education"
           rows={5}
@@ -253,11 +253,11 @@ return (
         />
       </div>
       <br />
-      {/* <div>
+      <div>
           Cover Letter - Contact Info:
           <textarea
             name="CoverLetterContactInfo"
-            value={insertNewData.CoverLetterContactInfo}
+            value={insertNewData.coverlettercontactinfo}
             onChange={handleChange}
             placeholder="Enter Cover Letter Contact Info"
             rows={5}
@@ -270,16 +270,16 @@ return (
           Cover Letter - Style Request:
           <textarea
             name="CoverLetterStyleRequest"
-            value={insertNewData.CoverLetterStyleRequest}
+            value={insertNewData.coverletterstylerequest}
             onChange={handleChange}
             placeholder="Enter Cover Letter Style Request"
             rows={5}
             cols={25}
             required
           />
-        </div> */}
-      {/* <br />
-        <br /> */}
+        </div>
+      <br />
+        <br />
       <input
         type="submit"
         value="Create Resume and Cover Letter"
