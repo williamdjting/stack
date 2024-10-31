@@ -5,10 +5,10 @@ export default async function handler(req, res) {
 
     try {
       const { aiResponse } = req.body;
-      if (!aiResponse || !aiResponse.educationDetails || !aiResponse.projectDetails || !aiResponse.technicalskillsDetails || !aiResponse.workExperienceDetails) {
+      if (!aiResponse || !aiResponse.educationDetails || !aiResponse.projectDetails || !aiResponse.technicalskillsDetails || !aiResponse.workExperienceDetails || !aiResponse.coverLetterDetails) {
         return res.status(400).json({ error: 'Missing required details' });
     }
-    const { educationDetails, projectDetails, technicalskillsDetails, workExperienceDetails } = aiResponse;
+    const { educationDetails, projectDetails, technicalskillsDetails, workExperienceDetails, coverLetterDetails } = aiResponse;
 
         console.log("Creating resume document...");
 
@@ -19,7 +19,7 @@ export default async function handler(req, res) {
                 new Paragraph({
                   children: [
                     new TextRun({
-                      text: 'John Doe Example',
+                      text: coverLetterDetails.applicant_name,
                       bold: true,
                       size: 32,
                       }),

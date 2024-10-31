@@ -15,6 +15,10 @@ const openai = new OpenAI({
 export const executeAI = async (param) => {
 	console.log('inside executeai, line 16', param);
 
+	// const today = new Date();
+	// const options = { month: 'long', day: 'numeric' };
+	// const formattedDate = new Intl.DateTimeFormat('en-US', options).format(today);
+
 	const jobdescription = param.jobtitle;
 	//     `Responsibilities
 	// * Work with engineers across the company to build new features and products
@@ -123,6 +127,7 @@ export const executeAI = async (param) => {
 	const coverletter_content_job_description = param.jobdescription;
 	const coverletter_content_job_title = param.jobtitle;
 	const coverletter_content_company = param.company;
+	const coverletter_content_user_info = param.coverlettercontactinfo;
 
 	const TechnicalSkills = z.object({
 		technicalskills_programminglanguages: z.string(),
@@ -254,7 +259,7 @@ export const executeAI = async (param) => {
 		// console.log("This is the workExperienceDetails in test.js", workExperienceDetails);
 
 		//cover letter completion
-		const coverLetterUserContent = `${coverletter_content_job_description}\n${coverletter_content_company}\n${coverletter_content_job_title}${workexperience_content}\n${project_content}\n${technicalskills_content}\n${education_content}`;
+		const coverLetterUserContent = `${coverletter_content_user_info}\n${coverletter_content_job_description}\n${coverletter_content_company}\n${coverletter_content_job_title}${workexperience_content}\n${project_content}\n${technicalskills_content}\n${education_content}`;
 		const cover_letter_completion = await openai.beta.chat.completions.parse({
 			model: 'gpt-4o-mini',
 			messages: [
