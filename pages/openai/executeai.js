@@ -42,7 +42,7 @@ export const executeAI = async (param) => {
 	// * Experience driving initiatives at a broader level across an organization or company
 	//   `
 	const technicalskills_prompt = `You are a technical recruiter. You will be given a paragraph with information about an applicants techincal skills and should categorize it into the given data schema.
-  //               If the answer is not detailed enough in certain fields, please modify it and elaborate with more detail. Please relate it to the ${jobdescription}. No sentences, short form only.`;
+  //               If the answer is not detailed enough in certain fields, please modify it and elaborate with more detail. If the answer is not relevantly technical, keep it as is. Please relate it to the ${jobdescription}. No sentences, short form only.`;
 
 	const technicalskills_content = param.resumeskills;
 	//   `C/C++, JavaScript (ES7), TypeScript, Python, HTML/CSS, SQL
@@ -54,7 +54,8 @@ export const executeAI = async (param) => {
             You will be given a paragraph with information about an applicants education history and should convert it into the given structure.
             If the answer is not detailed enough in certain fields, please modify it and elaborate with more detail. 
             If the answer is missing, please state that it is not specified.
-            The user should have at least one education history stated.`;
+            The user should have at least one education history stated.
+						If the answer is not relevantly technical, keep it as is.`;
 
 	const education_content = param.resumeeducation;
 	//   `Simon Fraser University, Burnaby, BC								   Sept 2021 - Present
@@ -65,7 +66,7 @@ export const executeAI = async (param) => {
 	const project_prompt = `You are a technical recruiter. 
         //       You will be given a paragraph with information about an applicants projects and should convert it into the given structure.
         //       If the answer is not detailed enough in certain fields, please modify it and elaborate with more detail. 
-        //       If the answer is missing, please state that it is not specified.   `;
+        //       If the answer is missing, please state that it is not specified. If the answer is not relevantly technical, keep it as is.  `;
 	//       Please make the projects relevant and detailed to the job description: ${jobdescription}..`
 
 	const project_content = param.resumeprojects;
@@ -79,7 +80,7 @@ export const executeAI = async (param) => {
         Please parse it into the relevant data schema. 
         If the answer is detailed, please do not modify it. 
         If the answer is not detailed enough in certain fields, 
-        please modify it and elaborate with more detail. 
+        please modify it and elaborate with more detail. If the answer is not relevantly technical, keep it as is. 
         If the answer is missing, please state that it is not specified. 
         Please make the work experience relevant and detailed to the ${jobdescription}.`;
 
