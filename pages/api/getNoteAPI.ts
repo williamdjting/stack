@@ -1,24 +1,27 @@
 // pages/api/notes.ts
-import type { NextApiRequest, NextApiResponse } from 'next';
-import { supabase } from '@/app/lib/supabase/server';
 
-// const supabase = createClient();
+// not being used - here as boilerplate
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+// import type { NextApiRequest, NextApiResponse } from 'next';
+// import { supabase } from '@/app/lib/supabase/server';
 
-  try {
-    // const supabase = createClient();  // Call createClient() within the request scope
-    const { data, error } = await supabase.from("notes1").select();
-    console.log('Supabase Data:', data);
-    console.log('Supabase Error:', error);
+// // const supabase = createClient();
 
-    if (error) {
-      console.error(error);
-      return res.status(500).json({ error: err.message || 'An unexpected error occurred.' });
-    }
+// export default async function handler(req: NextApiRequest, res: NextApiResponse) {
 
-    return res.status(200).json({ data });
-  } catch (err) {
-    return res.status(500).json({ error: 'An unexpected error occurred.' });
-  }
-}
+//   try {
+//     // const supabase = createClient();  // Call createClient() within the request scope
+//     const { data, error } = await supabase.from("notes1").select();
+//     console.log('Supabase Data:', data);
+//     console.log('Supabase Error:', error);
+
+//     if (error) {
+//       console.error(error);
+//       return res.status(500).json({ error: err.message || 'An unexpected error occurred.' });
+//     }
+
+//     return res.status(200).json({ data });
+//   } catch (err) {
+//     return res.status(500).json({ error: 'An unexpected error occurred.' });
+//   }
+// }

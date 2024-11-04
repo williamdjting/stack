@@ -159,7 +159,11 @@ export default function NewApplication() {
 
 	return (
 		<div>
-			<h1>New Application</h1>
+			<div>
+				<Link href={`/dashboard`}>
+					<h1>New Application</h1>
+				</Link>
+			</div>
 			<form onSubmit={handleSubmit}>
 				<div>
 					Job Title:

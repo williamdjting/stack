@@ -19,7 +19,7 @@ export function Sidebar() {
       <br></br>
       <br></br>
 
-      <Link href="/projects" className={styles.text}>
+      <Link href="/dashboard" className={styles.text}>
         Existing Applications
       </Link>
 
