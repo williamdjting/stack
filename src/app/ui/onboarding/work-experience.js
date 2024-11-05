@@ -1,7 +1,15 @@
 'use client';
 import React, { useState } from 'react';
 
+import { useRouter } from 'next/navigation';
+
+
 export function WorkExperienceForm() {
+
+
+    const router = useRouter();
+
+
     const [insertNewData, setInsertNewData] = useState({
         company: '',
         location: '',
@@ -28,11 +36,15 @@ export function WorkExperienceForm() {
         e.preventDefault();
         // Here you would typically add your Supabase submission logic
         console.log("Form submitted:", insertNewData);
+
+
+        router.push("/onboarding/leadership-volunteer-experience")
+
     };
 
     return (
         <div>
-			<div>Add your work experience</div>
+            <div>Add your work experience</div>
             <br></br>
             <div>Work Experience 1</div>
             <form onSubmit={handleSubmit}>
@@ -126,9 +138,9 @@ export function WorkExperienceForm() {
                 <div>I currently work here</div>
                 <br />
                 <div>
-                        Description      
-                        <br></br>              
-                        <textarea
+                    Description
+                    <br></br>
+                    <textarea
                         name="other"
                         value={insertNewData.other}
                         onChange={handleChange}

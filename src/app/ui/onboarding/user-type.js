@@ -1,7 +1,12 @@
 'use client';
 import React, { useState } from 'react';
 
+import { useRouter } from 'next/navigation';
+
 export function UserTypeForm() {
+    const router = useRouter();
+
+
     const [insertNewData, setInsertNewData] = useState({
         computerscience: '',
         business: '',
@@ -25,6 +30,8 @@ export function UserTypeForm() {
         e.preventDefault();
         // Here you would typically add your Supabase submission logic
         console.log("Form submitted:", insertNewData);
+
+        router.push("/onboarding/education")
     };
 
     return (

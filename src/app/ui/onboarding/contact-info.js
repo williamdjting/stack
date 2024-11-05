@@ -1,7 +1,13 @@
 'use client';
 import React, { useState } from 'react';
 
+import { useRouter } from 'next/navigation';
+
+
+
 export function ContactInfoForm() {
+    const router = useRouter();
+
     const [insertNewData, setInsertNewData] = useState({
         firstname: '',
         lastname: '',
@@ -27,6 +33,8 @@ export function ContactInfoForm() {
         e.preventDefault();
         // Here you would typically add your Supabase submission logic
         console.log("Form submitted:", insertNewData);
+
+        router.push("/onboarding/user-type");
     };
 
     return (
@@ -61,7 +69,7 @@ export function ContactInfoForm() {
                 <div>
                     Email
                     <input
-                        name="lastname"
+                        name="email"
                         value={insertNewData.email}
                         onChange={handleChange}
                         placeholder="Enter your email"
@@ -94,7 +102,7 @@ export function ContactInfoForm() {
                 <div>
                     Github
                     <input
-                        name="Github"
+                        name="github"
                         value={insertNewData.github}
                         onChange={handleChange}
                         placeholder="Enter your github"
