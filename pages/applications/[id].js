@@ -226,7 +226,7 @@ const ItemPage = ({}) => {
 	return (
 		<div>
 			<div>
-				<Link href={`/projects`}>
+				<Link href={`/dashboard`}>
 					<h1>Application Page {newData.id}</h1>
 				</Link>
 			</div>
