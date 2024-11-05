@@ -40,8 +40,9 @@ export function RegistrationForm() {
                 </div>
                 <br />
                 <div>
-                    Company:
+                    Password:
                     <input
+                        type="password"
                         name="password"
                         value={insertNewData.password}
                         onChange={handleChange}

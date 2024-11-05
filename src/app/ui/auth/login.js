@@ -39,8 +39,9 @@ export function LoginForm() {
                 </div>
                 <br />
                 <div>
-                    Company:
+                    Password:
                     <input
+                        type="password"
                         name="password"
                         value={insertNewData.password}
                         onChange={handleChange}
@@ -52,7 +53,7 @@ export function LoginForm() {
 				<div>Forget Password?</div>
                 <input
                     type="submit"
-                    value="Register"
+                    value="Login"
                 />
 				<div>Don’t have an account? Register</div>
             </form>
