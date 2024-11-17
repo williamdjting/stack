@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import { supabase } from '@/app/lib/supabase/server';
 import React, { useState, useEffect } from 'react';
 
-import { executeAI } from '../openai/executeai';
+import { executeAI } from '../../openai/executeai';
 
 export default function NewApplication() {
 	const [insertNewData, setInsertNewData] = useState({

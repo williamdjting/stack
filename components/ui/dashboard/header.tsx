@@ -1,7 +1,7 @@
 'use client'
 
 import React, { createContext, useState, useEffect, useContext } from "react";
-import { supabase } from '../../lib/supabase/server';
+import { supabase } from '../../../lib/supabase/server';
 import { useRouter } from 'next/navigation';
 
 import styles from "./header.module.css";

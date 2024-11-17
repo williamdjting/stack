@@ -12,7 +12,7 @@ import { useEffect, useState } from 'react';
 
 import { supabase } from '@/app/lib/supabase/server';
 
-import { executeAI } from '../openai/executeai';
+import { executeAI } from '../../openai/executeai';
 
 const ItemPage = ({}) => {
 	const router = useRouter();

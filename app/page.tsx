@@ -1,9 +1,9 @@
 import { Card } from "../ui/dashboard/cards";
 //import { datasheetData } from "../lib/datasheet-data";
 import { Form } from "../ui/dashboard/form";
-import Notes from "../ui/dashboard/notes";
+import Notes from "../components/ui/dashboard/notes";
 
-import Notes1 from "../ui/dashboard/notes1";
+import Notes1 from "../components/ui/dashboard/notes1";
 
 import { Header } from "@/app/ui/dashboard/header";
 
