@@ -37,7 +37,7 @@
     "app/dashboard/applications/[id].js",
     "src/app/lib/supabase/server.ts",
     "app/openai/test.js"
-  ],
+, "app/dashboard/page.js"  ],
   "exclude": [
     "node_modules"
   ]

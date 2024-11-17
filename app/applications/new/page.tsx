@@ -1,11 +1,4 @@
-import Notes from "../components/ui/dashboard/notes";
-
-
-import { Header } from "../components/ui/dashboard/header";
-
-import { Footer } from "../components/ui/dashboard/footer";
-
-import { Sidebar } from "../components/ui/dashboard/sidebar";
+import  NewPage  from '../../../components/ui/applications/new/NewPage'
 
 // import { AddProject } from "../ui/dashboard/add-project";
 import styles from "../styles/dashboard.module.css";
@@ -20,7 +13,7 @@ export default function Page() {
     <main>
       <div>
 
-        We are at root
+        <NewPage/>
       </div>
     </main>
   );
