@@ -1,4 +1,4 @@
-'use client'; // Add this line at the top if this is in the app directory
+// 'use client'; // Add this line at the top if this is in the app directory
 
 import { useRouter } from 'next/navigation';
 
