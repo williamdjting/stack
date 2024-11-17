@@ -2,7 +2,7 @@
 
 import React, { createContext, useState, useEffect, useContext } from "react";
 
-import styles from "./footer.module.css";
+import styles from "../../../styles/footer.module.css";
 
 export async function Footer() {
   

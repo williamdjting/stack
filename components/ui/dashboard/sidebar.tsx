@@ -4,7 +4,7 @@ import React from "react";
 import Link from "next/link";
 
 // Import the CSS module
-import styles from "./sidebar.module.css";
+import styles from "../../../styles/sidebar.module.css";
 
 export function Sidebar() {
   return (

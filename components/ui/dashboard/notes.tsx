@@ -1,8 +1,8 @@
 "use client"
 
 import React, { useState, useEffect } from "react";
-import { supabase } from '@/app/lib/supabase/server'; // Make sure this path is correct
-import styles from "./dashboard.module.css"; // Ensure this path is correct
+import { supabase } from '../../../lib/supabase/server'; // Make sure this path is correct
+import styles from "../../../styles/dashboard.module.css"; // Ensure this path is correct
 import Link from "next/link";
 
 export default function Notes() {

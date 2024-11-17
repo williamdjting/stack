@@ -1,18 +1,14 @@
-import { Card } from "../ui/dashboard/cards";
-//import { datasheetData } from "../lib/datasheet-data";
-import { Form } from "../ui/dashboard/form";
 import Notes from "../components/ui/dashboard/notes";
 
-import Notes1 from "../components/ui/dashboard/notes1";
 
-import { Header } from "@/app/ui/dashboard/header";
+import { Header } from "../components/ui/dashboard/header";
 
-import { Footer } from "@/app/ui/dashboard/footer";
+import { Footer } from "../components/ui/dashboard/footer";
 
-import { Sidebar } from "@/app/ui/dashboard/sidebar";
+import { Sidebar } from "../components/ui/dashboard/sidebar";
 
 // import { AddProject } from "../ui/dashboard/add-project";
-import styles from "./dashboard.module.css";
+import styles from "../styles/dashboard.module.css";
 // import { isDataView } from "util/types";
 
 // import SideNav from '@/app/ui/dashboard/sidenav';
