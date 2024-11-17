@@ -1,40 +1,42 @@
-`use server`;
+// NOT IN USE
 
-import { createClient } from "./server";
+// `use server`;
 
-export async function insertNote(
-  jobtitle: string,
-  company: string,
-  jobdescription: string,
-  resumexperience: string,
-  resumeprojects: string,
-  resumeskills: string,
-  resumeeducation: string,
-  coverlettercontactinfo: string,
-  coverletterstylerequest: string
-) {
-  const supabase = createClient();
+// import { createClient } from "./server";
 
-  const { data, error } = await supabase
-    .from("notes2")
-    .insert([
-      {
-        jobtitle,
-        company,
-        jobdescription,
-        resumexperience,
-        resumeprojects,
-        resumeskills,
-        resumeeducation,
-        coverlettercontactinfo,
-        coverletterstylerequest,
-      },
-    ]);
+// export async function insertNote(
+//   jobtitle: string,
+//   company: string,
+//   jobdescription: string,
+//   resumexperience: string,
+//   resumeprojects: string,
+//   resumeskills: string,
+//   resumeeducation: string,
+//   coverlettercontactinfo: string,
+//   coverletterstylerequest: string
+// ) {
+//   const supabase = createClient();
 
-  if (error) {
-    console.error("Error inserting data:", error);
-    return { error };
-  }
+//   const { data, error } = await supabase
+//     .from("notes2")
+//     .insert([
+//       {
+//         jobtitle,
+//         company,
+//         jobdescription,
+//         resumexperience,
+//         resumeprojects,
+//         resumeskills,
+//         resumeeducation,
+//         coverlettercontactinfo,
+//         coverletterstylerequest,
+//       },
+//     ]);
 
-  return { data };
-}
+//   if (error) {
+//     console.error("Error inserting data:", error);
+//     return { error };
+//   }
+
+//   return { data };
+// }

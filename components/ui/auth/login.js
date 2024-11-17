@@ -1,7 +1,9 @@
 'use client';
 import React, { useState } from 'react';
-import { useRouter } from 'next/router';
-import { supabase } from '../../lib/supabase/server';
+// import { useRouter } from 'next/router';
+
+import {useRouter } from 'next/compat/router';
+import { supabase } from '../../../lib/supabase/server';
 
 export function LoginForm() {
 	const router = useRouter();
