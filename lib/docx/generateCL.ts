@@ -1,17 +1,16 @@
 import { Document, Packer, Paragraph, TextRun, Header, AlignmentType } from 'docx';
 
-export default async function handler(req, res) {
+export default async function generateCL(aiResponse: Record<string, any>) {
     console.log("Received request to generate cover letter DOCX");
 
-    try {
     const today = new Date();
     const formattedDate =  today.toISOString().split('T')[0];
 
-    const { aiResponse } = req.body;
+    // const { aiResponse } = req.body;
 
-    if (!aiResponse || !aiResponse.coverLetterDetails ) {
-      return res.status(400).json({ error: 'Missing required fields for cover letter' });
-    }
+    // if (!aiResponse || !aiResponse.coverLetterDetails ) {
+    //   return res.status(400).json({ error: 'Missing required fields for cover letter' });
+    // }
 
     const { coverLetterDetails } = aiResponse;
 
@@ -153,12 +152,5 @@ export default async function handler(req, res) {
       });
 
       const buffer = await Packer.toBuffer(doc);
-      res.setHeader('Content-Disposition', 'attachment; filename=CoverLetter.docx');
-      res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document');
-      res.setHeader('Content-Length', buffer.length);
-      res.send(buffer);
-  } catch (error) {
-      console.error("Error generating DOCX:", error);
-      res.status(500).json({ error: "Failed to generate cover letter document" });
-  }
+      return buffer;
 }

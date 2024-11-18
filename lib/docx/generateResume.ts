@@ -1,13 +1,12 @@
 import { Document, Packer, Paragraph, TextRun, Header, AlignmentType } from 'docx';
 
-export default async function handler(req, res) {
+export default async function generateResume(aiResponse: Record<string, any>) {
     console.log("Received request to generate resume DOCX");
 
-    try {
-      const { aiResponse } = req.body;
-      if (!aiResponse || !aiResponse.educationDetails || !aiResponse.projectDetails || !aiResponse.technicalskillsDetails || !aiResponse.workExperienceDetails || !aiResponse.coverLetterDetails) {
-        return res.status(400).json({ error: 'Missing required details' });
-    }
+      // const { aiResponse } = req.body;
+    //   if (!aiResponse || !aiResponse.educationDetails || !aiResponse.projectDetails || !aiResponse.technicalskillsDetails || !aiResponse.workExperienceDetails || !aiResponse.coverLetterDetails) {
+    //     return res.status(400).json({ error: 'Missing required details' });
+    // }
     const { educationDetails, projectDetails, technicalskillsDetails, workExperienceDetails, coverLetterDetails } = aiResponse;
 
         console.log("Creating resume document...");
@@ -309,13 +308,6 @@ export default async function handler(req, res) {
   }
     
 
-      const buffer = await Packer.toBuffer(doc);
-      res.setHeader('Content-Disposition', 'attachment; filename=Resume.docx');
-      res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document');
-      res.setHeader('Content-Length', buffer.length);
-      res.send(buffer);
-  } catch (error) {
-      console.error("Error generating DOCX:", error);
-      res.status(500).json({ error: "Failed to generate document" });
-  }
+  const buffer = await Packer.toBuffer(doc);
+  return buffer;
 }
