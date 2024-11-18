@@ -6,13 +6,9 @@
 
 import React, { useState, useEffect } from 'react';
 
-// import { useRouter } from 'next/router';
-
-import { useRouter } from 'next/compat/router';
+import { useParams } from 'next/navigation';
 
 import Link from 'next/link';
-
-// import { useRouter } from "next/navigation";
 
 
 import { supabase } from '../../../../lib/supabase/server';
@@ -23,25 +19,11 @@ import { executeAI } from '../../../../lib/openai/executeai'
 //const ItemPage = ({}) => {
 
 export default function IDPage () {
-    const router = useRouter();
 
+    const params = useParams();
 
-    // this is a hack to render the page
-    const { id } = 1;
+    const id = params.id;
 
-    if ( router === null ) {
-        const {id}= 1;
-    } else {
-    const { id } = router.query; // extract 'id' from the URL params
-    }
-
-    // hack  , original is just  , replace with original once working 
-    // original = const { id } = router.query; // extract 'id' from the URL params
-    // { id } = router.query;
-
-
-    // console.log({ id }, "the params id");
-    // console.log(id, "the params id");
 
     const [newData, setNewData] = useState({
         jobtitle: '',
@@ -57,21 +39,13 @@ export default function IDPage () {
 
     const [error, setError] = useState(null);
 
-    const [redirectTo, setRedirectTo] = useState(null);
-    const router2 = useRouter();
-
-    useEffect(() => {
-        if (redirectTo) {
-            router.push(redirectTo);
-        }
-    }, [redirectTo, router2]);
-
     // need to add a handleSubmit to update the DB with the new updated data and then redirect back home
 
     useEffect(() => {
         // Fetch data at specific ID on component mount
         if (!id) {
             console.log('this ID does not exist');
+            console.log(id);
             return;
         }
         const fetchData = async () => {
@@ -120,21 +94,31 @@ export default function IDPage () {
     // Handler to submit form data to Supabase
     const handleSubmit = async (e) => {
         e.preventDefault();
+        console.log("this page is updating existing applicationS!!!!");
 
         // Insert new data to Supabase
         try {
             const { data, error } = await supabase
                 .from('notes2')
                 .update({
-                    jobtitle: newData.JobTitle,
-                    company: newData.Company,
-                    jobdescription: newData.JobDescription,
-                    resumeexperience: newData.ResumeExperience,
-                    resumeskills: newData.ResumeSkills,
-                    resumeprojects: newData.ResumeProjects,
-                    resumeeducation: newData.ResumeEducation,
-                    coverlettercontactinfo: newData.CoverLetterContactInfo,
-                    coverletterstylerequest: newData.CoverLetterStyleRequest,
+                    // jobtitle: newData.JobTitle,
+                    // company: newData.Company,
+                    // jobdescription: newData.JobDescription,
+                    // resumeexperience: newData.ResumeExperience,
+                    // resumeskills: newData.ResumeSkills,
+                    // resumeprojects: newData.ResumeProjects,
+                    // resumeeducation: newData.ResumeEducation,
+                    // coverlettercontactinfo: newData.CoverLetterContactInfo,
+                    // coverletterstylerequest: newData.CoverLetterStyleRequest,
+                    jobtitle: newData.jobtitle,
+                    company: newData.company,
+                    jobdescription: newData.jobdescription,
+                    resumeexperience: newData.resumeexperience,
+                    resumeskills: newData.resumeskills,
+                    resumeprojects: newData.resumeprojects,
+                    resumeeducation: newData.resumeeducation,
+                    coverlettercontactinfo: newData.coverlettercontactinfo,
+                    coverletterstylerequest: newData.coverletterstylerequest,
                 })
                 .eq('id', id)
                 .select();
@@ -248,7 +232,7 @@ export default function IDPage () {
         <div>
             <div>
                 <Link href={`/dashboard`}>
-                    <h1>Application Page {newData.id}</h1>
+                    <h1>Application Page {id}</h1>
                 </Link>
             </div>
 
@@ -256,7 +240,8 @@ export default function IDPage () {
                 <div>
                     Job Title:
                     <textarea
-                        name="JobTitle"
+                        style={{color: 'black'}}
+                        name="jobtitle"
                         defaultValue={newData.jobtitle}
                         placeholder={newData.jobtitle}
                         onChange={handleChange}
@@ -269,7 +254,8 @@ export default function IDPage () {
                 <div>
                     Company:
                     <textarea
-                        name="Company"
+                        style={{color: 'black'}}
+                        name="company"
                         defaultValue={newData.company}
                         placeholder={newData.company}
                         onChange={handleChange}
@@ -282,7 +268,8 @@ export default function IDPage () {
                 <div>
                     Job Description:
                     <textarea
-                        name="JobDescription"
+                        style={{color: 'black'}}
+                        name="jobdescription"
                         defaultValue={newData.jobdescription}
                         placeholder={newData.jobdescription}
                         rows={5}
@@ -295,7 +282,8 @@ export default function IDPage () {
                 <div>
                     Resume - Experience:
                     <textarea
-                        name="ResumeExperience"
+                        style={{color: 'black'}}
+                        name="resumeexperience"
                         defaultValue={newData.resumeexperience}
                         placeholder={newData.resumeexperience}
                         rows={5}
@@ -308,7 +296,8 @@ export default function IDPage () {
                 <div>
                     Resume - Projects:
                     <textarea
-                        name="ResumeProjects"
+                        style={{color: 'black'}}
+                        name="resumeprojects"
                         defaultValue={newData.resumeprojects}
                         placeholder={newData.resumeprojects}
                         rows={5}
@@ -321,7 +310,8 @@ export default function IDPage () {
                 <div>
                     Resume - Skills:
                     <textarea
-                        name="ResumeSkills"
+                        style={{color: 'black'}}
+                        name="resumeskills"
                         defaultValue={newData.resumeskills}
                         placeholder={newData.resumeskills}
                         rows={5}
@@ -334,7 +324,8 @@ export default function IDPage () {
                 <div>
                     Resume - Education:
                     <textarea
-                        name="ResumeEducation"
+                        style={{color: 'black'}}
+                        name="resumeeducation"
                         defaultValue={newData.resumeeducation}
                         placeholder={newData.resumeeducation}
                         onChange={handleChange}
@@ -347,7 +338,8 @@ export default function IDPage () {
                 <div>
                     Cover Letter - Contact Info:
                     <textarea
-                        name="CoverLetterContactInfo"
+                        style={{color: 'black'}}
+                        name="coverlettercontactinfo"
                         defaultValue={newData.coverlettercontactinfo}
                         placeholder={newData.coverlettercontactinfo}
                         rows={5}
@@ -360,7 +352,8 @@ export default function IDPage () {
                 <div>
                     Cover Letter - Style Request:
                     <textarea
-                        name="CoverLetterStyleRequest"
+                        style={{color: 'black'}}
+                        name="coverletterstylerequest"
                         defaultValue={newData.coverletterstylerequest}
                         placeholder={newData.coverletterstylerequest}
                         rows={5}

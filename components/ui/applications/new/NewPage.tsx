@@ -169,6 +169,7 @@ export default function NewPage() {
 				<div>
 					Job Title:
 					<textarea
+						style={{color: 'black'}}
 						name="jobtitle"
 						value={insertNewData.jobtitle}
 						onChange={handleChange}
@@ -182,6 +183,7 @@ export default function NewPage() {
 				<div>
 					Company:
 					<textarea
+						style={{color: 'black'}}
 						name="company"
 						value={insertNewData.company}
 						onChange={handleChange}
@@ -195,6 +197,7 @@ export default function NewPage() {
 				<div>
 					Job Description:
 					<textarea
+						style={{color: 'black'}}
 						name="jobdescription"
 						value={insertNewData.jobdescription}
 						onChange={handleChange}
@@ -208,6 +211,7 @@ export default function NewPage() {
 				<div>
 					Resume - Experience:
 					<textarea
+						style={{color: 'black'}}
 						name="resumeexperience"
 						value={insertNewData.resumeexperience}
 						onChange={handleChange}
@@ -221,6 +225,7 @@ export default function NewPage() {
 				<div>
 					Resume - Projects:
 					<textarea
+						style={{color: 'black'}}
 						name="resumeprojects"
 						value={insertNewData.resumeprojects}
 						onChange={handleChange}
@@ -234,6 +239,7 @@ export default function NewPage() {
 				<div>
 					Resume - Skills:
 					<textarea
+						style={{color: 'black'}}
 						name="resumeskills"
 						value={insertNewData.resumeskills}
 						onChange={handleChange}
@@ -247,6 +253,7 @@ export default function NewPage() {
 				<div>
 					Resume - Education:
 					<textarea
+						style={{color: 'black'}}
 						name="resumeeducation"
 						value={insertNewData.resumeeducation}
 						onChange={handleChange}
@@ -260,6 +267,7 @@ export default function NewPage() {
 				<div>
 					Cover Letter - Contact Info:
 					<textarea
+						style={{color: 'black'}}
 						name="coverlettercontactinfo"
 						value={insertNewData.coverlettercontactinfo}
 						onChange={handleChange}
@@ -273,6 +281,7 @@ export default function NewPage() {
 				<div>
 					Cover Letter - Style Request:
 					<textarea
+						style={{color: 'black'}}
 						name="coverletterstylerequest"
 						value={insertNewData.coverletterstylerequest}
 						onChange={handleChange}
