@@ -7,7 +7,8 @@
 
 // import { createClient } from "@/app/lib/supabase/server";
 
-import { supabase } from '@/app/lib/supabase/server';
+// import { supabase } from '@/app/lib/supabase/server';
+import { createClient } from '../../../app/supabase/server';
 
 // import supabase from "@/app/lib/supabase/server";
 
@@ -18,7 +19,7 @@ import styles from "./dashboard.module.css";
 import Link from "next/link";
 
 export default async function Notes1() {
-  // const supabase = createClient();
+  const supabase = await createClient();
 
   const { data, error } = await supabase
     .from("notes1")

@@ -11,12 +11,15 @@ import { useParams } from 'next/navigation';
 import Link from 'next/link';
 
 
-import { supabase } from '../../../../lib/supabase/server';
+// import { supabase } from '../../../../lib/supabase/server';
+import { createClient } from '../../../../app/supabase/client';
 
 
 import { executeAI } from '../../../../lib/openai/executeai'
 
 //const ItemPage = ({}) => {
+
+const supabase = createClient();
 
 export default function IDPage () {
 

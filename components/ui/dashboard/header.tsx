@@ -1,12 +1,15 @@
 'use client'
 
 import React, { createContext, useState, useEffect, useContext } from "react";
-import { supabase } from '../../../lib/supabase/server';
+// import { supabase } from '../../../lib/supabase/server';
+import { createClient } from '../../../app/supabase/client';
 import { useRouter } from 'next/navigation';
 
 import styles from "../../../styles/header.module.css";
 
 import Link from 'next/link';
+
+const supabase = createClient();
 
 
 export function Header() {

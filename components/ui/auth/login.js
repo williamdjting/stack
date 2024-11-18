@@ -2,8 +2,11 @@
 import React, { useState } from 'react';
 // import { useRouter } from 'next/router';
 
-import {useRouter } from 'next/navigation';
-import { supabase } from '../../../lib/supabase/server';
+import { useRouter } from 'next/navigation';
+// import { supabase } from '../../../lib/supabase/server';
+import { createClient } from '../../../app/supabase/client';
+
+const supabase = createClient();
 
 export function LoginForm() {
 	const router = useRouter();

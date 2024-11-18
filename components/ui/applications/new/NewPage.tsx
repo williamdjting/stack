@@ -2,10 +2,13 @@
 
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { supabase } from '../../../../lib/supabase/server';
+// import { supabase } from '../../../../lib/supabase/server';
+import { createClient } from '../../../../app/supabase/client';
 import React, { useState, useEffect } from 'react';
 
-import { executeAI } from '../../../../lib/openai/executeai'
+import { executeAI } from '../../../../lib/openai/executeai';
+
+const supabase = createClient();
 
 export default function NewPage() {
 	const [insertNewData, setInsertNewData] = useState({

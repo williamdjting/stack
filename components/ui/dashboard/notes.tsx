@@ -1,9 +1,12 @@
 "use client"
 
 import React, { useState, useEffect } from "react";
-import { supabase } from '../../../lib/supabase/server'; // Make sure this path is correct
+// import { supabase } from '../../../lib/supabase/server'; // Make sure this path is correct
+import { createClient } from '../../../app/supabase/client';
 import styles from "../../../styles/dashboard.module.css"; // Ensure this path is correct
 import Link from "next/link";
+
+const supabase = createClient();
 
 export default function Notes() {
   const [notes, setNotes] = useState<any[]>([]); // Use a specific type if you have one for notes

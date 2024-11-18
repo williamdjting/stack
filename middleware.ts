@@ -1,25 +1,20 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { supabase } from './src/app/lib/supabase/server'; // Adjust the path to your supabase client file
+import { type NextRequest } from 'next/server'
+import { updateSession } from './app/supabase/middleware'
 
-export async function middleware(req: NextRequest) {
-  // const { pathname } = req.nextUrl;
-
-  // // Only apply to dashboard routes
-  // if (pathname.startsWith('/dashboard')) {
-  //   // Get user (this will automatically check the session cookie)
-  //   const { data: { user }, error } = await supabase.auth.getUser();
-
-  //   // If no user or an error occurs, redirect to login
-  //   if (error || !user) {
-  //     console.log('User is not authenticated, redirecting to login');
-  //     return NextResponse.redirect(new URL('/auth/login', req.url));
-  //   }
-  // }
-
-  return NextResponse.next();
+export async function middleware(request: NextRequest) {
+  return await updateSession(request)
 }
 
 export const config = {
-  matcher: ['/dashboard'], // Protect all /dashboard routes
-};
+  matcher: [
+    /*
+     * Match all request paths except for the ones starting with:
+     * - _next/static (static files)
+     * - _next/image (image optimization files)
+     * - favicon.ico (favicon file)
+     * Feel free to modify this pattern to include more paths.
+     */
+    '/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
+  ],
+}
 
