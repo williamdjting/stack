@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 // import { useRouter } from 'next/router';
 
-import {useRouter } from 'next/compat/router';
+import {useRouter } from 'next/navigation';
 import { supabase } from '../../../lib/supabase/server';
 
 export function LoginForm() {
