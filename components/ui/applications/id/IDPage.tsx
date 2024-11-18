@@ -37,7 +37,7 @@ export default function IDPage () {
 
     // hack  , original is just  , replace with original once working 
     // original = const { id } = router.query; // extract 'id' from the URL params
-
+    // { id } = router.query;
 
 
     // console.log({ id }, "the params id");
