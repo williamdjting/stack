@@ -9,7 +9,6 @@ export function OnboardingFlow() {
   const prevStep = () => setStep((prevStep) => Math.max(prevStep - 1, 0));
 
   const [step, setStep] = useState(0);
-  const [name, setName] = useState("");
 
   const [insertNewData, setInsertNewData] = useState({
     firstname: "",
@@ -84,6 +83,15 @@ export function OnboardingFlow() {
   });
 
   // const [preferences, setPreferences] = useState([]);
+
+    // Handler to update form data
+    const handleChange = (e) => {
+      const { name, value } = e.target;
+      setNewData((prevFormData) => ({
+          ...prevFormData,
+          [name]: value,
+      }));
+  };
 
   const steps = [
     <ContactInfoForm
