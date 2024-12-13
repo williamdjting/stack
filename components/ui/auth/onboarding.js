@@ -5,7 +5,14 @@
 import React, { useState } from "react";
 
 export function OnboardingFlow() {
-  const nextStep = () => setStep((prevStep) => prevStep + 1);
+  // const nextStep = () => setStep((prevStep) => prevStep + 1);
+
+  const nextStep = () => {
+    // console.log("Current State:", insertNewData); // Ensure this logs the latest state
+
+    setStep((prevStep) => prevStep + 1);
+  };
+
   const prevStep = () => setStep((prevStep) => Math.max(prevStep - 1, 0));
 
   const [step, setStep] = useState(0);
@@ -84,13 +91,12 @@ export function OnboardingFlow() {
 
   // const [preferences, setPreferences] = useState([]);
 
-    // Handler to update form data
-    const handleChange = (e) => {
-      const { name, value } = e.target;
-      setNewData((prevFormData) => ({
-          ...prevFormData,
-          [name]: value,
-      }));
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    // send all the state objects to DB 
+
+    console.log("this is handleSubmit");
   };
 
   const steps = [
@@ -133,13 +139,13 @@ export function OnboardingFlow() {
     // />,
     <SummaryStep
       key="summary"
-      insertNewData={insertNewData.firstname}
-      insertEducationData={insertEducationData.school}
-      insertWorkData={insertWorkData.company}
-      insertLeadershipVolunteerData={insertLeadershipVolunteerData.company}
-      insertProjectData={insertProjectData.company}
-      insertSkills1Form={insertSkills1Form.codinglanguages}
-      insertSkills2Form={insertSkills2Form.businesscommunications}
+      insertNewData={insertNewData}
+      insertEducationData={insertEducationData}
+      insertWorkData={insertWorkData}
+      insertLeadershipVolunteerData={insertLeadershipVolunteerData}
+      insertProjectData={insertProjectData}
+      insertSkills1Form={insertSkills1Form}
+      insertSkills2Form={insertSkills2Form}
     />,
   ];
 
@@ -150,133 +156,25 @@ export function OnboardingFlow() {
         {step > 0 && <button onClick={prevStep}>Back</button>}
         {step < steps.length - 1 && <button onClick={nextStep}>Next</button>}
         {step === steps.length - 1 && (
-          <button onClick={() => alert("Onboarding Complete!")}>Finish</button>
+          <button onClick={() => alert("Onboarding Complete!")}>Finish</button> 
+          // change to the below onSubmit that sends to DB
+          // <button onSubmit={handleSubmit}>Finish</button> 
         )}
       </div>
     </div>
   );
 }
 
-const LeadershipVolunteerExperienceForm = ({
-  insertLeadershipVolunteerData,
-  setinsertLeadershipVolunteerData,
-}) => {
-  return (
-    <div>
-      <div>Add your leadership / volunteer experience</div>
-      <br></br>
-      <div>Leadership / Volunteer Experience 1</div>
-      <form>
-        <div>
-          Company
-          <input
-            name="company"
-            value={insertLeadershipVolunteerData.company}
-            onChange={(e) => setinsertLeadershipVolunteerData(e.target.value)}
-            placeholder="Enter your company"
-            required
-          />
-        </div>
-        <br />
-        <div>
-          Location
-          <input
-            name="location"
-            value={insertLeadershipVolunteerData.location}
-            onChange={(e) => setinsertLeadershipVolunteerData(e.target.value)}
-            placeholder="Enter your location"
-            required
-          />
-        </div>
-        <br />
-        <div>
-          Position Title
-          <input
-            name="position"
-            value={insertLeadershipVolunteerData.position}
-            onChange={(e) => setinsertLeadershipVolunteerData(e.target.value)}
-            placeholder="Enter your position"
-            required
-          />
-        </div>
-        <br />
-        <div>
-          Experience Type
-          <input
-            name="experiencetype"
-            value={insertLeadershipVolunteerData.experiencetype}
-            onChange={(e) => setinsertLeadershipVolunteerData(e.target.value)}
-            placeholder="Enter your experiencetype"
-            required
-          />
-        </div>
-        <br />
-        <div>
-          Start Month
-          <input
-            name="startmonth"
-            value={insertLeadershipVolunteerData.startmonth}
-            onChange={(e) => setinsertLeadershipVolunteerData(e.target.value)}
-            placeholder="Enter your start month"
-            required
-          />
-        </div>
-        <br />
-        <div>
-          Start Year
-          <input
-            name="startyear"
-            value={insertLeadershipVolunteerData.startyear}
-            onChange={(e) => setinsertLeadershipVolunteerData(e.target.value)}
-            placeholder="Enter your start year"
-            required
-          />
-        </div>
-        <br />
-        <div>
-          End Month
-          <input
-            name="endmonth"
-            value={insertLeadershipVolunteerData.endmonth}
-            onChange={(e) => setinsertLeadershipVolunteerData(e.target.value)}
-            placeholder="Enter your end month"
-            required
-          />
-        </div>
-        <br />
-        <div>
-          End Year
-          <input
-            name="endyear"
-            value={insertLeadershipVolunteerData.endyear}
-            onChange={(e) => setinsertLeadershipVolunteerData(e.target.value)}
-            placeholder="Enter your end year"
-            required
-          />
-        </div>
-        <div>I currently work here</div>
-        <br />
-        <div>
-          Description
-          <br></br>
-          <textarea
-            name="other"
-            value={insertLeadershipVolunteerData.other}
-            onChange={(e) => setinsertLeadershipVolunteerData(e.target.value)}
-            placeholder="Enter any other information"
-            row={5}
-            col={25}
-            required
-          />
-        </div>
-        <div>Add Leadership / Volunteer Experience</div>
-        <br />
-      </form>
-    </div>
-  );
-};
-
 const ContactInfoForm = ({ insertNewData, setInsertNewData }) => {
+  // Handler to update form data
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setInsertNewData((prevFormData) => ({
+      ...prevFormData,
+      [name]: value,
+    }));
+  };
+
   return (
     <div>
       <div>Welcome to StackUp AI! </div>
@@ -292,7 +190,7 @@ const ContactInfoForm = ({ insertNewData, setInsertNewData }) => {
           <input
             name="firstname"
             value={insertNewData.firstname}
-            onChange={(e) => setInsertNewData(e.target.value)}
+            onChange={handleChange}
             placeholder="Enter your firstname"
             required
           />
@@ -303,7 +201,7 @@ const ContactInfoForm = ({ insertNewData, setInsertNewData }) => {
           <input
             name="lastname"
             value={insertNewData.lastname}
-            onChange={(e) => setInsertNewData(e.target.value)}
+            onChange={handleChange}
             placeholder="Enter your lastname"
             required
           />
@@ -314,7 +212,7 @@ const ContactInfoForm = ({ insertNewData, setInsertNewData }) => {
           <input
             name="email"
             value={insertNewData.email}
-            onChange={(e) => setInsertNewData(e.target.value)}
+            onChange={handleChange}
             placeholder="Enter your email"
             required
           />
@@ -323,9 +221,9 @@ const ContactInfoForm = ({ insertNewData, setInsertNewData }) => {
         <div>
           LinkedIn
           <input
-            name="linkedIn"
-            value={insertNewData.linkedIn}
-            onChange={(e) => setInsertNewData(e.target.value)}
+            name="linkedin"
+            value={insertNewData.linkedin}
+            onChange={handleChange}
             placeholder="Enter your LinkedIn"
             required
           />
@@ -336,7 +234,7 @@ const ContactInfoForm = ({ insertNewData, setInsertNewData }) => {
           <input
             name="personalwebsite"
             value={insertNewData.personalwebsite}
-            onChange={(e) => setInsertNewData(e.target.value)}
+            onChange={handleChange}
             placeholder="Enter your personalwebsite"
             required
           />
@@ -347,7 +245,7 @@ const ContactInfoForm = ({ insertNewData, setInsertNewData }) => {
           <input
             name="github"
             value={insertNewData.github}
-            onChange={(e) => setInsertNewData(e.target.value)}
+            onChange={handleChange}
             placeholder="Enter your github"
             required
           />
@@ -358,7 +256,7 @@ const ContactInfoForm = ({ insertNewData, setInsertNewData }) => {
           <input
             name="location"
             value={insertNewData.location}
-            onChange={(e) => setInsertNewData(e.target.value)}
+            onChange={handleChange}
             placeholder="Enter your location"
             required
           />
@@ -369,7 +267,7 @@ const ContactInfoForm = ({ insertNewData, setInsertNewData }) => {
           <input
             name="personalsummary"
             value={insertNewData.personalsummary}
-            onChange={(e) => setInsertNewData(e.target.value)}
+            onChange={handleChange}
             placeholder="Enter your personal summary"
             required
           />
@@ -380,7 +278,144 @@ const ContactInfoForm = ({ insertNewData, setInsertNewData }) => {
   );
 };
 
+const LeadershipVolunteerExperienceForm = ({
+  insertLeadershipVolunteerData,
+  setinsertLeadershipVolunteerData,
+}) => {
+  // Handler to update form data
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setinsertLeadershipVolunteerData((prevFormData) => ({
+      ...prevFormData,
+      [name]: value,
+    }));
+  };
+
+  return (
+    <div>
+      <div>Add your leadership / volunteer experience</div>
+      <br></br>
+      <div>Leadership / Volunteer Experience 1</div>
+      <form>
+        <div>
+          Company
+          <input
+            name="company"
+            value={insertLeadershipVolunteerData.company}
+            onChange={handleChange}
+            placeholder="Enter your company"
+            required
+          />
+        </div>
+        <br />
+        <div>
+          Location
+          <input
+            name="location"
+            value={insertLeadershipVolunteerData.location}
+            onChange={handleChange}
+            placeholder="Enter your location"
+            required
+          />
+        </div>
+        <br />
+        <div>
+          Position Title
+          <input
+            name="position"
+            value={insertLeadershipVolunteerData.position}
+            onChange={handleChange}
+            placeholder="Enter your position"
+            required
+          />
+        </div>
+        <br />
+        <div>
+          Experience Type
+          <input
+            name="experiencetype"
+            value={insertLeadershipVolunteerData.experiencetype}
+            onChange={handleChange}
+            placeholder="Enter your experiencetype"
+            required
+          />
+        </div>
+        <br />
+        <div>
+          Start Month
+          <input
+            name="startmonth"
+            value={insertLeadershipVolunteerData.startmonth}
+            onChange={handleChange}
+            placeholder="Enter your start month"
+            required
+          />
+        </div>
+        <br />
+        <div>
+          Start Year
+          <input
+            name="startyear"
+            value={insertLeadershipVolunteerData.startyear}
+            onChange={handleChange}
+            placeholder="Enter your start year"
+            required
+          />
+        </div>
+        <br />
+        <div>
+          End Month
+          <input
+            name="endmonth"
+            value={insertLeadershipVolunteerData.endmonth}
+            onChange={handleChange}
+            placeholder="Enter your end month"
+            required
+          />
+        </div>
+        <br />
+        <div>
+          End Year
+          <input
+            name="endyear"
+            value={insertLeadershipVolunteerData.endyear}
+            onChange={handleChange}
+            placeholder="Enter your end year"
+            required
+          />
+        </div>
+        <div>I currently work here</div>
+        <br />
+        <div>
+          Description
+          <br></br>
+          <textarea
+            name="other"
+            value={insertLeadershipVolunteerData.other}
+            onChange={handleChange}
+            placeholder="Enter any other information"
+            row={5}
+            col={25}
+            required
+          />
+        </div>
+        <div>Add Leadership / Volunteer Experience</div>
+        <br />
+      </form>
+    </div>
+  );
+};
+
 const EducationForm = ({ insertEducationData, setInsertEducationData }) => {
+  // Handler to update form data
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setInsertEducationData((prevFormData) => ({
+      ...prevFormData,
+      [name]: value,
+    }));
+  };
+
   return (
     <div>
       <div>Add your education history </div>
@@ -392,7 +427,7 @@ const EducationForm = ({ insertEducationData, setInsertEducationData }) => {
           <input
             name="school"
             value={insertEducationData.school}
-            onChange={(e) => setInsertEducationData(e.target.value)}
+            onChange={handleChange}
             placeholder="Enter your school"
             required
           />
@@ -403,7 +438,7 @@ const EducationForm = ({ insertEducationData, setInsertEducationData }) => {
           <input
             name="major"
             value={insertEducationData.major}
-            onChange={(e) => setInsertEducationData(e.target.value)}
+            onChange={handleChange}
             placeholder="Enter your major"
             required
           />
@@ -414,7 +449,7 @@ const EducationForm = ({ insertEducationData, setInsertEducationData }) => {
           <input
             name="degreetype"
             value={insertEducationData.degreetype}
-            onChange={(e) => setInsertEducationData(e.target.value)}
+            onChange={handleChange}
             placeholder="Enter your degree type"
             required
           />
@@ -425,7 +460,7 @@ const EducationForm = ({ insertEducationData, setInsertEducationData }) => {
           <input
             name="GPA"
             value={insertEducationData.GPA}
-            onChange={(e) => setInsertEducationData(e.target.value)}
+            onChange={handleChange}
             placeholder="Enter your GPA"
             required
           />
@@ -436,7 +471,7 @@ const EducationForm = ({ insertEducationData, setInsertEducationData }) => {
           <input
             name="startmonth"
             value={insertEducationData.startmonth}
-            onChange={(e) => setInsertEducationData(e.target.value)}
+            onChange={handleChange}
             placeholder="Enter your start month"
             required
           />
@@ -447,7 +482,7 @@ const EducationForm = ({ insertEducationData, setInsertEducationData }) => {
           <input
             name="startyear"
             value={insertEducationData.startyear}
-            onChange={(e) => setInsertEducationData(e.target.value)}
+            onChange={handleChange}
             placeholder="Enter your start year"
             required
           />
@@ -458,7 +493,7 @@ const EducationForm = ({ insertEducationData, setInsertEducationData }) => {
           <input
             name="endmonth"
             value={insertEducationData.endmonth}
-            onChange={(e) => setInsertEducationData(e.target.value)}
+            onChange={handleChange}
             placeholder="Enter your end month"
             required
           />
@@ -469,7 +504,7 @@ const EducationForm = ({ insertEducationData, setInsertEducationData }) => {
           <input
             name="endyear"
             value={insertEducationData.endyear}
-            onChange={(e) => setInsertEducationData(e.target.value)}
+            onChange={handleChange}
             placeholder="Enter your end year"
             required
           />
@@ -481,7 +516,7 @@ const EducationForm = ({ insertEducationData, setInsertEducationData }) => {
           <input
             name="other"
             value={insertEducationData.other}
-            onChange={(e) => setInsertEducationData(e.target.value)}
+            onChange={handleChange}
             placeholder="Enter any other information"
             required
           />
@@ -494,6 +529,14 @@ const EducationForm = ({ insertEducationData, setInsertEducationData }) => {
 };
 
 const ProjectsForm = ({ insertProjectData, setinsertProjectData }) => {
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setinsertProjectData((prevFormData) => ({
+      ...prevFormData,
+      [name]: value,
+    }));
+  };
+
   return (
     <div>
       <div>Add your projects</div>
@@ -505,7 +548,7 @@ const ProjectsForm = ({ insertProjectData, setinsertProjectData }) => {
           <input
             name="company"
             value={insertProjectData.company}
-            onChange={(e) => setinsertProjectData(e.target.value)}
+            onChange={handleChange}
             placeholder="Enter your company"
             required
           />
@@ -516,7 +559,7 @@ const ProjectsForm = ({ insertProjectData, setinsertProjectData }) => {
           <input
             name="location"
             value={insertProjectData.location}
-            onChange={(e) => setinsertProjectData(e.target.value)}
+            onChange={handleChange}
             placeholder="Enter your location"
             required
           />
@@ -527,7 +570,7 @@ const ProjectsForm = ({ insertProjectData, setinsertProjectData }) => {
           <input
             name="startmonth"
             value={insertProjectData.startmonth}
-            onChange={(e) => setinsertProjectData(e.target.value)}
+            onChange={handleChange}
             placeholder="Enter your start month"
             required
           />
@@ -538,7 +581,7 @@ const ProjectsForm = ({ insertProjectData, setinsertProjectData }) => {
           <input
             name="startyear"
             value={insertProjectData.startyear}
-            onChange={(e) => setinsertProjectData(e.target.value)}
+            onChange={handleChange}
             placeholder="Enter your start year"
             required
           />
@@ -549,7 +592,7 @@ const ProjectsForm = ({ insertProjectData, setinsertProjectData }) => {
           <input
             name="endmonth"
             value={insertProjectData.endmonth}
-            onChange={(e) => setinsertProjectData(e.target.value)}
+            onChange={handleChange}
             placeholder="Enter your end month"
             required
           />
@@ -560,7 +603,7 @@ const ProjectsForm = ({ insertProjectData, setinsertProjectData }) => {
           <input
             name="endyear"
             value={insertProjectData.endyear}
-            onChange={(e) => setinsertProjectData(e.target.value)}
+            onChange={handleChange}
             placeholder="Enter your end year"
             required
           />
@@ -573,7 +616,7 @@ const ProjectsForm = ({ insertProjectData, setinsertProjectData }) => {
           <textarea
             name="other"
             value={insertProjectData.other}
-            onChange={(e) => setinsertProjectData(e.target.value)}
+            onChange={handleChange}
             placeholder="Enter any other information"
             row={5}
             col={25}
@@ -594,6 +637,22 @@ const SkillsForm = ({
   setInsertSkills2Form,
 }) => {
   const [selectedSkill, setSelectedSkill] = useState("");
+
+  const handleChange1 = (e) => {
+    const { name, value } = e.target;
+    setInsertSkills1Form((prevFormData) => ({
+      ...prevFormData,
+      [name]: value,
+    }));
+  };
+
+  const handleChange2 = (e) => {
+    const { name, value } = e.target;
+    setInsertSkills2Form((prevFormData) => ({
+      ...prevFormData,
+      [name]: value,
+    }));
+  };
 
   // Handler to update the state based on selection
   const handleSelection = (e) => {
@@ -628,7 +687,7 @@ const SkillsForm = ({
               <input
                 name="codinglanguages"
                 value={insertSkills1Form.codinglanguages}
-                onChange={(e) => setInsertSkills1Form(e.target.value)}
+                onChange={handleChange1}
                 placeholder="Enter your coding languages"
                 required
               />
@@ -639,7 +698,7 @@ const SkillsForm = ({
               <input
                 name="programmingconcepts"
                 value={insertSkills1Form.programmingconcepts}
-                onChange={(e) => setInsertSkills1Form(e.target.value)}
+                onChange={handleChange1}
                 placeholder="Enter your programming concepts"
                 required
               />
@@ -650,7 +709,7 @@ const SkillsForm = ({
               <input
                 name="tools"
                 value={insertSkills1Form.tools}
-                onChange={(e) => setInsertSkills1Form(e.target.value)}
+                onChange={handleChange1}
                 placeholder="Enter your tools / applications"
                 required
               />
@@ -661,7 +720,7 @@ const SkillsForm = ({
               <input
                 name="frameworks"
                 value={insertSkills1Form.frameworks}
-                onChange={(e) => setInsertSkills1Form(e.target.value)}
+                onChange={handleChange1}
                 placeholder="Enter your frameworks"
                 required
               />
@@ -681,7 +740,7 @@ const SkillsForm = ({
               <input
                 name="codinglanguages"
                 value={insertSkills1Form.codinglanguages}
-                onChange={(e) => setInsertSkills1Form(e.target.value)}
+                onChange={handleChange1}
                 placeholder="Enter your coding languages"
                 required
               />
@@ -692,7 +751,7 @@ const SkillsForm = ({
               <input
                 name="programmingconcepts"
                 value={insertSkills1Form.programmingconcepts}
-                onChange={(e) => setInsertSkills1Form(e.target.value)}
+                onChange={handleChange1}
                 placeholder="Enter your programming concepts"
                 required
               />
@@ -703,7 +762,7 @@ const SkillsForm = ({
               <input
                 name="tools"
                 value={insertSkills1Form.tools}
-                onChange={(e) => setInsertSkills1Form(e.target.value)}
+                onChange={handleChange1}
                 placeholder="Enter your tools / applications"
                 required
               />
@@ -714,7 +773,7 @@ const SkillsForm = ({
               <input
                 name="frameworks"
                 value={insertSkills1Form.frameworks}
-                onChange={(e) => setInsertSkills1Form(e.target.value)}
+                onChange={handleChange1}
                 placeholder="Enter your frameworks"
                 required
               />
@@ -734,7 +793,7 @@ const SkillsForm = ({
               <input
                 name="businesscommunications"
                 value={insertSkills2Form.businesscommunications}
-                onChange={(e) => setInsertSkills2Form(e.target.value)}
+                onChange={handleChange2}
                 placeholder="Enter your business communications"
                 required
               />
@@ -745,7 +804,7 @@ const SkillsForm = ({
               <input
                 name="leadership"
                 value={insertSkills2Form.leadershipskills}
-                onChange={(e) => setInsertSkills2Form(e.target.value)}
+                onChange={handleChange2}
                 placeholder="Enter your leadership / case competition skills"
                 required
               />
@@ -756,7 +815,7 @@ const SkillsForm = ({
               <input
                 name="projectmanagement"
                 value={insertSkills2Form.projectmanagement}
-                onChange={(e) => setInsertSkills2Form(e.target.value)}
+                onChange={handleChange2}
                 placeholder="Enter your project management"
                 required
               />
@@ -767,7 +826,7 @@ const SkillsForm = ({
               <input
                 name="technical"
                 value={insertSkills2Form.frameworks}
-                onChange={(e) => setInsertSkills2Form(e.target.value)}
+                onChange={handleChange2}
                 placeholder="Enter your technical / data analysis knowledge"
                 required
               />
@@ -781,6 +840,15 @@ const SkillsForm = ({
 };
 
 const WorkExperienceForm = ({ insertWorkData, setInsertWorkData }) => {
+  // Handler to update form data
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setInsertWorkData((prevFormData) => ({
+      ...prevFormData,
+      [name]: value,
+    }));
+  };
+
   return (
     <div>
       <div>Add your work experience</div>
@@ -792,7 +860,7 @@ const WorkExperienceForm = ({ insertWorkData, setInsertWorkData }) => {
           <input
             name="company"
             value={insertWorkData.company}
-            onChange={(e) => setInsertWorkData(e.target.value)}
+            onChange={handleChange}
             placeholder="Enter your company"
             required
           />
@@ -803,7 +871,7 @@ const WorkExperienceForm = ({ insertWorkData, setInsertWorkData }) => {
           <input
             name="location"
             value={insertWorkData.location}
-            onChange={(e) => setInsertWorkData(e.target.value)}
+            onChange={handleChange}
             placeholder="Enter your location"
             required
           />
@@ -814,7 +882,7 @@ const WorkExperienceForm = ({ insertWorkData, setInsertWorkData }) => {
           <input
             name="position"
             value={insertWorkData.position}
-            onChange={(e) => setInsertWorkData(e.target.value)}
+            onChange={handleChange}
             placeholder="Enter your position"
             required
           />
@@ -825,7 +893,7 @@ const WorkExperienceForm = ({ insertWorkData, setInsertWorkData }) => {
           <input
             name="experiencetype"
             value={insertWorkData.experiencetype}
-            onChange={(e) => setInsertWorkData(e.target.value)}
+            onChange={handleChange}
             placeholder="Enter your experiencetype"
             required
           />
@@ -836,7 +904,7 @@ const WorkExperienceForm = ({ insertWorkData, setInsertWorkData }) => {
           <input
             name="startmonth"
             value={insertWorkData.startmonth}
-            onChange={(e) => setInsertWorkData(e.target.value)}
+            onChange={handleChange}
             placeholder="Enter your start month"
             required
           />
@@ -847,7 +915,7 @@ const WorkExperienceForm = ({ insertWorkData, setInsertWorkData }) => {
           <input
             name="startyear"
             value={insertWorkData.startyear}
-            onChange={(e) => setInsertWorkData(e.target.value)}
+            onChange={handleChange}
             placeholder="Enter your start year"
             required
           />
@@ -858,7 +926,7 @@ const WorkExperienceForm = ({ insertWorkData, setInsertWorkData }) => {
           <input
             name="endmonth"
             value={insertWorkData.endmonth}
-            onChange={(e) => setInsertWorkData(e.target.value)}
+            onChange={handleChange}
             placeholder="Enter your end month"
             required
           />
@@ -869,7 +937,7 @@ const WorkExperienceForm = ({ insertWorkData, setInsertWorkData }) => {
           <input
             name="endyear"
             value={insertWorkData.endyear}
-            onChange={(e) => setInsertWorkData(e.target.value)}
+            onChange={handleChange}
             placeholder="Enter your end year"
             required
           />
@@ -882,7 +950,7 @@ const WorkExperienceForm = ({ insertWorkData, setInsertWorkData }) => {
           <textarea
             name="other"
             value={insertWorkData.other}
-            onChange={(e) => setInsertWorkData(e.target.value)}
+            onChange={handleChange}
             placeholder="Enter any other information"
             row={5}
             col={25}
@@ -937,20 +1005,100 @@ const SummaryStep = ({
   insertLeadershipVolunteerData,
   insertProjectData,
   insertSkills1Form,
-  insertSkills2Form
+  insertSkills2Form,
 }) => {
+  console.log("this insertNewData.firstname", insertNewData.firstname);
+
   return (
     <div>
-      <h2>Summary</h2>
-      <p>Contact Info: {insertNewData.firstname}</p>
-      <p>Education: {insertEducationData.school}</p>
-      <p>Work Experience: {insertWorkData.company}</p>
-      <p>Leadership / Volunteer Experience: {insertLeadershipVolunteerData.company}</p>
-      <p>Projects: {insertProjectData.company}</p>
-      <p>Skills: {insertSkills1Form.codinglanguages}</p>
-      <p>Skills: {insertSkills2Form.businesscommunications}</p>
-      
+      <h1>Summary</h1>
+
+      <br></br>
+
+      <h2>Contact Info</h2>
+      <ul>First Name: {insertNewData.firstname}</ul>
+      <ul>Last Name: {insertNewData.lastname}</ul>
+      <ul>Email: {insertNewData.email}</ul>
+      <ul>LinkedIn: {insertNewData.linkedin}</ul>
+      <ul>Personal Website: {insertNewData.personalwebsite}</ul>
+      <ul>Github: {insertNewData.github}</ul>
+      <ul>Location: {insertNewData.location}</ul>
+      <ul>Personal Summary: {insertNewData.personalsummary}</ul>
+
+      <br />
+
+      <h2>Education Info</h2>
+      <ul>School Name: {insertEducationData.school}</ul>
+      <ul>Major: {insertEducationData.major}</ul>
+      <ul>Degree Type: {insertEducationData.degreetype}</ul>
+      <ul>GPA: {insertEducationData.GPA}</ul>
+      <ul>Start Month: {insertEducationData.startmonth}</ul>
+      <ul>Start Year: {insertEducationData.startyear}</ul>
+      <ul>End Month: {insertEducationData.endmonth}</ul>
+      <ul>End Year: {insertEducationData.endyear}</ul>
+      <ul>
+        Courses Taken / Concepts Learned / Scholarships / Other:{" "}
+        {insertEducationData.other}
+      </ul>
+
+      <br />
+
+      <h2>Work Info</h2>
+      <ul>Company: {insertWorkData.company}</ul>
+      <ul>Location: {insertWorkData.location}</ul>
+      <ul>Position: {insertWorkData.position}</ul>
+      <ul>Experience Type: {insertWorkData.experiencetype}</ul>
+      <ul>Start Month: {insertWorkData.startmonth}</ul>
+      <ul>Start Year: {insertWorkData.startyear}</ul>
+      <ul>End Month: {insertWorkData.endmonth}</ul>
+      <ul>End Year: {insertWorkData.endyear}</ul>
+      <ul>Other: {insertWorkData.other}</ul>
+
+      <br />
+
+      <h2>Leadership & Volunteer Info</h2>
+      <ul>Company: {insertLeadershipVolunteerData.company}</ul>
+      <ul>Location: {insertLeadershipVolunteerData.location}</ul>
+      <ul>Position: {insertLeadershipVolunteerData.position}</ul>
+      <ul>Experience Type: {insertLeadershipVolunteerData.experiencetype}</ul>
+      <ul>Start Month: {insertLeadershipVolunteerData.startmonth}</ul>
+      <ul>Start Year: {insertLeadershipVolunteerData.startyear}</ul>
+      <ul>End Month: {insertLeadershipVolunteerData.endmonth}</ul>
+      <ul>End Year: {insertLeadershipVolunteerData.endyear}</ul>
+      <ul>Other: {insertLeadershipVolunteerData.other}</ul>
+
+      <br />
+
+      <h2>Project Info</h2>
+      <ul>Company: {insertProjectData.company}</ul>
+      <ul>Location: {insertProjectData.location}</ul>
+      <ul>Start Month: {insertProjectData.startmonth}</ul>
+      <ul>Start Year: {insertProjectData.startyear}</ul>
+      <ul>End Month: {insertProjectData.endmonth}</ul>
+      <ul>End Year: {insertProjectData.endyear}</ul>
+      <ul>Other: {insertProjectData.other}</ul>
+
+      <br />
+
+      <h2>Skills - Section 1</h2>
+      <ul>Coding Languages: {insertSkills1Form.codinglanguages}</ul>
+      <ul>Programming Concepts: {insertSkills1Form.programmingconcepts}</ul>
+      <ul>Tools: {insertSkills1Form.tools}</ul>
+      <ul>Frameworks: {insertSkills1Form.frameworks}</ul>
+
+      <br />
+
+      <h2>Skills - Section 2</h2>
+      <ul>
+        Business Communications: {insertSkills2Form.businesscommunications}
+      </ul>
+      <ul>Leadership: {insertSkills2Form.leadership}</ul>
+      <ul>Project Management: {insertSkills2Form.projectmanagement}</ul>
+      <ul>Technical: {insertSkills2Form.technical}</ul>
+
+      <br />
+
+
     </div>
   );
 };
-
