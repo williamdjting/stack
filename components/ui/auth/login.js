@@ -25,7 +25,7 @@ export function LoginForm() {
 	};
 
 	// Handler to submit form data to Supabase
-	const handleSubmit = async (e) => {
+	const handleLogIn = async (e) => {
 		e.preventDefault();
 		// Here you would typically add your Supabase submission logic
 		const { emailaddress, password } = insertNewData;
@@ -44,10 +44,15 @@ export function LoginForm() {
 		}
 	};
 
+	const handleSignUp = (e) => {
+		e.preventDefault();
+		router.push('/auth/register');
+	};
+
 	return (
 		<div>
 			<div>Lets help you make that resume and cover letter awesome!</div>
-			<form onSubmit={handleSubmit}>
+			<form>
 				<div>
 					Email Address
 					<input
@@ -72,11 +77,8 @@ export function LoginForm() {
 				</div>
 				<br />
 				<div>Forget Password?</div>
-				<input
-					type="submit"
-					value="Login"
-				/>
-				<div>Don’t have an account? Register</div>
+				<button onClick={handleLogIn}>Log In</button>
+				<button onClick={handleSignUp}>Don’t have an account? Register</button>
 			</form>
 		</div>
 	);

@@ -14,13 +14,27 @@ import styles from "../styles/dashboard.module.css";
 // import SideNav from '@/app/ui/dashboard/sidenav';
 
 // this is the homepage where the forms get rendedred
+'use client';
+
+import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 
 export default function Page() {
+  const router = useRouter();
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      router.push('/auth/onboarding');
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  }, [router]);
+
   return (
     <main>
       <div>
 
-        We are at root
+        Your account has been verified!
       </div>
     </main>
   );
