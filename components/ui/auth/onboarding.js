@@ -97,11 +97,19 @@ export function OnboardingFlow() {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 
+		const {
+			data: { user },
+		} = await supabase.auth.getUser();
+
+		const user_id = user.id;
+		// const email = user.email;
+
 		// send all the state objects to DB
 		// Insert new data to Supabase
 		const { data, error } = await supabase
 			.from('profile_info')
 			.insert({
+				user_id: user_id,
 				firstname: insertNewData.firstname,
 				lastname: insertNewData.lastname,
 				email: insertNewData.email,
