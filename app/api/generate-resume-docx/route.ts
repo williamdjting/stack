@@ -19,3 +19,4 @@ export async function POST( req: Request ){
     return new NextResponse('Failed to generate resume', { status: 500 });
   }
 }
+
