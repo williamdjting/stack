@@ -46,17 +46,19 @@ export function OnboardingFlow() {
 	]);
 
 	const [insertLeadershipVolunteerData, setinsertLeadershipVolunteerData] =
-		useState({
-			company: '',
-			location: '',
-			position: '',
-			experiencetype: '',
-			startmonth: '',
-			startyear: '',
-			endmonth: '',
-			endyear: '',
-			other: '',
-		});
+		useState([
+			{
+				company: '',
+				location: '',
+				position: '',
+				experiencetype: '',
+				startmonth: '',
+				startyear: '',
+				endmonth: '',
+				endyear: '',
+				other: '',
+			},
+		]);
 
 	const [insertProjectData, setinsertProjectData] = useState({
 		company: '',
@@ -82,17 +84,19 @@ export function OnboardingFlow() {
 		technical: '',
 	});
 
-	const [insertWorkData, setInsertWorkData] = useState({
-		company: '',
-		location: '',
-		position: '',
-		experiencetype: '',
-		startmonth: '',
-		startyear: '',
-		endmonth: '',
-		endyear: '',
-		other: '',
-	});
+	const [insertWorkData, setInsertWorkData] = useState([
+		{
+			company: '',
+			location: '',
+			position: '',
+			experiencetype: '',
+			startmonth: '',
+			startyear: '',
+			endmonth: '',
+			endyear: '',
+			other: '',
+		},
+	]);
 
 	// const [preferences, setPreferences] = useState([]);
 
@@ -121,28 +125,8 @@ export function OnboardingFlow() {
 				location: insertNewData.location,
 				personalsummary: insertNewData.personalsummary,
 				education: insertEducationData,
-				workexperience: {
-					company: insertWorkData.company,
-					location: insertWorkData.location,
-					position: insertWorkData.position,
-					experiencetype: insertWorkData.experiencetype,
-					startmonth: insertWorkData.startmonth,
-					startyear: insertWorkData.startyear,
-					endmonth: insertWorkData.endmonth,
-					endyear: insertWorkData.endyear,
-					other: insertWorkData.other,
-				},
-				leadershipvolunteer: {
-					company: insertLeadershipVolunteerData.company,
-					location: insertLeadershipVolunteerData.location,
-					position: insertLeadershipVolunteerData.position,
-					experiencetype: insertLeadershipVolunteerData.experiencetype,
-					startmonth: insertLeadershipVolunteerData.startmonth,
-					startyear: insertLeadershipVolunteerData.startyear,
-					endmonth: insertLeadershipVolunteerData.endmonth,
-					endyear: insertLeadershipVolunteerData.endyear,
-					other: insertLeadershipVolunteerData.other,
-				},
+				workexperience: insertWorkData,
+				leadershipvolunteer: insertLeadershipVolunteerData,
 				projects: {
 					company: insertProjectData.company,
 					location: insertProjectData.location,
@@ -357,125 +341,148 @@ const LeadershipVolunteerExperienceForm = ({
 	setinsertLeadershipVolunteerData,
 }) => {
 	// Handler to update form data
-	const handleChange = (e) => {
+	const handleChange = (index, e) => {
 		const { name, value } = e.target;
-		setinsertLeadershipVolunteerData((prevFormData) => ({
-			...prevFormData,
+		const updatedLeadershipVolunteer = [...insertLeadershipVolunteerData];
+		updatedLeadershipVolunteer[index] = {
+			...updatedLeadershipVolunteer[index],
 			[name]: value,
-		}));
+		};
+		setinsertLeadershipVolunteerData(updatedLeadershipVolunteer);
+	};
+
+	const handleAddLeadershipVolunteer = () => {
+		setinsertLeadershipVolunteerData([
+			...insertLeadershipVolunteerData,
+			{
+				company: '',
+				location: '',
+				position: '',
+				experiencetype: '',
+				startmonth: '',
+				startyear: '',
+				endmonth: '',
+				endyear: '',
+				other: '',
+			},
+		]);
 	};
 
 	return (
 		<div>
-			<div>Add your leadership / volunteer experience</div>
+			<h1>Add your leadership / volunteer experience</h1>
 			<br></br>
-			<div>Leadership / Volunteer Experience 1</div>
-			<form>
-				<div>
-					Company
-					<input
-						name="company"
-						value={insertLeadershipVolunteerData.company}
-						onChange={handleChange}
-						placeholder="Enter your company"
-						required
-					/>
+			{insertLeadershipVolunteerData.map((leadershipvolunteer, index) => (
+				<div key={index}>
+					<div>
+						<label>Company Name</label>
+						<input
+							name="company"
+							value={leadershipvolunteer.company}
+							onChange={(e) => handleChange(index, e)}
+							placeholder="Enter the company name"
+							required
+						/>
+					</div>
+					<br />
+					<div>
+						<label>Location</label>
+						<input
+							name="location"
+							value={leadershipvolunteer.location}
+							onChange={(e) => handleChange(index, e)}
+							placeholder="Enter the location"
+							required
+						/>
+					</div>
+					<br />
+					<div>
+						<label>Position Title</label>
+						<input
+							name="position"
+							value={leadershipvolunteer.position}
+							onChange={(e) => handleChange(index, e)}
+							placeholder="Enter your position"
+							required
+						/>
+					</div>
+					<br />
+					<div>
+						<label>Experience Type</label>
+						<input
+							name="experiencetype"
+							value={leadershipvolunteer.experiencetype}
+							onChange={(e) => handleChange(index, e)}
+							placeholder="Enter your experience type"
+							required
+						/>
+					</div>
+					<br />
+					<div>
+						<label>Start Month</label>
+						<input
+							name="startmonth"
+							value={leadershipvolunteer.startmonth}
+							onChange={(e) => handleChange(index, e)}
+							placeholder="Enter the start month"
+							required
+						/>
+					</div>
+					<br />
+					<div>
+						<label>Start Year</label>
+						<input
+							name="startyear"
+							value={leadershipvolunteer.startyear}
+							onChange={(e) => handleChange(index, e)}
+							placeholder="Enter the start year"
+							required
+						/>
+					</div>
+					<br />
+					<div>
+						<label>End Month</label>
+						<input
+							name="endmonth"
+							value={leadershipvolunteer.endmonth}
+							onChange={(e) => handleChange(index, e)}
+							placeholder="Enter the endmonth"
+							required
+						/>
+					</div>
+					<br />
+					<div>
+						<label>End Year</label>
+						<input
+							name="endyear"
+							value={leadershipvolunteer.endyear}
+							onChange={(e) => handleChange(index, e)}
+							placeholder="Enter the end year"
+							required
+						/>
+					</div>
+					<br />
+					<div>
+						<label>Description</label>
+						<textarea
+							name="other"
+							value={insertLeadershipVolunteerData.other}
+							onChange={(e) => handleChange(index, e)}
+							placeholder="Enter any other information"
+							row={5}
+							col={25}
+							required
+						/>
+					</div>
+					<br />
 				</div>
-				<br />
-				<div>
-					Location
-					<input
-						name="location"
-						value={insertLeadershipVolunteerData.location}
-						onChange={handleChange}
-						placeholder="Enter your location"
-						required
-					/>
-				</div>
-				<br />
-				<div>
-					Position Title
-					<input
-						name="position"
-						value={insertLeadershipVolunteerData.position}
-						onChange={handleChange}
-						placeholder="Enter your position"
-						required
-					/>
-				</div>
-				<br />
-				<div>
-					Experience Type
-					<input
-						name="experiencetype"
-						value={insertLeadershipVolunteerData.experiencetype}
-						onChange={handleChange}
-						placeholder="Enter your experiencetype"
-						required
-					/>
-				</div>
-				<br />
-				<div>
-					Start Month
-					<input
-						name="startmonth"
-						value={insertLeadershipVolunteerData.startmonth}
-						onChange={handleChange}
-						placeholder="Enter your start month"
-						required
-					/>
-				</div>
-				<br />
-				<div>
-					Start Year
-					<input
-						name="startyear"
-						value={insertLeadershipVolunteerData.startyear}
-						onChange={handleChange}
-						placeholder="Enter your start year"
-						required
-					/>
-				</div>
-				<br />
-				<div>
-					End Month
-					<input
-						name="endmonth"
-						value={insertLeadershipVolunteerData.endmonth}
-						onChange={handleChange}
-						placeholder="Enter your end month"
-						required
-					/>
-				</div>
-				<br />
-				<div>
-					End Year
-					<input
-						name="endyear"
-						value={insertLeadershipVolunteerData.endyear}
-						onChange={handleChange}
-						placeholder="Enter your end year"
-						required
-					/>
-				</div>
-				<div>I currently work here</div>
-				<br />
-				<div>
-					Description
-					<br></br>
-					<textarea
-						name="other"
-						value={insertLeadershipVolunteerData.other}
-						onChange={handleChange}
-						placeholder="Enter any other information"
-						row={5}
-						col={25}
-						required
-					/>
-				</div>
-				<div>Add Leadership / Volunteer Experience</div>
-				<br />
-			</form>
+			))}
+			<button
+				type="button"
+				onClick={handleAddLeadershipVolunteer}
+			>
+				Add Leadership / Volunteer Experience
+			</button>
 		</div>
 	);
 };
@@ -940,125 +947,151 @@ const SkillsForm = ({
 
 const WorkExperienceForm = ({ insertWorkData, setInsertWorkData }) => {
 	// Handler to update form data
-	const handleChange = (e) => {
+	const handleChange = (index, e) => {
 		const { name, value } = e.target;
-		setInsertWorkData((prevFormData) => ({
-			...prevFormData,
+		const updatedWorkExperience = [...insertWorkData];
+		updatedWorkExperience[index] = {
+			...updatedWorkExperience[index],
 			[name]: value,
-		}));
+		};
+		setInsertWorkData(updatedWorkExperience);
+		// setInsertWorkData((prevFormData) => ({
+		// 	...prevFormData,
+		// 	[name]: value,
+		// }));
+	};
+
+	const handleAddWorkExperience = () => {
+		setInsertWorkData([
+			...insertWorkData,
+			{
+				company: '',
+				location: '',
+				position: '',
+				experiencetype: '',
+				startmonth: '',
+				startyear: '',
+				endmonth: '',
+				endyear: '',
+				other: '',
+			},
+		]);
 	};
 
 	return (
 		<div>
-			<div>Add your work experience</div>
-			<br></br>
-			<div>Work Experience 1</div>
-			<form>
-				<div>
-					Company
-					<input
-						name="company"
-						value={insertWorkData.company}
-						onChange={handleChange}
-						placeholder="Enter your company"
-						required
-					/>
+			<h1>Add your work experience</h1>
+			{insertWorkData.map((workexperience, index) => (
+				<div key={index}>
+					<div>
+						<label>Company Name</label>
+						<input
+							name="company"
+							value={workexperience.company}
+							onChange={(e) => handleChange(index, e)}
+							placeholder="Enter your company"
+							required
+						/>
+					</div>
+					<br />
+					<div>
+						<label>Location</label>
+						<input
+							name="location"
+							value={workexperience.location}
+							onChange={(e) => handleChange(index, e)}
+							placeholder="Enter the location"
+							required
+						/>
+					</div>
+					<br />
+					<div>
+						<label>Position Title</label>
+						<input
+							name="position"
+							value={workexperience.position}
+							onChange={(e) => handleChange(index, e)}
+							placeholder="Enter your position"
+							required
+						/>
+					</div>
+					<br />
+					<div>
+						<label>Experience Type</label>
+						<input
+							name="experiencetype"
+							value={workexperience.experiencetype}
+							onChange={(e) => handleChange(index, e)}
+							placeholder="Enter your experience type"
+							required
+						/>
+					</div>
+					<br />
+					<div>
+						<label>Start Month</label>
+						<input
+							name="startmonth"
+							value={workexperience.startmonth}
+							onChange={(e) => handleChange(index, e)}
+							placeholder="Enter your start month"
+							required
+						/>
+					</div>
+					<br />
+					<div>
+						<label>Start Year</label>
+						<input
+							name="startyear"
+							value={workexperience.startyear}
+							onChange={(e) => handleChange(index, e)}
+							placeholder="Enter your start year"
+							required
+						/>
+					</div>
+					<br />
+					<div>
+						<label>End Month</label>
+						<input
+							name="endmonth"
+							value={workexperience.endmonth}
+							onChange={(e) => handleChange(index, e)}
+							placeholder="Enter your end month"
+							required
+						/>
+					</div>
+					<br />
+					<div>
+						<label>End Year</label>
+						<input
+							name="endyear"
+							value={workexperience.endyear}
+							onChange={(e) => handleChange(index, e)}
+							placeholder="Enter your end year"
+							required
+						/>
+					</div>
+					<br />
+					<div>
+						<label>Description</label>
+						<textarea
+							name="other"
+							value={workexperience.other}
+							onChange={(e) => handleChange(index, e)}
+							placeholder="Enter any other information"
+							row={5}
+							col={25}
+							required
+						/>
+					</div>
+					<br />
+					<button
+						type="button"
+						onClick={handleAddWorkExperience}
+					>
+						Add Another Work Experience
+					</button>
 				</div>
-				<br />
-				<div>
-					Location
-					<input
-						name="location"
-						value={insertWorkData.location}
-						onChange={handleChange}
-						placeholder="Enter your location"
-						required
-					/>
-				</div>
-				<br />
-				<div>
-					Position Title
-					<input
-						name="position"
-						value={insertWorkData.position}
-						onChange={handleChange}
-						placeholder="Enter your position"
-						required
-					/>
-				</div>
-				<br />
-				<div>
-					Experience Type
-					<input
-						name="experiencetype"
-						value={insertWorkData.experiencetype}
-						onChange={handleChange}
-						placeholder="Enter your experiencetype"
-						required
-					/>
-				</div>
-				<br />
-				<div>
-					Start Month
-					<input
-						name="startmonth"
-						value={insertWorkData.startmonth}
-						onChange={handleChange}
-						placeholder="Enter your start month"
-						required
-					/>
-				</div>
-				<br />
-				<div>
-					Start Year
-					<input
-						name="startyear"
-						value={insertWorkData.startyear}
-						onChange={handleChange}
-						placeholder="Enter your start year"
-						required
-					/>
-				</div>
-				<br />
-				<div>
-					End Month
-					<input
-						name="endmonth"
-						value={insertWorkData.endmonth}
-						onChange={handleChange}
-						placeholder="Enter your end month"
-						required
-					/>
-				</div>
-				<br />
-				<div>
-					End Year
-					<input
-						name="endyear"
-						value={insertWorkData.endyear}
-						onChange={handleChange}
-						placeholder="Enter your end year"
-						required
-					/>
-				</div>
-				<div>I currently work here</div>
-				<br />
-				<div>
-					Description
-					<br></br>
-					<textarea
-						name="other"
-						value={insertWorkData.other}
-						onChange={handleChange}
-						placeholder="Enter any other information"
-						row={5}
-						col={25}
-						required
-					/>
-				</div>
-				<div>Add Work Experience</div>
-				<br />
-			</form>
+			))}
 		</div>
 	);
 };
@@ -1155,30 +1188,49 @@ const SummaryStep = ({
 			)}
 
 			<br />
-
 			<h2>Work Info</h2>
-			<ul>Company: {insertWorkData.company}</ul>
-			<ul>Location: {insertWorkData.location}</ul>
-			<ul>Position: {insertWorkData.position}</ul>
-			<ul>Experience Type: {insertWorkData.experiencetype}</ul>
-			<ul>Start Month: {insertWorkData.startmonth}</ul>
-			<ul>Start Year: {insertWorkData.startyear}</ul>
-			<ul>End Month: {insertWorkData.endmonth}</ul>
-			<ul>End Year: {insertWorkData.endyear}</ul>
-			<ul>Other: {insertWorkData.other}</ul>
-
+			{insertWorkData.length > 0 ? (
+				insertWorkData.map((workexperience, index) => (
+					<div key={index}>
+						<h3>Work Experience {index + 1}</h3>
+						<ul>
+							<li>Company: {workexperience.company}</li>
+							<li>Location: {workexperience.location}</li>
+							<li>Position: {workexperience.position}</li>
+							<li>Experience Type: {workexperience.experiencetype}</li>
+							<li>Start Month: {workexperience.startmonth}</li>
+							<li>Start Year: {workexperience.startyear}</li>
+							<li>End Month: {workexperience.endmonth}</li>
+							<li>End Year: {workexperience.endyear}</li>
+							<li>Other: {workexperience.other}</li>
+						</ul>
+					</div>
+				))
+			) : (
+				<p>No Work Experience data available.</p>
+			)}
 			<br />
-
 			<h2>Leadership & Volunteer Info</h2>
-			<ul>Company: {insertLeadershipVolunteerData.company}</ul>
-			<ul>Location: {insertLeadershipVolunteerData.location}</ul>
-			<ul>Position: {insertLeadershipVolunteerData.position}</ul>
-			<ul>Experience Type: {insertLeadershipVolunteerData.experiencetype}</ul>
-			<ul>Start Month: {insertLeadershipVolunteerData.startmonth}</ul>
-			<ul>Start Year: {insertLeadershipVolunteerData.startyear}</ul>
-			<ul>End Month: {insertLeadershipVolunteerData.endmonth}</ul>
-			<ul>End Year: {insertLeadershipVolunteerData.endyear}</ul>
-			<ul>Other: {insertLeadershipVolunteerData.other}</ul>
+			{insertLeadershipVolunteerData.length > 0 ? (
+				insertLeadershipVolunteerData.map((leadershipvolunteer, index) => (
+					<div key={index}>
+						<h3>Leadership & Volunteer {index + 1}</h3>
+						<ul>
+							<li>Company: {leadershipvolunteer.company}</li>
+							<li>Location: {leadershipvolunteer.major}</li>
+							<li>Positiom: {leadershipvolunteer.position}</li>
+							<li>Experience Type: {leadershipvolunteer.experiencetype}</li>
+							<li>Start Month: {leadershipvolunteer.startmonth}</li>
+							<li>Start Year: {leadershipvolunteer.startyear}</li>
+							<li>End Month: {leadershipvolunteer.endmonth}</li>
+							<li>End Year: {leadershipvolunteer.endyear}</li>
+							<li>Other: {leadershipvolunteer.other}</li>
+						</ul>
+					</div>
+				))
+			) : (
+				<p>No Leadership and Volunteer data available.</p>
+			)}
 
 			<br />
 
