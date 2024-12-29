@@ -60,15 +60,17 @@ export function OnboardingFlow() {
 			},
 		]);
 
-	const [insertProjectData, setinsertProjectData] = useState({
-		company: '',
-		location: '',
-		startmonth: '',
-		startyear: '',
-		endmonth: '',
-		endyear: '',
-		other: '',
-	});
+	const [insertProjectData, setinsertProjectData] = useState([
+		{
+			company: '',
+			location: '',
+			startmonth: '',
+			startyear: '',
+			endmonth: '',
+			endyear: '',
+			other: '',
+		},
+	]);
 
 	const [insertSkills1Form, setInsertSkills1Form] = useState({
 		codinglanguages: '',
@@ -127,15 +129,7 @@ export function OnboardingFlow() {
 				education: insertEducationData,
 				workexperience: insertWorkData,
 				leadershipvolunteer: insertLeadershipVolunteerData,
-				projects: {
-					company: insertProjectData.company,
-					location: insertProjectData.location,
-					startmonth: insertProjectData.startmonth,
-					startyear: insertProjectData.startyear,
-					endmonth: insertProjectData.endmonth,
-					endyear: insertProjectData.endyear,
-					other: insertProjectData.other,
-				},
+				projects: insertProjectData,
 				technicalskills: {
 					codinglanguages: insertSkills1Form.codinglanguages,
 					programmingconcepts: insertSkills1Form.programmingconcepts,
@@ -631,103 +625,111 @@ const EducationForm = ({ insertEducationData, setInsertEducationData }) => {
 };
 
 const ProjectsForm = ({ insertProjectData, setinsertProjectData }) => {
-	const handleChange = (e) => {
+	const handleChange = (index, e) => {
 		const { name, value } = e.target;
-		setinsertProjectData((prevFormData) => ({
-			...prevFormData,
-			[name]: value,
-		}));
+		const updatedProjects = [...insertProjectData];
+		updatedProjects[index] = { ...updatedProjects[index], [name]: value };
+		setinsertProjectData(updatedProjects);
+	};
+
+	const handleAddProjects = () => {
+		setinsertProjectData([
+			...insertProjectData,
+			{
+				company: '',
+				location: '',
+				startmonth: '',
+				startyear: '',
+				endmonth: '',
+				endyear: '',
+				other: '',
+			},
+		]);
 	};
 
 	return (
 		<div>
-			<div>Add your projects</div>
+			<h1>Add your projects</h1>
 			<br></br>
-			<div>Project 1</div>
-			<form>
-				<div>
-					Company
-					<input
-						name="company"
-						value={insertProjectData.company}
-						onChange={handleChange}
-						placeholder="Enter your company"
-						required
-					/>
+			{insertProjectData.map((projects, index) => (
+				<div key={index}>
+					<div>
+						<label>Company Name</label>
+						<input
+							name="company"
+							value={projects.company}
+							onChange={(e) => handleChange(index, e)}
+							placeholder="Enter the company name"
+							required
+						/>
+					</div>
+					<br />
+					<div>
+						<label>Start Month</label>
+						<input
+							name="startmonth"
+							value={projects.startmonth}
+							onChange={(e) => handleChange(index, e)}
+							placeholder="Enter the start month"
+							required
+						/>
+					</div>
+					<br />
+					<div>
+						<label>Start Year</label>
+						<input
+							name="startyear"
+							value={projects.startyear}
+							onChange={(e) => handleChange(index, e)}
+							placeholder="Enter the start year"
+							required
+						/>
+					</div>
+					<br />
+					<div>
+						<label>End Month</label>
+						<input
+							name="endmonth"
+							value={projects.endmonth}
+							onChange={(e) => handleChange(index, e)}
+							placeholder="Enter the end month"
+							required
+						/>
+					</div>
+					<br />
+					<div>
+						<label>End Year</label>
+						<input
+							name="endyear"
+							value={projects.endyear}
+							onChange={(e) => handleChange(index, e)}
+							placeholder="Enter the end year"
+							required
+						/>
+					</div>
+					<br />
+					<div>
+						<label>Description</label>
+						<br />
+						<textarea
+							name="other"
+							value={projects.other}
+							onChange={(e) => handleChange(index, e)}
+							placeholder="Enter any other information"
+							row={5}
+							col={25}
+							required
+						/>
+					</div>
+					<br />
 				</div>
-				<br />
-				<div>
-					Location
-					<input
-						name="location"
-						value={insertProjectData.location}
-						onChange={handleChange}
-						placeholder="Enter your location"
-						required
-					/>
-				</div>
-				<br />
-				<div>
-					Start Month
-					<input
-						name="startmonth"
-						value={insertProjectData.startmonth}
-						onChange={handleChange}
-						placeholder="Enter your start month"
-						required
-					/>
-				</div>
-				<br />
-				<div>
-					Start Year
-					<input
-						name="startyear"
-						value={insertProjectData.startyear}
-						onChange={handleChange}
-						placeholder="Enter your start year"
-						required
-					/>
-				</div>
-				<br />
-				<div>
-					End Month
-					<input
-						name="endmonth"
-						value={insertProjectData.endmonth}
-						onChange={handleChange}
-						placeholder="Enter your end month"
-						required
-					/>
-				</div>
-				<br />
-				<div>
-					End Year
-					<input
-						name="endyear"
-						value={insertProjectData.endyear}
-						onChange={handleChange}
-						placeholder="Enter your end year"
-						required
-					/>
-				</div>
-				<div>I am currently building this</div>
-				<br />
-				<div>
-					Description
-					<br></br>
-					<textarea
-						name="other"
-						value={insertProjectData.other}
-						onChange={handleChange}
-						placeholder="Enter any other information"
-						row={5}
-						col={25}
-						required
-					/>
-				</div>
-				<div>Add a Project</div>
-				<br />
-			</form>
+			))}
+			<button
+				type="type"
+				onClick={handleAddProjects}
+			>
+				Add Projects
+			</button>
 		</div>
 	);
 };
@@ -1218,7 +1220,7 @@ const SummaryStep = ({
 						<ul>
 							<li>Company: {leadershipvolunteer.company}</li>
 							<li>Location: {leadershipvolunteer.major}</li>
-							<li>Positiom: {leadershipvolunteer.position}</li>
+							<li>Position: {leadershipvolunteer.position}</li>
 							<li>Experience Type: {leadershipvolunteer.experiencetype}</li>
 							<li>Start Month: {leadershipvolunteer.startmonth}</li>
 							<li>Start Year: {leadershipvolunteer.startyear}</li>
@@ -1235,14 +1237,24 @@ const SummaryStep = ({
 			<br />
 
 			<h2>Project Info</h2>
-			<ul>Company: {insertProjectData.company}</ul>
-			<ul>Location: {insertProjectData.location}</ul>
-			<ul>Start Month: {insertProjectData.startmonth}</ul>
-			<ul>Start Year: {insertProjectData.startyear}</ul>
-			<ul>End Month: {insertProjectData.endmonth}</ul>
-			<ul>End Year: {insertProjectData.endyear}</ul>
-			<ul>Other: {insertProjectData.other}</ul>
-
+			{insertProjectData.length > 0 ? (
+				insertProjectData.map((projects, index) => (
+					<div key={index}>
+						<h3>Project {index + 1}</h3>
+						<ul>
+							<li>Company: {projects.company}</li>
+							<li>Location: {projects.location}</li>
+							<li>Start Month: {projects.startmonth}</li>
+							<li>Start Year: {projects.startyear}</li>
+							<li>End Month: {projects.endmonth}</li>
+							<li>End Year: {projects.endyear}</li>
+							<li>Other: {projects.other}</li>
+						</ul>
+					</div>
+				))
+			) : (
+				<p>No Project data available.</p>
+			)}
 			<br />
 
 			<h2>Skills - Section 1</h2>
