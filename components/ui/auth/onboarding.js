@@ -4,10 +4,12 @@
 
 import React, { useState } from 'react';
 import { createClient } from '../../../app/supabase/client';
+import { useRouter } from 'next/navigation';
 
 const supabase = createClient();
 
 export function OnboardingFlow() {
+	const router = useRouter();
 	// const nextStep = () => setStep((prevStep) => prevStep + 1);
 
 	const nextStep = () => {
@@ -144,6 +146,8 @@ export function OnboardingFlow() {
 				},
 			})
 			.select();
+
+		router.push('/dashboard');
 		if (error) {
 			console.error('Insert error:', error);
 		}
