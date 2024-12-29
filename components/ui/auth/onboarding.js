@@ -31,17 +31,19 @@ export function OnboardingFlow() {
 		personalsummary: '',
 	});
 
-	const [insertEducationData, setInsertEducationData] = useState({
-		school: '',
-		major: '',
-		degreetype: '',
-		GPA: '',
-		startmonth: '',
-		startyear: '',
-		endmonth: '',
-		endyear: '',
-		other: '',
-	});
+	const [insertEducationData, setInsertEducationData] = useState([
+		{
+			school: '',
+			major: '',
+			degreetype: '',
+			GPA: '',
+			startmonth: '',
+			startyear: '',
+			endmonth: '',
+			endyear: '',
+			other: '',
+		},
+	]);
 
 	const [insertLeadershipVolunteerData, setinsertLeadershipVolunteerData] =
 		useState({
@@ -118,17 +120,7 @@ export function OnboardingFlow() {
 				github: insertNewData.github,
 				location: insertNewData.location,
 				personalsummary: insertNewData.personalsummary,
-				education: {
-					school: insertEducationData.school,
-					major: insertEducationData.major,
-					degreetype: insertEducationData.degreetype,
-					GPA: insertEducationData.GPA,
-					startmonth: insertEducationData.startmonth,
-					startyear: insertEducationData.startyear,
-					endmonth: insertEducationData.endmonth,
-					endyear: insertEducationData.endyear,
-					other: insertEducationData.other,
-				},
+				education: insertEducationData,
 				workexperience: {
 					company: insertWorkData.company,
 					location: insertWorkData.location,
@@ -490,122 +482,143 @@ const LeadershipVolunteerExperienceForm = ({
 
 const EducationForm = ({ insertEducationData, setInsertEducationData }) => {
 	// Handler to update form data
-	const handleChange = (e) => {
+	const handleChange = (index, e) => {
 		const { name, value } = e.target;
-		setInsertEducationData((prevFormData) => ({
-			...prevFormData,
-			[name]: value,
-		}));
+		const updatedEducation = [...insertEducationData];
+		updatedEducation[index] = { ...updatedEducation[index], [name]: value };
+		setInsertEducationData(updatedEducation);
+	};
+
+	const handleAddEducation = () => {
+		setInsertEducationData([
+			...insertEducationData,
+			{
+				school: '',
+				major: '',
+				degreetype: '',
+				GPA: '',
+				startmonth: '',
+				startyear: '',
+				endmonth: '',
+				endyear: '',
+				other: '',
+			},
+		]);
 	};
 
 	return (
 		<div>
-			<div>Add your education history </div>
-			<br></br>
-			<div>Education 1</div>
-			<form>
-				<div>
-					School Name
-					<input
-						name="school"
-						value={insertEducationData.school}
-						onChange={handleChange}
-						placeholder="Enter your school"
-						required
-					/>
+			<h1>Add your education history </h1>
+			{insertEducationData.map((education, index) => (
+				<div key={index}>
+					<div>
+						<label>School Name</label>
+						<input
+							name="school"
+							value={education.school}
+							onChange={(e) => handleChange(index, e)}
+							placeholder="Enter your school"
+							required
+						/>
+					</div>
+					<br />
+					<div>
+						<label>Major</label>
+						<input
+							name="major"
+							value={education.major}
+							onChange={(e) => handleChange(index, e)}
+							placeholder="Enter your major"
+							required
+						/>
+					</div>
+					<br />
+					<div>
+						<label>Degree Type</label>
+						<input
+							name="degreetype"
+							value={education.degreetype}
+							onChange={(e) => handleChange(index, e)}
+							placeholder="Enter your degree type"
+							required
+						/>
+					</div>
+					<br />
+					<div>
+						<label>GPA</label>
+						<input
+							name="GPA"
+							value={education.GPA}
+							onChange={(e) => handleChange(index, e)}
+							placeholder="Enter your GPA"
+							required
+						/>
+					</div>
+					<br />
+					<div>
+						<label>Start Month</label>
+						<input
+							name="startmonth"
+							value={education.startmonth}
+							onChange={(e) => handleChange(index, e)}
+							placeholder="Enter your start month"
+							required
+						/>
+					</div>
+					<br />
+					<div>
+						<label>Start Year</label>
+						<input
+							name="startyear"
+							value={education.startyear}
+							onChange={(e) => handleChange(index, e)}
+							placeholder="Enter your start year"
+							required
+						/>
+					</div>
+					<br />
+					<div>
+						<label>End Month</label>
+						<input
+							name="endmonth"
+							value={education.endmonth}
+							onChange={(e) => handleChange(index, e)}
+							placeholder="Enter your end month"
+							required
+						/>
+					</div>
+					<br />
+					<div>
+						<label>End Year</label>
+						<input
+							name="endyear"
+							value={education.endyear}
+							onChange={(e) => handleChange(index, e)}
+							placeholder="Enter your end year"
+							required
+						/>
+					</div>
+					<br />
+					<div>
+						<label>
+							Courses Taken / Concepts Learned / Scholarships / Other
+						</label>
+						<input
+							name="other"
+							value={education.other}
+							onChange={(e) => handleChange(index, e)}
+							placeholder="Enter any other information"
+							required
+						/>
+					</div>
 				</div>
-				<br />
-				<div>
-					Major
-					<input
-						name="major"
-						value={insertEducationData.major}
-						onChange={handleChange}
-						placeholder="Enter your major"
-						required
-					/>
-				</div>
-				<br />
-				<div>
-					Degree Type
-					<input
-						name="degreetype"
-						value={insertEducationData.degreetype}
-						onChange={handleChange}
-						placeholder="Enter your degree type"
-						required
-					/>
-				</div>
-				<br />
-				<div>
-					GPA
-					<input
-						name="GPA"
-						value={insertEducationData.GPA}
-						onChange={handleChange}
-						placeholder="Enter your GPA"
-						required
-					/>
-				</div>
-				<br />
-				<div>
-					Start Month
-					<input
-						name="startmonth"
-						value={insertEducationData.startmonth}
-						onChange={handleChange}
-						placeholder="Enter your start month"
-						required
-					/>
-				</div>
-				<br />
-				<div>
-					Start Year
-					<input
-						name="startyear"
-						value={insertEducationData.startyear}
-						onChange={handleChange}
-						placeholder="Enter your start year"
-						required
-					/>
-				</div>
-				<br />
-				<div>
-					End Month
-					<input
-						name="endmonth"
-						value={insertEducationData.endmonth}
-						onChange={handleChange}
-						placeholder="Enter your end month"
-						required
-					/>
-				</div>
-				<br />
-				<div>
-					End Year
-					<input
-						name="endyear"
-						value={insertEducationData.endyear}
-						onChange={handleChange}
-						placeholder="Enter your end year"
-						required
-					/>
-				</div>
-				<div>Clear Dates</div>
-				<br />
-				<div>
-					Courses Taken / Concepts Learned / Scholarships / Other
-					<input
-						name="other"
-						value={insertEducationData.other}
-						onChange={handleChange}
-						placeholder="Enter any other information"
-						required
-					/>
-				</div>
-				<div>Add Education</div>
-				<br />
-			</form>
+			))}
+			<button
+				type="button"
+				onClick={handleAddEducation}
+			>
+				Add Another Education Entry;
+			</button>
 		</div>
 	);
 };
@@ -1117,18 +1130,29 @@ const SummaryStep = ({
 			<br />
 
 			<h2>Education Info</h2>
-			<ul>School Name: {insertEducationData.school}</ul>
-			<ul>Major: {insertEducationData.major}</ul>
-			<ul>Degree Type: {insertEducationData.degreetype}</ul>
-			<ul>GPA: {insertEducationData.GPA}</ul>
-			<ul>Start Month: {insertEducationData.startmonth}</ul>
-			<ul>Start Year: {insertEducationData.startyear}</ul>
-			<ul>End Month: {insertEducationData.endmonth}</ul>
-			<ul>End Year: {insertEducationData.endyear}</ul>
-			<ul>
-				Courses Taken / Concepts Learned / Scholarships / Other:{' '}
-				{insertEducationData.other}
-			</ul>
+			{insertEducationData.length > 0 ? (
+				insertEducationData.map((education, index) => (
+					<div key={index}>
+						<h3>Education {index + 1}</h3>
+						<ul>
+							<li>School Name: {education.school}</li>
+							<li>Major: {education.major}</li>
+							<li>Degree Type: {education.degreetype}</li>
+							<li>GPA: {education.GPA}</li>
+							<li>Start Month: {education.startmonth}</li>
+							<li>Start Year: {education.startyear}</li>
+							<li>End Month: {education.endmonth}</li>
+							<li>End Year: {education.endyear}</li>
+							<li>
+								Courses Taken / Concepts Learned / Scholarships / Other: :{' '}
+								{education.other}
+							</li>
+						</ul>
+					</div>
+				))
+			) : (
+				<p>No Education data available.</p>
+			)}
 
 			<br />
 
