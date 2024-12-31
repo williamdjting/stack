@@ -1,4 +1,4 @@
-import { Document, Packer, Paragraph, TextRun, Header, AlignmentType } from 'docx';
+import { Document, Packer, Paragraph, TextRun, Header, AlignmentType, TabStopType, TabStop, TabStopPosition } from 'docx';
 
 export default async function generateResume(aiResponse: Record<string, any>) {
     console.log("Received request to generate resume DOCX");
@@ -23,10 +23,20 @@ export default async function generateResume(aiResponse: Record<string, any>) {
                       size: 32,
                       }),
                     ],
+                    alignment: AlignmentType.CENTER,
+                }),
+                new Paragraph({
+                  children: [
+                    new TextRun({
+                      text: `${coverLetterDetails.applicant_email} | ${coverLetterDetails.applicant_phone}`,
+                      size: 24
+                    })
+                  ],
                   alignment: AlignmentType.CENTER,
-                  border: {
-                    bottom: { style: "single", size: 4, color: "000000" },
-                  },
+                  spacing: {
+                    before: 200,
+                    after: 200
+                  }
                 }),
               ],
             })},
@@ -45,24 +55,41 @@ export default async function generateResume(aiResponse: Record<string, any>) {
                 before: 200,
                 after: 100,
                 },
+                border: {
+                  bottom: { style: "single", size: 4, color: "000000" },
+                },
               }),
               new Paragraph({
                 children: [
                   new TextRun({
-                    text: educationDetails.education_degree,
+                    text: educationDetails.education_school,
                     size: 20,
                     bold: true,
+                  }),
+                  new TextRun({
+                    text: `\t${educationDetails.education_location}`,
+                    size: 20,
                   }),
                 ],
               spacing: {
               before: 100,
               after: 100,
               },
+              tabStops: [
+                {
+                  type: TabStopType.RIGHT,
+                  position: TabStopPosition.MAX,
+                }
+              ],
             }),
             new Paragraph({
               children: [
                 new TextRun({
-                  text: `${educationDetails.education_school}, ${educationDetails.education_location}`,
+                  text: `${educationDetails.education_degree} - ${educationDetails.education_major}`,
+                  size: 20,
+                }),
+                new TextRun({
+                  text: `\t${educationDetails.education_date}`,
                   size: 20,
                 }),
               ],
@@ -70,6 +97,12 @@ export default async function generateResume(aiResponse: Record<string, any>) {
             before: 100,
             after: 100,
             },
+            tabStops: [
+              {
+                type: TabStopType.RIGHT,
+                position: TabStopPosition.MAX,
+              }
+            ],
           }),
           new Paragraph({
             children: [
@@ -81,6 +114,9 @@ export default async function generateResume(aiResponse: Record<string, any>) {
           spacing: {
           before: 300,
           after: 100,
+          },
+          border: {
+            bottom: { style: "single", size: 4, color: "000000" },
           },
         }),
         ...parseWorkExperienceJsonToParagraphs(workExperienceDetails),
@@ -95,6 +131,9 @@ export default async function generateResume(aiResponse: Record<string, any>) {
                 before: 300,
                 after: 100,
                 },
+                border: {
+                  bottom: { style: "single", size: 4, color: "000000" },
+                },
               }),
                 ...parseProjectJsonToParagraphs(projectDetails),
               new Paragraph({
@@ -107,6 +146,9 @@ export default async function generateResume(aiResponse: Record<string, any>) {
               spacing: {
               before: 300,
               after: 100,
+              },
+              border: {
+                bottom: { style: "single", size: 4, color: "000000" },
               },
             }),
             new Paragraph({
@@ -252,12 +294,22 @@ export default async function generateResume(aiResponse: Record<string, any>) {
                                   bold: true,
                                   size: 20,
                               }),
+                              new TextRun({
+                                text: `\t${experience.workexperience_location}`,
+                                size: 20,
+                              }),
                           ],
                           spacing: {
                               before: 100,
                               after: 100,
                               line: 240,
                           },
+                          tabStops: [
+                            {
+                              type: TabStopType.RIGHT,
+                              position: TabStopPosition.MAX,
+                            }
+                          ],
                           }),
                           new Paragraph({
                               children: [
@@ -266,12 +318,22 @@ export default async function generateResume(aiResponse: Record<string, any>) {
                                       italics: true,
                                       size: 20,
                                   }),
+                                  new TextRun({
+                                    text: `\t${experience.workexperience_date}`,
+                                    size: 20,
+                                  }),
                               ],
                               spacing: {
                                   before: 100,
                                   after: 100,
                                   line: 240,
                               },
+                              tabStops: [
+                            {
+                              type: TabStopType.RIGHT,
+                              position: TabStopPosition.MAX,
+                            }
+                          ],
                           })
                       );
                   }
