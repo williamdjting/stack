@@ -61,11 +61,11 @@ export function LoginForm() {
 
 	return (
 		<div className="bg-gray-200 min-h-screen flex items-center justify-center">
-			<Card>
+			<Card className="min-w-[531px] min-h-[404px]">
 				<CardHeader>
 					<CardTitle>Welcome Back!</CardTitle>
 					<CardDescription>
-						Sign in to continue creating an awesome cover letter and resume.
+						Sign in to continue creating awesome resumes and cover letters.
 					</CardDescription>
 				</CardHeader>
 				<CardContent>
@@ -102,7 +102,7 @@ export function LoginForm() {
 						className="w-full"
 						onClick={handleLogIn}
 					>
-						Log in
+						Sign in
 					</Button>
 					<p className="text-gray-600 text-sm">
 						Don't have an account?{' '}

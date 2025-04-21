@@ -3,9 +3,22 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { createClient } from '../../../app/supabase/client';
 
+import {
+	Card,
+	CardContent,
+	CardDescription,
+	CardFooter,
+	CardHeader,
+	CardTitle,
+} from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
+import { useToast, usetoast } from '@/hooks/use-toast';
+
 const supabase = createClient();
 
 export function RegistrationForm() {
+	const { toast } = useToast();
 	const router = useRouter();
 	const [insertNewData, setInsertNewData] = useState({
 		emailaddress: '',
@@ -34,8 +47,15 @@ export function RegistrationForm() {
 
 		if (error) {
 			console.log('Error: ', error.message);
+			toast({
+				title: 'Registration failed',
+				description: error.message,
+				variant: 'destructive',
+			});
 		} else {
-			window.alert('Please check your email to verify your account!');
+			toast({
+				description: 'Please check your email to verify your account!',
+			});
 		}
 	};
 
@@ -45,37 +65,65 @@ export function RegistrationForm() {
 	};
 
 	return (
-		<div>
-			<div>Let's get you a job!</div>
-			<div>Sign up for custom resumes and cover letters in one click!</div>
-			<form>
-				<div>
-					Email Address
-					<input
-						name="emailaddress"
-						value={insertNewData.emailaddress}
-						onChange={handleChange}
-						placeholder="Enter your email address"
-						required
-					/>
-				</div>
-				<br />
-				<div>
-					Password:
-					<input
-						type="password"
-						name="password"
-						value={insertNewData.password}
-						onChange={handleChange}
-						placeholder="Enter your password"
-						required
-					/>
-				</div>
-				<br />
-				<div>By signing up you agree to our ToC and Privacy Policy</div>
-				<button onClick={handleSignUp}>Register</button>
-				<button onClick={handleLogIn}>Already have an account? Log In</button>
-			</form>
+		<div className="bg-gray-200 min-h-screen flex items-center justify-center">
+			<Card>
+				<CardHeader>
+					<CardTitle>Get Started</CardTitle>
+					<CardDescription>
+						Register to begin creating custom resumes and cover letters in one
+						click!
+					</CardDescription>
+				</CardHeader>
+				<CardContent>
+					<form>
+						<div className="grid w-full items-ceneter gap-4">
+							<div className="flex flex-col space-y-1.5">
+								<p>Email</p>
+								<Input
+									name="emailaddress"
+									value={insertNewData.emailaddress}
+									onChange={handleChange}
+									placeholder="Enter your email address"
+									className="focus-visible:ring-gray-300"
+									required
+								/>
+							</div>
+							<div className="flex flex-col space-y-1.5">
+								<p>Password</p>
+								<Input
+									type="password"
+									name="password"
+									value={insertNewData.password}
+									onChange={handleChange}
+									placeholder="Enter your password"
+									className="focus-visible:ring-gray-300"
+									required
+								/>
+							</div>
+							<p className="text-xs text-gray-600">
+								By signing up you agree to our ToC and Privacy Policy
+							</p>
+						</div>
+					</form>
+				</CardContent>
+				<CardFooter className="flex flex-col space-y-2">
+					<Button
+						className="w-full"
+						onClick={handleSignUp}
+					>
+						Register
+					</Button>
+					<p className="text-gray-600 text-sm">
+						Already have an account?{' '}
+						<a
+							className="text-gray-800 hover:underline cursor-pointer"
+							onClick={handleLogIn}
+						>
+							Sign in
+						</a>
+					</p>
+				</CardFooter>
+			</Card>
 		</div>
 	);
 }
