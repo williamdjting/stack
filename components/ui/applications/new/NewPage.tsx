@@ -107,14 +107,32 @@ export default function NewPage() {
     }
 
     const fetchData = async () => {
+      // // // Step 1: Get the current session
+      const { data: sessionData, error: sessionError } =
+        await supabase.auth.getSession();
+
+      if (sessionError || !sessionData?.session?.user) {
+        console.error(
+          "Error fetching session or user:",
+          sessionError?.message || "No active session"
+        );
+        setError(sessionError?.message || "User not authenticated");
+        return;
+      }
+
+      const userId = sessionData.session.user.id;
+
       const { data, error } = await supabase
+
+      
         .from("profile_info")
         .select() // Adjust this to your table and query
-        // .eq("id", id) // Filter where 'id' equals the passed id
+        .eq("user_id", userId) // Filter where 'id' equals the passed id
         .single(); // Expect only a single row (returns an error if multiple)
 
       if (error) {
-        console.error(error);
+        console.log("line 132", error);
+        console.log(error.message);
         console.log("line 46");
         setError(error.message); // Set error if there's an issue
       } else {
@@ -345,7 +363,7 @@ export default function NewPage() {
         </Link>
       </div>
       <form onSubmit={handleSubmit}>
-        <div >
+        <div>
           <div style={{ fontWeight: "bold" }}>First Name:</div>
 
           <textarea
@@ -361,7 +379,7 @@ export default function NewPage() {
         </div>
         <br />
         <div>
-        <div style={{ fontWeight: "bold" }}>Last Name:</div>
+          <div style={{ fontWeight: "bold" }}>Last Name:</div>
           <textarea
             style={{ color: "black" }}
             name="lastname"
@@ -375,7 +393,7 @@ export default function NewPage() {
         </div>
         <br />
         <div>
-        <div style={{ fontWeight: "bold" }}>Email:</div>
+          <div style={{ fontWeight: "bold" }}>Email:</div>
           <textarea
             style={{ color: "black" }}
             name="email"
@@ -389,7 +407,8 @@ export default function NewPage() {
         </div>
         <br />
         <div>
-        <div style={{ fontWeight: "bold" }}>LinkedIn:</div>          <textarea
+          <div style={{ fontWeight: "bold" }}>LinkedIn:</div>{" "}
+          <textarea
             style={{ color: "black" }}
             name="linkedin"
             value={insertNewData.linkedin}
@@ -402,7 +421,8 @@ export default function NewPage() {
         </div>
         <br />
         <div>
-        <div style={{ fontWeight: "bold" }}>Personal Website:</div>          <textarea
+          <div style={{ fontWeight: "bold" }}>Personal Website:</div>{" "}
+          <textarea
             style={{ color: "black" }}
             name="personalwebsite"
             value={insertNewData.personalwebsite}
@@ -415,7 +435,7 @@ export default function NewPage() {
         </div>
         <br />
         <div>
-        <div style={{ fontWeight: "bold" }}>Github:</div>
+          <div style={{ fontWeight: "bold" }}>Github:</div>
           <textarea
             style={{ color: "black" }}
             name="github"
@@ -429,7 +449,7 @@ export default function NewPage() {
         </div>
         <br />
         <div>
-        <div style={{ fontWeight: "bold" }}>Location:</div>
+          <div style={{ fontWeight: "bold" }}>Location:</div>
           <textarea
             style={{ color: "black" }}
             name="location"
@@ -443,7 +463,7 @@ export default function NewPage() {
         </div>
         <br />
         <div>
-        <div style={{ fontWeight: "bold" }}>Personal Summary:</div>
+          <div style={{ fontWeight: "bold" }}>Personal Summary:</div>
           <textarea
             style={{ color: "black" }}
             name="personalsummary"
@@ -466,7 +486,7 @@ export default function NewPage() {
         //   marginBottom: "2rem",
         // }}
         >
-         <div style={{ fontWeight: "bold" }}>Education:</div>
+          <div style={{ fontWeight: "bold" }}>Education:</div>
 
           {insertNewData.education.map((edu, index) => (
             <div
@@ -755,7 +775,7 @@ export default function NewPage() {
         //   marginBottom: "2rem"
         // }}
         >
-<div style={{ fontWeight: "bold" }}>Leadership:</div>
+          <div style={{ fontWeight: "bold" }}>Leadership:</div>
 
           {insertNewData.leadershipvolunteer.map((lead, index) => (
             <div
@@ -893,7 +913,7 @@ export default function NewPage() {
         //   marginBottom: "2rem"
         // }}
         >
-<div style={{ fontWeight: "bold" }}>Projects:</div>
+          <div style={{ fontWeight: "bold" }}>Projects:</div>
           {insertNewData.projects.map((project, index) => (
             <div
               key={index}
@@ -996,15 +1016,15 @@ export default function NewPage() {
         <br></br>
 
         <div
-          // style={{
-          //   border: "2px solid #ccc",
-          //   padding: "1rem",
-          //   borderRadius: "8px",
-          //   backgroundColor: "#f9f9f9",
-          //   marginBottom: "2rem",
-          // }}
+        // style={{
+        //   border: "2px solid #ccc",
+        //   padding: "1rem",
+        //   borderRadius: "8px",
+        //   backgroundColor: "#f9f9f9",
+        //   marginBottom: "2rem",
+        // }}
         >
-<div style={{ fontWeight: "bold" }}>Technical Skills:</div>
+          <div style={{ fontWeight: "bold" }}>Technical Skills:</div>
 
           <div>
             Coding Languages:
@@ -1063,68 +1083,65 @@ export default function NewPage() {
           </div>
         </div>
 
-
-
         <br></br>
 
         <div style={{ fontWeight: "bold" }}>Business Skills:</div>
 
-<div>
-  Business Communications:
-  <textarea
-    style={{ color: "black" }}
-    name="businessskills.businesscommunications"
-    value={insertNewData.businessskills.businesscommunications}
-    onChange={handleChange}
-    placeholder="Enter Communication Skills (e.g. Presentations, Writing)"
-    rows={3}
-    cols={25}
-    required
-  />
-</div>
+        <div>
+          Business Communications:
+          <textarea
+            style={{ color: "black" }}
+            name="businessskills.businesscommunications"
+            value={insertNewData.businessskills.businesscommunications}
+            onChange={handleChange}
+            placeholder="Enter Communication Skills (e.g. Presentations, Writing)"
+            rows={3}
+            cols={25}
+            required
+          />
+        </div>
 
-<div>
-  Leadership:
-  <textarea
-    style={{ color: "black" }}
-    name="businessskills.leadership"
-    value={insertNewData.businessskills.leadership}
-    onChange={handleChange}
-    placeholder="Enter Leadership Skills (e.g. Team Management)"
-    rows={3}
-    cols={25}
-    required
-  />
-</div>
+        <div>
+          Leadership:
+          <textarea
+            style={{ color: "black" }}
+            name="businessskills.leadership"
+            value={insertNewData.businessskills.leadership}
+            onChange={handleChange}
+            placeholder="Enter Leadership Skills (e.g. Team Management)"
+            rows={3}
+            cols={25}
+            required
+          />
+        </div>
 
-<div>
-  Project Management:
-  <textarea
-    style={{ color: "black" }}
-    name="businessskills.projectmanagement"
-    value={insertNewData.businessskills.projectmanagement}
-    onChange={handleChange}
-    placeholder="Enter PM Skills (e.g. Agile, Scrum)"
-    rows={3}
-    cols={25}
-    required
-  />
-</div>
+        <div>
+          Project Management:
+          <textarea
+            style={{ color: "black" }}
+            name="businessskills.projectmanagement"
+            value={insertNewData.businessskills.projectmanagement}
+            onChange={handleChange}
+            placeholder="Enter PM Skills (e.g. Agile, Scrum)"
+            rows={3}
+            cols={25}
+            required
+          />
+        </div>
 
-<div>
-  Technical (Business Context):
-  <textarea
-    style={{ color: "black" }}
-    name="businessskills.technical"
-    value={insertNewData.businessskills.technical}
-    onChange={handleChange}
-    placeholder="Enter Technical Skills in Business Context"
-    rows={3}
-    cols={25}
-    required
-  />
-</div>
-
+        <div>
+          Technical (Business Context):
+          <textarea
+            style={{ color: "black" }}
+            name="businessskills.technical"
+            value={insertNewData.businessskills.technical}
+            onChange={handleChange}
+            placeholder="Enter Technical Skills in Business Context"
+            rows={3}
+            cols={25}
+            required
+          />
+        </div>
 
         <br />
         <br />
