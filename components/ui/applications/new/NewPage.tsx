@@ -12,16 +12,89 @@ const supabase = createClient();
 
 export default function NewPage() {
   const [insertNewData, setInsertNewData] = useState({
-    jobtitle: "",
-    company: "",
-    jobdescription: "",
-    resumeexperience: "",
-    resumeskills: "",
-    resumeprojects: "",
-    resumeeducation: "",
-    coverlettercontactinfo: "",
-    coverletterstylerequest: "",
+    firstname: "",
+    lastname: "",
+    email: "",
+    linkedin: "",
+    personalwebsite: "",
+    github: "",
+    location: "",
+    personalsummary: "",
+    education: [
+      {
+        GPA: "",
+        major: "",
+        other: "",
+        school: "",
+        endyear: "",
+        endmonth: "",
+        startyear: "",
+        degreetype: "",
+        startmonth: "",
+      },
+    ],
+    workexperience: [
+      {
+        other: "",
+        company: "",
+        endyear: "",
+        endmonth: "",
+        location: "",
+        position: "",
+        startyear: "",
+        startmonth: "",
+        experiencetype: "",
+      },
+    ],
+    leadershipvolunteer: [
+      {
+        other: "",
+        company: "",
+        endyear: "",
+        endmonth: "",
+        location: "",
+        position: "",
+        startyear: "",
+        startmonth: "",
+        experiencetype: "",
+      },
+    ],
+    projects: [
+      {
+        other: "",
+        company: "",
+        endyear: "",
+        endmonth: "",
+        location: "",
+        startyear: "",
+        startmonth: "",
+      },
+    ],
+    technicalskills: {
+      codinglanguages: "",
+      programmingconcepts: "",
+      tools: "",
+      frameworks: "",
+    },
+    businessskills: {
+      businesscommunications: "",
+      leadership: "",
+      projectmanagement: "",
+      technical: "",
+    },
   });
+
+  // const [insertNewData, setInsertNewData] = useState({
+  //   firstname: "",
+  //   company: "",
+  //   jobdescription: "",
+  //   resumeexperience: "",
+  //   resumeskills: "",
+  //   resumeprojects: "",
+  //   resumeeducation: "",
+  //   coverlettercontactinfo: "",
+  //   coverletterstylerequest: "",
+  // });
 
   const [error, setError] = useState(null);
 
@@ -32,6 +105,24 @@ export default function NewPage() {
     if (redirectTo) {
       router.push(redirectTo);
     }
+
+    const fetchData = async () => {
+      const { data, error } = await supabase
+        .from("profile_info")
+        .select() // Adjust this to your table and query
+        // .eq("id", id) // Filter where 'id' equals the passed id
+        .single(); // Expect only a single row (returns an error if multiple)
+
+      if (error) {
+        console.error(error);
+        console.log("line 46");
+        setError(error.message); // Set error if there's an issue
+      } else {
+        setInsertNewData(data);
+      }
+    };
+
+    fetchData();
   }, [redirectTo, router]);
 
   // Handler to update form data
@@ -49,18 +140,54 @@ export default function NewPage() {
 
     // Insert new data to Supabase
     const { data, error } = await supabase
-      .from("notes2")
-      .insert({
-        jobtitle: insertNewData.jobtitle,
-        company: insertNewData.company,
-        jobdescription: insertNewData.jobdescription,
-        resumeexperience: insertNewData.resumeexperience,
-        resumeskills: insertNewData.resumeskills,
-        resumeprojects: insertNewData.resumeprojects,
-        resumeeducation: insertNewData.resumeeducation,
-        coverlettercontactinfo: insertNewData.coverlettercontactinfo,
-        coverletterstylerequest: insertNewData.coverletterstylerequest,
-      })
+      // .from("notes2")
+      // .insert({
+      //   jobtitle: insertNewData.jobtitle,
+      //   company: insertNewData.company,
+      //   jobdescription: insertNewData.jobdescription,
+      //   resumeexperience: insertNewData.resumeexperience,
+      //   resumeskills: insertNewData.resumeskills,
+      //   resumeprojects: insertNewData.resumeprojects,
+      //   resumeeducation: insertNewData.resumeeducation,
+      //   coverlettercontactinfo: insertNewData.coverlettercontactinfo,
+      //   coverletterstylerequest: insertNewData.coverletterstylerequest,
+      // })
+      // .select();
+
+      .from("profile_info")
+      .insert([
+        {
+          firstname: insertNewData.firstname,
+          lastname: insertNewData.lastname,
+          email: insertNewData.email,
+          linkedin: insertNewData.linkedin,
+          personalwebsite: insertNewData.personalwebsite,
+          github: insertNewData.github,
+          location: insertNewData.location,
+          personalsummary: insertNewData.personalsummary,
+
+          education: insertNewData.education, // jsonb array
+          workexperience: insertNewData.workexperience, // jsonb array
+          leadership: insertNewData.leadership, // jsonb array
+          projects: insertNewData.projects, // jsonb array
+
+          technicalskills: {
+            codinglanguages: insertNewData.technicalskills.codinglanguages,
+            programmingconcepts:
+              insertNewData.technicalskills.programmingconcepts,
+            tools: insertNewData.technicalskills.tools,
+            frameworks: insertNewData.technicalskills.frameworks,
+          },
+
+          businessskills: {
+            businesscommunications:
+              insertNewData.businessskills.businesscommunications,
+            leadership: insertNewData.businessskills.leadership,
+            projectmanagement: insertNewData.businessskills.projectmanagement,
+            technical: insertNewData.businessskills.technical,
+          },
+        },
+      ])
       .select();
 
     if (error) {
@@ -114,10 +241,10 @@ export default function NewPage() {
             // upload the blob to Supabase Storage
             // reference: https://chatgpt.com/share/676e6af6-a3bc-8008-b027-83faad107989
 
-            let filePathStorageID = 555; 
-			// there is no ID for a new application
-			// so we have to find what the new ID value is for this uid or 
-			// we do random number / string generator???
+            let filePathStorageID = 555;
+            // there is no ID for a new application
+            // so we have to find what the new ID value is for this uid or
+            // we do random number / string generator???
             let filePath = `test/resume/Resume${filePathStorageID}`;
             const { data, error } = await supabase.storage
               .from("files") // Replace with your bucket name
@@ -132,12 +259,12 @@ export default function NewPage() {
             } else {
               console.log("Blob uploaded successfully:", data);
             }
-			
-			// local download code
+
+            // local download code
             const url = window.URL.createObjectURL(blob);
             const a = document.createElement("a");
             a.href = url;
-			// need to change the download docx file name
+            // need to change the download docx file name
             a.download = "Resume.docx";
             document.body.appendChild(a);
             a.click();
@@ -164,15 +291,14 @@ export default function NewPage() {
           if (response2.ok) {
             console.log("Cover Letter response is okay");
             const blob = await response2.blob();
-			
 
-			// upload the blob to Supabase Storage
+            // upload the blob to Supabase Storage
             // reference: https://chatgpt.com/share/676e6af6-a3bc-8008-b027-83faad107989
 
-            let filePathStorageID2 = 555; 
-			// there is no ID for a new application
-			// so we have to find what the new ID value is for this uid or 
-			// we do random number / string generator???
+            let filePathStorageID2 = 555;
+            // there is no ID for a new application
+            // so we have to find what the new ID value is for this uid or
+            // we do random number / string generator???
             let filePath2 = `test/coverletter/CoverLetter${filePathStorageID2}`;
             const { data, error } = await supabase.storage
               .from("files") // Replace with your bucket name
@@ -188,11 +314,10 @@ export default function NewPage() {
               console.log("Blob uploaded successfully:", data);
             }
 
-
             const url = window.URL.createObjectURL(blob);
             const a = document.createElement("a");
             a.href = url;
-			// need to change the download docx file name
+            // need to change the download docx file name
             a.download = "CoverLetter.docx";
             document.body.appendChild(a);
             a.click();
@@ -220,110 +345,109 @@ export default function NewPage() {
         </Link>
       </div>
       <form onSubmit={handleSubmit}>
-        <div>
-          Job Title:
+        <div >
+          <div style={{ fontWeight: "bold" }}>First Name:</div>
+
           <textarea
             style={{ color: "black" }}
-            name="jobtitle"
-            value={insertNewData.jobtitle}
+            name="firstname"
+            value={insertNewData.firstname}
             onChange={handleChange}
             placeholder="Enter Job Title"
-            rows={5}
+            rows={1}
             cols={25}
             required
           />
         </div>
         <br />
         <div>
-          Company:
+        <div style={{ fontWeight: "bold" }}>Last Name:</div>
           <textarea
             style={{ color: "black" }}
-            name="company"
-            value={insertNewData.company}
+            name="lastname"
+            value={insertNewData.lastname}
             onChange={handleChange}
             placeholder="Enter Company"
-            rows={5}
+            rows={1}
             cols={25}
             required
           />
         </div>
         <br />
         <div>
-          Job Description:
+        <div style={{ fontWeight: "bold" }}>Email:</div>
           <textarea
             style={{ color: "black" }}
-            name="jobdescription"
-            value={insertNewData.jobdescription}
+            name="email"
+            value={insertNewData.email}
             onChange={handleChange}
             placeholder="Enter Job Description"
-            rows={5}
+            rows={1}
             cols={25}
             required
           />
         </div>
         <br />
         <div>
-          Resume - Experience:
-          <textarea
+        <div style={{ fontWeight: "bold" }}>LinkedIn:</div>          <textarea
             style={{ color: "black" }}
-            name="resumeexperience"
-            value={insertNewData.resumeexperience}
+            name="linkedin"
+            value={insertNewData.linkedin}
             onChange={handleChange}
             placeholder="Enter Resume Experience"
-            rows={5}
+            rows={1}
             cols={25}
             required
           />
         </div>
         <br />
         <div>
-          Resume - Projects:
-          <textarea
+        <div style={{ fontWeight: "bold" }}>Personal Website:</div>          <textarea
             style={{ color: "black" }}
-            name="resumeprojects"
-            value={insertNewData.resumeprojects}
+            name="personalwebsite"
+            value={insertNewData.personalwebsite}
             onChange={handleChange}
             placeholder="Enter Resume Projects"
-            rows={5}
+            rows={1}
             cols={25}
             required
           />
         </div>
         <br />
         <div>
-          Resume - Skills:
+        <div style={{ fontWeight: "bold" }}>Github:</div>
           <textarea
             style={{ color: "black" }}
-            name="resumeskills"
-            value={insertNewData.resumeskills}
+            name="github"
+            value={insertNewData.github}
             onChange={handleChange}
             placeholder="Enter Resume Skills"
-            rows={5}
+            rows={1}
             cols={25}
             required
           />
         </div>
         <br />
         <div>
-          Resume - Education:
+        <div style={{ fontWeight: "bold" }}>Location:</div>
           <textarea
             style={{ color: "black" }}
-            name="resumeeducation"
-            value={insertNewData.resumeeducation}
+            name="location"
+            value={insertNewData.location}
             onChange={handleChange}
             placeholder="Enter Resume Education"
-            rows={5}
+            rows={1}
             cols={25}
             required
           />
         </div>
         <br />
         <div>
-          Cover Letter - Contact Info:
+        <div style={{ fontWeight: "bold" }}>Personal Summary:</div>
           <textarea
             style={{ color: "black" }}
-            name="coverlettercontactinfo"
-            value={insertNewData.coverlettercontactinfo}
+            name="personalsummary"
+            value={insertNewData.personalsummary}
             onChange={handleChange}
             placeholder="Enter Cover Letter Contact Info"
             rows={5}
@@ -332,19 +456,676 @@ export default function NewPage() {
           />
         </div>
         <br />
-        <div>
-          Cover Letter - Style Request:
-          <textarea
-            style={{ color: "black" }}
-            name="coverletterstylerequest"
-            value={insertNewData.coverletterstylerequest}
-            onChange={handleChange}
-            placeholder="Enter Cover Letter Style Request"
-            rows={5}
-            cols={25}
-            required
-          />
+
+        <div
+        // style={{
+        //   border: "2px solid #ccc",
+        //   padding: "1rem",
+        //   borderRadius: "8px",
+        //   backgroundColor: "#f9f9f9",
+        //   marginBottom: "2rem",
+        // }}
+        >
+         <div style={{ fontWeight: "bold" }}>Education:</div>
+
+          {insertNewData.education.map((edu, index) => (
+            <div
+              key={index}
+              style={
+                {
+                  // marginBottom: "1.5rem",
+                  // padding: "1rem",
+                  // backgroundColor: "#fff",
+                  // border: "1px solid #ddd",
+                  // borderRadius: "6px",
+                }
+              }
+            >
+              <div>
+                School:
+                <textarea
+                  style={{ color: "black" }}
+                  name={`education[${index}].school`}
+                  value={edu.school}
+                  onChange={handleChange}
+                  placeholder="Enter School Name"
+                  rows={1}
+                  cols={25}
+                  required
+                />
+              </div>
+
+              <div>
+                Major:
+                <textarea
+                  style={{ color: "black" }}
+                  name={`education[${index}].major`}
+                  value={edu.major}
+                  onChange={handleChange}
+                  placeholder="Enter Major"
+                  rows={1}
+                  cols={25}
+                />
+              </div>
+
+              <div>
+                GPA:
+                <textarea
+                  style={{ color: "black" }}
+                  name={`education[${index}].GPA`}
+                  value={edu.GPA}
+                  onChange={handleChange}
+                  placeholder="Enter GPA"
+                  rows={1}
+                  cols={25}
+                />
+              </div>
+
+              <div>
+                Degree Type:
+                <textarea
+                  style={{ color: "black" }}
+                  name={`education[${index}].degreetype`}
+                  value={edu.degreetype}
+                  onChange={handleChange}
+                  placeholder="Enter Degree Type"
+                  rows={1}
+                  cols={25}
+                />
+              </div>
+
+              <div>
+                Start Month:
+                <textarea
+                  style={{ color: "black" }}
+                  name={`education[${index}].startmonth`}
+                  value={edu.startmonth}
+                  onChange={handleChange}
+                  placeholder="Enter Start Month"
+                  rows={1}
+                  cols={25}
+                />
+              </div>
+
+              <div>
+                Start Year:
+                <textarea
+                  style={{ color: "black" }}
+                  name={`education[${index}].startyear`}
+                  value={edu.startyear}
+                  onChange={handleChange}
+                  placeholder="Enter Start Year"
+                  rows={1}
+                  cols={25}
+                />
+              </div>
+
+              <div>
+                End Month:
+                <textarea
+                  style={{ color: "black" }}
+                  name={`education[${index}].endmonth`}
+                  value={edu.endmonth}
+                  onChange={handleChange}
+                  placeholder="Enter End Month"
+                  rows={1}
+                  cols={25}
+                />
+              </div>
+
+              <div>
+                End Year:
+                <textarea
+                  style={{ color: "black" }}
+                  name={`education[${index}].endyear`}
+                  value={edu.endyear}
+                  onChange={handleChange}
+                  placeholder="Enter End Year"
+                  rows={1}
+                  cols={25}
+                />
+              </div>
+
+              <div>
+                Other:
+                <textarea
+                  style={{ color: "black" }}
+                  name={`education[${index}].other`}
+                  value={edu.other}
+                  onChange={handleChange}
+                  placeholder="Additional Info"
+                  rows={1}
+                  cols={25}
+                />
+              </div>
+            </div>
+          ))}
         </div>
+
+        <div
+          style={
+            {
+              // border: "2px solid #ccc",
+              // padding: "1rem",
+              // borderRadius: "8px",
+              // backgroundColor: "#f9f9f9",
+              // marginBottom: "2rem"
+            }
+          }
+        >
+          <br></br>
+
+          <div style={{ fontWeight: "bold" }}>Work Experience:</div>
+
+          {insertNewData.workexperience.map((work, index) => (
+            <div
+              key={index}
+              // style={{ marginBottom: "1.5rem", padding: "1rem", backgroundColor: "#fff", border: "1px solid #ddd", borderRadius: "6px" }
+              // }
+            >
+              <div>
+                Company:
+                <textarea
+                  style={{ color: "black" }}
+                  name={`workexperience[${index}].company`}
+                  value={work.company}
+                  onChange={handleChange}
+                  placeholder="Enter Company Name"
+                  rows={1}
+                  cols={25}
+                  required
+                />
+              </div>
+
+              <div>
+                Position:
+                <textarea
+                  style={{ color: "black" }}
+                  name={`workexperience[${index}].position`}
+                  value={work.position}
+                  onChange={handleChange}
+                  placeholder="Enter Position"
+                  rows={1}
+                  cols={25}
+                />
+              </div>
+
+              <div>
+                Location:
+                <textarea
+                  style={{ color: "black" }}
+                  name={`workexperience[${index}].location`}
+                  value={work.location}
+                  onChange={handleChange}
+                  placeholder="Enter Location"
+                  rows={1}
+                  cols={25}
+                />
+              </div>
+
+              <div>
+                Experience Type:
+                <textarea
+                  style={{ color: "black" }}
+                  name={`workexperience[${index}].experiencetype`}
+                  value={work.experiencetype}
+                  onChange={handleChange}
+                  placeholder="Full-time, Internship, etc."
+                  rows={1}
+                  cols={25}
+                />
+              </div>
+
+              <div>
+                Start Month:
+                <textarea
+                  style={{ color: "black" }}
+                  name={`workexperience[${index}].startmonth`}
+                  value={work.startmonth}
+                  onChange={handleChange}
+                  placeholder="Enter Start Month"
+                  rows={1}
+                  cols={25}
+                />
+              </div>
+
+              <div>
+                Start Year:
+                <textarea
+                  style={{ color: "black" }}
+                  name={`workexperience[${index}].startyear`}
+                  value={work.startyear}
+                  onChange={handleChange}
+                  placeholder="Enter Start Year"
+                  rows={1}
+                  cols={25}
+                />
+              </div>
+
+              <div>
+                End Month:
+                <textarea
+                  style={{ color: "black" }}
+                  name={`workexperience[${index}].endmonth`}
+                  value={work.endmonth}
+                  onChange={handleChange}
+                  placeholder="Enter End Month"
+                  rows={1}
+                  cols={25}
+                />
+              </div>
+
+              <div>
+                End Year:
+                <textarea
+                  style={{ color: "black" }}
+                  name={`workexperience[${index}].endyear`}
+                  value={work.endyear}
+                  onChange={handleChange}
+                  placeholder="Enter End Year"
+                  rows={1}
+                  cols={25}
+                />
+              </div>
+
+              <div>
+                Other:
+                <textarea
+                  style={{ color: "black" }}
+                  name={`workexperience[${index}].other`}
+                  value={work.other}
+                  onChange={handleChange}
+                  placeholder="Additional Info"
+                  rows={1}
+                  cols={25}
+                />
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <br></br>
+
+        <div
+        //     style={{
+        //   border: "2px solid #ccc",
+        //   padding: "1rem",
+        //   borderRadius: "8px",
+        //   backgroundColor: "#f9f9f9",
+        //   marginBottom: "2rem"
+        // }}
+        >
+<div style={{ fontWeight: "bold" }}>Leadership:</div>
+
+          {insertNewData.leadershipvolunteer.map((lead, index) => (
+            <div
+              key={index}
+              // style={{ marginBottom: "1.5rem", padding: "1rem", backgroundColor: "#fff", border: "1px solid #ddd", borderRadius: "6px" }}
+            >
+              <div>
+                Company:
+                <textarea
+                  style={{ color: "black" }}
+                  name={`leadership[${index}].company`}
+                  value={lead.company}
+                  onChange={handleChange}
+                  placeholder="Enter Organization Name"
+                  rows={1}
+                  cols={25}
+                />
+              </div>
+
+              <div>
+                Position:
+                <textarea
+                  style={{ color: "black" }}
+                  name={`leadership[${index}].position`}
+                  value={lead.position}
+                  onChange={handleChange}
+                  placeholder="Enter Role"
+                  rows={1}
+                  cols={25}
+                />
+              </div>
+
+              <div>
+                Location:
+                <textarea
+                  style={{ color: "black" }}
+                  name={`leadership[${index}].location`}
+                  value={lead.location}
+                  onChange={handleChange}
+                  placeholder="Enter Location"
+                  rows={1}
+                  cols={25}
+                />
+              </div>
+
+              <div>
+                Experience Type:
+                <textarea
+                  style={{ color: "black" }}
+                  name={`leadership[${index}].experiencetype`}
+                  value={lead.experiencetype}
+                  onChange={handleChange}
+                  placeholder="Club, Volunteer, etc."
+                  rows={1}
+                  cols={25}
+                />
+              </div>
+
+              <div>
+                Start Month:
+                <textarea
+                  style={{ color: "black" }}
+                  name={`leadership[${index}].startmonth`}
+                  value={lead.startmonth}
+                  onChange={handleChange}
+                  placeholder="Enter Start Month"
+                  rows={1}
+                  cols={25}
+                />
+              </div>
+
+              <div>
+                Start Year:
+                <textarea
+                  style={{ color: "black" }}
+                  name={`leadership[${index}].startyear`}
+                  value={lead.startyear}
+                  onChange={handleChange}
+                  placeholder="Enter Start Year"
+                  rows={1}
+                  cols={25}
+                />
+              </div>
+
+              <div>
+                End Month:
+                <textarea
+                  style={{ color: "black" }}
+                  name={`leadership[${index}].endmonth`}
+                  value={lead.endmonth}
+                  onChange={handleChange}
+                  placeholder="Enter End Month"
+                  rows={1}
+                  cols={25}
+                />
+              </div>
+
+              <div>
+                End Year:
+                <textarea
+                  style={{ color: "black" }}
+                  name={`leadership[${index}].endyear`}
+                  value={lead.endyear}
+                  onChange={handleChange}
+                  placeholder="Enter End Year"
+                  rows={1}
+                  cols={25}
+                />
+              </div>
+
+              <div>
+                Other:
+                <textarea
+                  style={{ color: "black" }}
+                  name={`leadership[${index}].other`}
+                  value={lead.other}
+                  onChange={handleChange}
+                  placeholder="Additional Info"
+                  rows={1}
+                  cols={25}
+                />
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <br></br>
+
+        <div
+        // style={{
+        //   border: "2px solid #ccc",
+        //   padding: "1rem",
+        //   borderRadius: "8px",
+        //   backgroundColor: "#f9f9f9",
+        //   marginBottom: "2rem"
+        // }}
+        >
+<div style={{ fontWeight: "bold" }}>Projects:</div>
+          {insertNewData.projects.map((project, index) => (
+            <div
+              key={index}
+              // style={{ marginBottom: "1.5rem", padding: "1rem", backgroundColor: "#fff", border: "1px solid #ddd", borderRadius: "6px" }}
+            >
+              <div>
+                Company / Org:
+                <textarea
+                  style={{ color: "black" }}
+                  name={`projects[${index}].company`}
+                  value={project.company}
+                  onChange={handleChange}
+                  placeholder="Personal or Collaborative Project?"
+                  rows={1}
+                  cols={25}
+                />
+              </div>
+
+              <div>
+                Location:
+                <textarea
+                  style={{ color: "black" }}
+                  name={`projects[${index}].location`}
+                  value={project.location}
+                  onChange={handleChange}
+                  placeholder="Online, Remote, etc."
+                  rows={1}
+                  cols={25}
+                />
+              </div>
+
+              <div>
+                Start Month:
+                <textarea
+                  style={{ color: "black" }}
+                  name={`projects[${index}].startmonth`}
+                  value={project.startmonth}
+                  onChange={handleChange}
+                  placeholder="Enter Start Month"
+                  rows={1}
+                  cols={25}
+                />
+              </div>
+
+              <div>
+                Start Year:
+                <textarea
+                  style={{ color: "black" }}
+                  name={`projects[${index}].startyear`}
+                  value={project.startyear}
+                  onChange={handleChange}
+                  placeholder="Enter Start Year"
+                  rows={1}
+                  cols={25}
+                />
+              </div>
+
+              <div>
+                End Month:
+                <textarea
+                  style={{ color: "black" }}
+                  name={`projects[${index}].endmonth`}
+                  value={project.endmonth}
+                  onChange={handleChange}
+                  placeholder="Enter End Month"
+                  rows={1}
+                  cols={25}
+                />
+              </div>
+
+              <div>
+                End Year:
+                <textarea
+                  style={{ color: "black" }}
+                  name={`projects[${index}].endyear`}
+                  value={project.endyear}
+                  onChange={handleChange}
+                  placeholder="Enter End Year"
+                  rows={1}
+                  cols={25}
+                />
+              </div>
+
+              <div>
+                Other:
+                <textarea
+                  style={{ color: "black" }}
+                  name={`projects[${index}].other`}
+                  value={project.other}
+                  onChange={handleChange}
+                  placeholder="Additional Info"
+                  rows={1}
+                  cols={25}
+                />
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <br></br>
+
+        <div
+          // style={{
+          //   border: "2px solid #ccc",
+          //   padding: "1rem",
+          //   borderRadius: "8px",
+          //   backgroundColor: "#f9f9f9",
+          //   marginBottom: "2rem",
+          // }}
+        >
+<div style={{ fontWeight: "bold" }}>Technical Skills:</div>
+
+          <div>
+            Coding Languages:
+            <textarea
+              style={{ color: "black" }}
+              name="technicalskills.codinglanguages"
+              value={insertNewData.technicalskills.codinglanguages}
+              onChange={handleChange}
+              placeholder="Enter Programming Languages (e.g. Python, C++)"
+              rows={3}
+              cols={25}
+              required
+            />
+          </div>
+
+          <div>
+            Programming Concepts:
+            <textarea
+              style={{ color: "black" }}
+              name="technicalskills.programmingconcepts"
+              value={insertNewData.technicalskills.programmingconcepts}
+              onChange={handleChange}
+              placeholder="Enter Concepts (e.g. OOP, Data Structures)"
+              rows={3}
+              cols={25}
+              required
+            />
+          </div>
+
+          <div>
+            Tools:
+            <textarea
+              style={{ color: "black" }}
+              name="technicalskills.tools"
+              value={insertNewData.technicalskills.tools}
+              onChange={handleChange}
+              placeholder="Enter Tools (e.g. Git, Docker)"
+              rows={3}
+              cols={25}
+              required
+            />
+          </div>
+
+          <div>
+            Frameworks:
+            <textarea
+              style={{ color: "black" }}
+              name="technicalskills.frameworks"
+              value={insertNewData.technicalskills.frameworks}
+              onChange={handleChange}
+              placeholder="Enter Frameworks (e.g. React, Django)"
+              rows={3}
+              cols={25}
+              required
+            />
+          </div>
+        </div>
+
+
+
+        <br></br>
+
+        <div style={{ fontWeight: "bold" }}>Business Skills:</div>
+
+<div>
+  Business Communications:
+  <textarea
+    style={{ color: "black" }}
+    name="businessskills.businesscommunications"
+    value={insertNewData.businessskills.businesscommunications}
+    onChange={handleChange}
+    placeholder="Enter Communication Skills (e.g. Presentations, Writing)"
+    rows={3}
+    cols={25}
+    required
+  />
+</div>
+
+<div>
+  Leadership:
+  <textarea
+    style={{ color: "black" }}
+    name="businessskills.leadership"
+    value={insertNewData.businessskills.leadership}
+    onChange={handleChange}
+    placeholder="Enter Leadership Skills (e.g. Team Management)"
+    rows={3}
+    cols={25}
+    required
+  />
+</div>
+
+<div>
+  Project Management:
+  <textarea
+    style={{ color: "black" }}
+    name="businessskills.projectmanagement"
+    value={insertNewData.businessskills.projectmanagement}
+    onChange={handleChange}
+    placeholder="Enter PM Skills (e.g. Agile, Scrum)"
+    rows={3}
+    cols={25}
+    required
+  />
+</div>
+
+<div>
+  Technical (Business Context):
+  <textarea
+    style={{ color: "black" }}
+    name="businessskills.technical"
+    value={insertNewData.businessskills.technical}
+    onChange={handleChange}
+    placeholder="Enter Technical Skills in Business Context"
+    rows={3}
+    cols={25}
+    required
+  />
+</div>
+
+
         <br />
         <br />
         <input type="submit" value="Create Resume and Cover Letter" />
