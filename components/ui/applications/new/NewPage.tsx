@@ -252,7 +252,8 @@ export default function NewPage() {
       .select();
 
     if (error) {
-      console.error("Insert error:", error);
+      console.log("Insert error2:", error);
+      console.log("Insert error3:", error.message);
     }
     // else {
     //   console.log("Insert successful");
@@ -262,7 +263,8 @@ export default function NewPage() {
     if (data) {
       setInsertNewData(data);
     } else if (error) {
-      console.error(error);
+      console.log("Insert error4:", error);
+      console.log("Insert error5:", error.message);
       setError(error.message); // Set error if there's an issue
     }
 
@@ -316,7 +318,7 @@ export default function NewPage() {
             console.log("outside upload the blob execution");
 
             if (error) {
-              console.error("Error uploading blob to Supabase:", error);
+              console.log("Error uploading blob to Supabase:", error.message);
             } else {
               console.log("Blob uploaded successfully:", data);
             }
@@ -370,7 +372,9 @@ export default function NewPage() {
             console.log("outside upload the blob execution");
 
             if (error) {
-              console.error("Error uploading blob to Supabase:", error);
+
+              console.log("Error uploading blob to Supabase:", error);
+              console.log("Error uploading blob to Supabase:", error.message);
             } else {
               console.log("Blob uploaded successfully:", data);
             }
