@@ -152,6 +152,49 @@ export default function NewPage() {
     }));
   };
 
+  const handleChange2 = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+  
+    const match = name.match(/^(education|workexperience|leadershipvolunteer|projects)\[(\d+)\]\.(.+)$/);
+    if (!match) return;
+  
+    const section = match[1]; // "education", "workexperience", or "leadershipvolunteer" , or "projects"
+    const index = parseInt(match[2], 10);
+    const field = match[3];
+  
+    setInsertNewData((prev) => {
+      const updatedSection = [...prev[section]];
+      updatedSection[index] = {
+        ...updatedSection[index],
+        [field]: value,
+      };
+  
+      return {
+        ...prev,
+        [section]: updatedSection,
+      };
+    });
+  };
+
+  const handleChange3 = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+  
+    const match = name.match(/^(technicalskills|businessskills)\.(.+)$/);
+    if (!match) return;
+  
+    const section = match[1]; // "technicalskills" or "businessskills"
+    const field = match[2];
+  
+    setInsertNewData((prev) => ({
+      ...prev,
+      [section]: {
+        ...prev[section],
+        [field]: value,
+      },
+    }));
+  };
+  
+
   // Handler to submit form data to Supabase
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -186,7 +229,7 @@ export default function NewPage() {
 
           education: insertNewData.education, // jsonb array
           workexperience: insertNewData.workexperience, // jsonb array
-          leadership: insertNewData.leadership, // jsonb array
+          leadership: insertNewData.leadershipvolunteer, // jsonb array
           projects: insertNewData.projects, // jsonb array
 
           technicalskills: {
@@ -507,7 +550,7 @@ export default function NewPage() {
                   style={{ color: "black" }}
                   name={`education[${index}].school`}
                   value={edu.school}
-                  onChange={handleChange}
+                  onChange={handleChange2}
                   placeholder="Enter School Name"
                   rows={1}
                   cols={25}
@@ -521,7 +564,7 @@ export default function NewPage() {
                   style={{ color: "black" }}
                   name={`education[${index}].major`}
                   value={edu.major}
-                  onChange={handleChange}
+                  onChange={handleChange2}
                   placeholder="Enter Major"
                   rows={1}
                   cols={25}
@@ -534,7 +577,7 @@ export default function NewPage() {
                   style={{ color: "black" }}
                   name={`education[${index}].GPA`}
                   value={edu.GPA}
-                  onChange={handleChange}
+                  onChange={handleChange2}
                   placeholder="Enter GPA"
                   rows={1}
                   cols={25}
@@ -547,7 +590,7 @@ export default function NewPage() {
                   style={{ color: "black" }}
                   name={`education[${index}].degreetype`}
                   value={edu.degreetype}
-                  onChange={handleChange}
+                  onChange={handleChange2}
                   placeholder="Enter Degree Type"
                   rows={1}
                   cols={25}
@@ -560,7 +603,7 @@ export default function NewPage() {
                   style={{ color: "black" }}
                   name={`education[${index}].startmonth`}
                   value={edu.startmonth}
-                  onChange={handleChange}
+                  onChange={handleChange2}
                   placeholder="Enter Start Month"
                   rows={1}
                   cols={25}
@@ -573,7 +616,7 @@ export default function NewPage() {
                   style={{ color: "black" }}
                   name={`education[${index}].startyear`}
                   value={edu.startyear}
-                  onChange={handleChange}
+                  onChange={handleChange2}
                   placeholder="Enter Start Year"
                   rows={1}
                   cols={25}
@@ -586,7 +629,7 @@ export default function NewPage() {
                   style={{ color: "black" }}
                   name={`education[${index}].endmonth`}
                   value={edu.endmonth}
-                  onChange={handleChange}
+                  onChange={handleChange2}
                   placeholder="Enter End Month"
                   rows={1}
                   cols={25}
@@ -599,7 +642,7 @@ export default function NewPage() {
                   style={{ color: "black" }}
                   name={`education[${index}].endyear`}
                   value={edu.endyear}
-                  onChange={handleChange}
+                  onChange={handleChange2}
                   placeholder="Enter End Year"
                   rows={1}
                   cols={25}
@@ -612,7 +655,7 @@ export default function NewPage() {
                   style={{ color: "black" }}
                   name={`education[${index}].other`}
                   value={edu.other}
-                  onChange={handleChange}
+                  onChange={handleChange2}
                   placeholder="Additional Info"
                   rows={1}
                   cols={25}
@@ -649,7 +692,7 @@ export default function NewPage() {
                   style={{ color: "black" }}
                   name={`workexperience[${index}].company`}
                   value={work.company}
-                  onChange={handleChange}
+                  onChange={handleChange2}
                   placeholder="Enter Company Name"
                   rows={1}
                   cols={25}
@@ -663,7 +706,7 @@ export default function NewPage() {
                   style={{ color: "black" }}
                   name={`workexperience[${index}].position`}
                   value={work.position}
-                  onChange={handleChange}
+                  onChange={handleChange2}
                   placeholder="Enter Position"
                   rows={1}
                   cols={25}
@@ -676,7 +719,7 @@ export default function NewPage() {
                   style={{ color: "black" }}
                   name={`workexperience[${index}].location`}
                   value={work.location}
-                  onChange={handleChange}
+                  onChange={handleChange2}
                   placeholder="Enter Location"
                   rows={1}
                   cols={25}
@@ -689,7 +732,7 @@ export default function NewPage() {
                   style={{ color: "black" }}
                   name={`workexperience[${index}].experiencetype`}
                   value={work.experiencetype}
-                  onChange={handleChange}
+                  onChange={handleChange2}
                   placeholder="Full-time, Internship, etc."
                   rows={1}
                   cols={25}
@@ -702,7 +745,7 @@ export default function NewPage() {
                   style={{ color: "black" }}
                   name={`workexperience[${index}].startmonth`}
                   value={work.startmonth}
-                  onChange={handleChange}
+                  onChange={handleChange2}
                   placeholder="Enter Start Month"
                   rows={1}
                   cols={25}
@@ -715,7 +758,7 @@ export default function NewPage() {
                   style={{ color: "black" }}
                   name={`workexperience[${index}].startyear`}
                   value={work.startyear}
-                  onChange={handleChange}
+                  onChange={handleChange2}
                   placeholder="Enter Start Year"
                   rows={1}
                   cols={25}
@@ -728,7 +771,7 @@ export default function NewPage() {
                   style={{ color: "black" }}
                   name={`workexperience[${index}].endmonth`}
                   value={work.endmonth}
-                  onChange={handleChange}
+                  onChange={handleChange2}
                   placeholder="Enter End Month"
                   rows={1}
                   cols={25}
@@ -741,7 +784,7 @@ export default function NewPage() {
                   style={{ color: "black" }}
                   name={`workexperience[${index}].endyear`}
                   value={work.endyear}
-                  onChange={handleChange}
+                  onChange={handleChange2}
                   placeholder="Enter End Year"
                   rows={1}
                   cols={25}
@@ -754,7 +797,7 @@ export default function NewPage() {
                   style={{ color: "black" }}
                   name={`workexperience[${index}].other`}
                   value={work.other}
-                  onChange={handleChange}
+                  onChange={handleChange2}
                   placeholder="Additional Info"
                   rows={1}
                   cols={25}
@@ -786,9 +829,9 @@ export default function NewPage() {
                 Company:
                 <textarea
                   style={{ color: "black" }}
-                  name={`leadership[${index}].company`}
+                  name={`leadershipvolunteer[${index}].company`}
                   value={lead.company}
-                  onChange={handleChange}
+                  onChange={handleChange2}
                   placeholder="Enter Organization Name"
                   rows={1}
                   cols={25}
@@ -799,9 +842,9 @@ export default function NewPage() {
                 Position:
                 <textarea
                   style={{ color: "black" }}
-                  name={`leadership[${index}].position`}
+                  name={`leadershipvolunteer[${index}].position`}
                   value={lead.position}
-                  onChange={handleChange}
+                  onChange={handleChange2}
                   placeholder="Enter Role"
                   rows={1}
                   cols={25}
@@ -812,9 +855,9 @@ export default function NewPage() {
                 Location:
                 <textarea
                   style={{ color: "black" }}
-                  name={`leadership[${index}].location`}
+                  name={`leadershipvolunteer[${index}].location`}
                   value={lead.location}
-                  onChange={handleChange}
+                  onChange={handleChange2}
                   placeholder="Enter Location"
                   rows={1}
                   cols={25}
@@ -825,9 +868,9 @@ export default function NewPage() {
                 Experience Type:
                 <textarea
                   style={{ color: "black" }}
-                  name={`leadership[${index}].experiencetype`}
+                  name={`leadershipvolunteer[${index}].experiencetype`}
                   value={lead.experiencetype}
-                  onChange={handleChange}
+                  onChange={handleChange2}
                   placeholder="Club, Volunteer, etc."
                   rows={1}
                   cols={25}
@@ -838,9 +881,9 @@ export default function NewPage() {
                 Start Month:
                 <textarea
                   style={{ color: "black" }}
-                  name={`leadership[${index}].startmonth`}
+                  name={`leadershipvolunteer[${index}].startmonth`}
                   value={lead.startmonth}
-                  onChange={handleChange}
+                  onChange={handleChange2}
                   placeholder="Enter Start Month"
                   rows={1}
                   cols={25}
@@ -851,9 +894,9 @@ export default function NewPage() {
                 Start Year:
                 <textarea
                   style={{ color: "black" }}
-                  name={`leadership[${index}].startyear`}
+                  name={`leadershipvolunteer[${index}].startyear`}
                   value={lead.startyear}
-                  onChange={handleChange}
+                  onChange={handleChange2}
                   placeholder="Enter Start Year"
                   rows={1}
                   cols={25}
@@ -864,9 +907,9 @@ export default function NewPage() {
                 End Month:
                 <textarea
                   style={{ color: "black" }}
-                  name={`leadership[${index}].endmonth`}
+                  name={`leadershipvolunteer[${index}].endmonth`}
                   value={lead.endmonth}
-                  onChange={handleChange}
+                  onChange={handleChange2}
                   placeholder="Enter End Month"
                   rows={1}
                   cols={25}
@@ -877,9 +920,9 @@ export default function NewPage() {
                 End Year:
                 <textarea
                   style={{ color: "black" }}
-                  name={`leadership[${index}].endyear`}
+                  name={`leadershipvolunteer[${index}].endyear`}
                   value={lead.endyear}
-                  onChange={handleChange}
+                  onChange={handleChange2}
                   placeholder="Enter End Year"
                   rows={1}
                   cols={25}
@@ -890,9 +933,9 @@ export default function NewPage() {
                 Other:
                 <textarea
                   style={{ color: "black" }}
-                  name={`leadership[${index}].other`}
+                  name={`leadershipvolunteer[${index}].other`}
                   value={lead.other}
-                  onChange={handleChange}
+                  onChange={handleChange2}
                   placeholder="Additional Info"
                   rows={1}
                   cols={25}
@@ -925,7 +968,7 @@ export default function NewPage() {
                   style={{ color: "black" }}
                   name={`projects[${index}].company`}
                   value={project.company}
-                  onChange={handleChange}
+                  onChange={handleChange2}
                   placeholder="Personal or Collaborative Project?"
                   rows={1}
                   cols={25}
@@ -938,7 +981,7 @@ export default function NewPage() {
                   style={{ color: "black" }}
                   name={`projects[${index}].location`}
                   value={project.location}
-                  onChange={handleChange}
+                  onChange={handleChange2}
                   placeholder="Online, Remote, etc."
                   rows={1}
                   cols={25}
@@ -951,7 +994,7 @@ export default function NewPage() {
                   style={{ color: "black" }}
                   name={`projects[${index}].startmonth`}
                   value={project.startmonth}
-                  onChange={handleChange}
+                  onChange={handleChange2}
                   placeholder="Enter Start Month"
                   rows={1}
                   cols={25}
@@ -964,7 +1007,7 @@ export default function NewPage() {
                   style={{ color: "black" }}
                   name={`projects[${index}].startyear`}
                   value={project.startyear}
-                  onChange={handleChange}
+                  onChange={handleChange2}
                   placeholder="Enter Start Year"
                   rows={1}
                   cols={25}
@@ -977,7 +1020,7 @@ export default function NewPage() {
                   style={{ color: "black" }}
                   name={`projects[${index}].endmonth`}
                   value={project.endmonth}
-                  onChange={handleChange}
+                  onChange={handleChange2}
                   placeholder="Enter End Month"
                   rows={1}
                   cols={25}
@@ -990,7 +1033,7 @@ export default function NewPage() {
                   style={{ color: "black" }}
                   name={`projects[${index}].endyear`}
                   value={project.endyear}
-                  onChange={handleChange}
+                  onChange={handleChange2}
                   placeholder="Enter End Year"
                   rows={1}
                   cols={25}
@@ -1003,7 +1046,7 @@ export default function NewPage() {
                   style={{ color: "black" }}
                   name={`projects[${index}].other`}
                   value={project.other}
-                  onChange={handleChange}
+                  onChange={handleChange2}
                   placeholder="Additional Info"
                   rows={1}
                   cols={25}
@@ -1032,7 +1075,7 @@ export default function NewPage() {
               style={{ color: "black" }}
               name="technicalskills.codinglanguages"
               value={insertNewData.technicalskills.codinglanguages}
-              onChange={handleChange}
+              onChange={handleChange3}
               placeholder="Enter Programming Languages (e.g. Python, C++)"
               rows={3}
               cols={25}
@@ -1046,7 +1089,7 @@ export default function NewPage() {
               style={{ color: "black" }}
               name="technicalskills.programmingconcepts"
               value={insertNewData.technicalskills.programmingconcepts}
-              onChange={handleChange}
+              onChange={handleChange3}
               placeholder="Enter Concepts (e.g. OOP, Data Structures)"
               rows={3}
               cols={25}
@@ -1060,7 +1103,7 @@ export default function NewPage() {
               style={{ color: "black" }}
               name="technicalskills.tools"
               value={insertNewData.technicalskills.tools}
-              onChange={handleChange}
+              onChange={handleChange3}
               placeholder="Enter Tools (e.g. Git, Docker)"
               rows={3}
               cols={25}
@@ -1074,7 +1117,7 @@ export default function NewPage() {
               style={{ color: "black" }}
               name="technicalskills.frameworks"
               value={insertNewData.technicalskills.frameworks}
-              onChange={handleChange}
+              onChange={handleChange3}
               placeholder="Enter Frameworks (e.g. React, Django)"
               rows={3}
               cols={25}
@@ -1084,7 +1127,7 @@ export default function NewPage() {
         </div>
 
         <br></br>
-
+{/* 
         <div style={{ fontWeight: "bold" }}>Business Skills:</div>
 
         <div>
@@ -1093,11 +1136,11 @@ export default function NewPage() {
             style={{ color: "black" }}
             name="businessskills.businesscommunications"
             value={insertNewData.businessskills.businesscommunications}
-            onChange={handleChange}
+            onChange={handleChange3}
             placeholder="Enter Communication Skills (e.g. Presentations, Writing)"
             rows={3}
             cols={25}
-            required
+            
           />
         </div>
 
@@ -1107,11 +1150,11 @@ export default function NewPage() {
             style={{ color: "black" }}
             name="businessskills.leadership"
             value={insertNewData.businessskills.leadership}
-            onChange={handleChange}
+            onChange={handleChange3}
             placeholder="Enter Leadership Skills (e.g. Team Management)"
             rows={3}
             cols={25}
-            required
+            
           />
         </div>
 
@@ -1121,11 +1164,11 @@ export default function NewPage() {
             style={{ color: "black" }}
             name="businessskills.projectmanagement"
             value={insertNewData.businessskills.projectmanagement}
-            onChange={handleChange}
+            onChange={handleChange3}
             placeholder="Enter PM Skills (e.g. Agile, Scrum)"
             rows={3}
             cols={25}
-            required
+            
           />
         </div>
 
@@ -1135,13 +1178,13 @@ export default function NewPage() {
             style={{ color: "black" }}
             name="businessskills.technical"
             value={insertNewData.businessskills.technical}
-            onChange={handleChange}
+            onChange={handleChange3}
             placeholder="Enter Technical Skills in Business Context"
             rows={3}
             cols={25}
-            required
+            
           />
-        </div>
+        </div> */}
 
         <br />
         <br />
