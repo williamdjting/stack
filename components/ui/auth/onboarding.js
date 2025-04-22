@@ -5,6 +5,7 @@
 import React, { useState } from 'react';
 import { createClient } from '../../../app/supabase/client';
 import { useRouter } from 'next/navigation';
+import { Progress } from '@/components/ui/progress';
 
 const supabase = createClient();
 
@@ -155,6 +156,15 @@ export function OnboardingFlow() {
 		console.log('this is handleSubmit');
 	};
 
+	const stepProgressTitles = [
+		'About you',
+		'Education',
+		'Work Experience',
+		'Other Experience',
+		'Skills',
+	];
+	const progressPercent = ((step + 1) / stepProgressTitles.length) * 100;
+
 	const steps = [
 		<ContactInfoForm
 			key="contactinfoform"
@@ -207,6 +217,27 @@ export function OnboardingFlow() {
 
 	return (
 		<div>
+			<div className="max-w-2xl mx-auto px-4 py-6 space-y-6">
+				<h3>TEST</h3>
+				<div className="flex justify-between text-sm font-medium mb-2">
+					{stepProgressTitles.map((title, idx) => (
+						<div
+							key={idx}
+							className="text-center w-full"
+						>
+							<span
+								className={`${idx <= step ? 'text-blue-600' : 'text-gray-400'}`}
+							>
+								{title}
+							</span>
+						</div>
+					))}
+				</div>
+				<Progress
+					value={progressPercent}
+					className="h-2 rounded-full"
+				/>
+			</div>
 			<div>{steps[step]}</div>
 			<div>
 				{step > 0 && <button onClick={prevStep}>Back</button>}
