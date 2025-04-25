@@ -17,6 +17,13 @@ import {
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
+import {
+	Select,
+	SelectContent,
+	SelectItem,
+	SelectTrigger,
+	SelectValue,
+} from '@/components/ui/select';
 
 const supabase = createClient();
 
@@ -302,7 +309,12 @@ export function OnboardingFlow() {
 					{step === steps.length - 1 && (
 						// <button onClick={() => alert('Onboarding Complete!')}>Finish</button>
 						// change to the below onSubmit that sends to DB
-						<Button onClick={handleSubmit}>Finish</Button>
+						<Button
+							onClick={handleSubmit}
+							className="w-1/3"
+						>
+							Finish
+						</Button>
 					)}
 				</CardFooter>
 			</Card>
@@ -440,120 +452,130 @@ const LeadershipVolunteerExperienceForm = ({
 		]);
 	};
 
+	const handleRemoveLeadershipVolunteer = () => {
+		setinsertLeadershipVolunteerData((prevData) => {
+			if (prevData.length > 1) {
+				return prevData.slice(0, -1);
+			}
+			return prevData;
+		});
+	};
+
 	return (
 		<div>
-			<br></br>
 			{insertLeadershipVolunteerData.map((leadershipvolunteer, index) => (
 				<div key={index}>
-					<div>
-						<label>Company Name</label>
-						<input
-							name="company"
-							value={leadershipvolunteer.company}
-							onChange={(e) => handleChange(index, e)}
-							placeholder="Enter the company name"
-							required
-						/>
+					<p className="text-lg pt-5 pb-5">Other Experience {index + 1}</p>
+					<div className="grid  grid-cols-4 w-full items-center gap-4">
+						<div className="flex flex-col col-span-2 space-y-1.5">
+							<label>Company Name</label>
+							<Input
+								name="company"
+								value={leadershipvolunteer.company}
+								onChange={(e) => handleChange(index, e)}
+								placeholder="Enter the company name"
+								required
+							/>
+						</div>
+						<div className="flex flex-col col-span-2 space-y-1.5">
+							<label>Location</label>
+							<Input
+								name="location"
+								value={leadershipvolunteer.location}
+								onChange={(e) => handleChange(index, e)}
+								placeholder="Enter the location"
+								required
+							/>
+						</div>
+						<div className="flex flex-col col-span-2 space-y-1.5">
+							<label>Position Title</label>
+							<Input
+								name="position"
+								value={leadershipvolunteer.position}
+								onChange={(e) => handleChange(index, e)}
+								placeholder="Enter your position"
+								required
+							/>
+						</div>
+						<div className="flex flex-col col-span-2 space-y-1.5">
+							<label>Experience Type</label>
+							<Input
+								name="experiencetype"
+								value={leadershipvolunteer.experiencetype}
+								onChange={(e) => handleChange(index, e)}
+								placeholder="Enter your experience type"
+								required
+							/>
+						</div>
+						<div className="flex flex-col col-span-1 space-y-1.5">
+							<label>Start Month</label>
+							<Input
+								name="startmonth"
+								value={leadershipvolunteer.startmonth}
+								onChange={(e) => handleChange(index, e)}
+								placeholder="Enter the start month"
+								required
+							/>
+						</div>
+						<div className="flex flex-col col-span-1 space-y-1.5">
+							<label>Start Year</label>
+							<Input
+								name="startyear"
+								value={leadershipvolunteer.startyear}
+								onChange={(e) => handleChange(index, e)}
+								placeholder="Enter the start year"
+								required
+							/>
+						</div>
+						<div className="flex flex-col col-span-1 space-y-1.5">
+							<label>End Month</label>
+							<Input
+								name="endmonth"
+								value={leadershipvolunteer.endmonth}
+								onChange={(e) => handleChange(index, e)}
+								placeholder="Enter the endmonth"
+								required
+							/>
+						</div>
+						<div className="flex flex-col col-span-1 space-y-1.5">
+							<label>End Year</label>
+							<Input
+								name="endyear"
+								value={leadershipvolunteer.endyear}
+								onChange={(e) => handleChange(index, e)}
+								placeholder="Enter the end year"
+								required
+							/>
+						</div>
+						<div className="flex flex-col col-span-4 space-y-1.5">
+							<label>Description</label>
+							<Textarea
+								name="other"
+								value={insertLeadershipVolunteerData.other}
+								onChange={(e) => handleChange(index, e)}
+								placeholder="Enter any other information"
+								row={5}
+								col={25}
+								required
+							/>
+						</div>
 					</div>
-					<br />
-					<div>
-						<label>Location</label>
-						<input
-							name="location"
-							value={leadershipvolunteer.location}
-							onChange={(e) => handleChange(index, e)}
-							placeholder="Enter the location"
-							required
-						/>
-					</div>
-					<br />
-					<div>
-						<label>Position Title</label>
-						<input
-							name="position"
-							value={leadershipvolunteer.position}
-							onChange={(e) => handleChange(index, e)}
-							placeholder="Enter your position"
-							required
-						/>
-					</div>
-					<br />
-					<div>
-						<label>Experience Type</label>
-						<input
-							name="experiencetype"
-							value={leadershipvolunteer.experiencetype}
-							onChange={(e) => handleChange(index, e)}
-							placeholder="Enter your experience type"
-							required
-						/>
-					</div>
-					<br />
-					<div>
-						<label>Start Month</label>
-						<input
-							name="startmonth"
-							value={leadershipvolunteer.startmonth}
-							onChange={(e) => handleChange(index, e)}
-							placeholder="Enter the start month"
-							required
-						/>
-					</div>
-					<br />
-					<div>
-						<label>Start Year</label>
-						<input
-							name="startyear"
-							value={leadershipvolunteer.startyear}
-							onChange={(e) => handleChange(index, e)}
-							placeholder="Enter the start year"
-							required
-						/>
-					</div>
-					<br />
-					<div>
-						<label>End Month</label>
-						<input
-							name="endmonth"
-							value={leadershipvolunteer.endmonth}
-							onChange={(e) => handleChange(index, e)}
-							placeholder="Enter the endmonth"
-							required
-						/>
-					</div>
-					<br />
-					<div>
-						<label>End Year</label>
-						<input
-							name="endyear"
-							value={leadershipvolunteer.endyear}
-							onChange={(e) => handleChange(index, e)}
-							placeholder="Enter the end year"
-							required
-						/>
-					</div>
-					<br />
-					<div>
-						<label>Description</label>
-						<textarea
-							name="other"
-							value={insertLeadershipVolunteerData.other}
-							onChange={(e) => handleChange(index, e)}
-							placeholder="Enter any other information"
-							row={5}
-							col={25}
-							required
-						/>
-					</div>
-					<br />
 				</div>
 			))}
-			<button
-				type="button"
+			<Button
+				variant="link"
 				onClick={handleAddLeadershipVolunteer}
+				className="p-0"
 			>
-				Add Leadership / Volunteer Experience
-			</button>
+				+ Add Leadership / Volunteer Experience
+			</Button>
+			<Button
+				variant="link"
+				onClick={handleRemoveLeadershipVolunteer}
+				className="p-0 pl-5"
+			>
+				- Remove Latest Leadership / Volunteer Entry
+			</Button>
 		</div>
 	);
 };
@@ -735,88 +757,101 @@ const ProjectsForm = ({ insertProjectData, setinsertProjectData }) => {
 		]);
 	};
 
+	const handleRemoveProjects = () => {
+		setinsertProjectData((prevData) => {
+			if (prevData.length > 1) {
+				return prevData.slice(0, -1);
+			}
+			return prevData;
+		});
+	};
+
 	return (
 		<div>
 			<br></br>
 			{insertProjectData.map((projects, index) => (
 				<div key={index}>
-					<div>
-						<label>Company Name</label>
-						<input
-							name="company"
-							value={projects.company}
-							onChange={(e) => handleChange(index, e)}
-							placeholder="Enter the company name"
-							required
-						/>
+					<p className="text-lg pt-5 pb-5">Project {index + 1}</p>
+					<div className="grid  grid-cols-4 w-full items-center gap-4">
+						<div className="flex flex-col col-span-4 space-y-1.5">
+							<label>Company Name</label>
+							<Input
+								name="company"
+								value={projects.company}
+								onChange={(e) => handleChange(index, e)}
+								placeholder="Enter the company name"
+								required
+							/>
+						</div>
+						<div className="flex flex-col col-span-1 space-y-1.5">
+							<label>Start Month</label>
+							<Input
+								name="startmonth"
+								value={projects.startmonth}
+								onChange={(e) => handleChange(index, e)}
+								placeholder="Enter the start month"
+								required
+							/>
+						</div>
+						<div className="flex flex-col col-span-1 space-y-1.5">
+							<label>Start Year</label>
+							<Input
+								name="startyear"
+								value={projects.startyear}
+								onChange={(e) => handleChange(index, e)}
+								placeholder="Enter the start year"
+								required
+							/>
+						</div>
+						<div className="flex flex-col col-span-1 space-y-1.5">
+							<label>End Month</label>
+							<Input
+								name="endmonth"
+								value={projects.endmonth}
+								onChange={(e) => handleChange(index, e)}
+								placeholder="Enter the end month"
+								required
+							/>
+						</div>
+						<div className="flex flex-col col-span-1 space-y-1.5">
+							<label>End Year</label>
+							<Input
+								name="endyear"
+								value={projects.endyear}
+								onChange={(e) => handleChange(index, e)}
+								placeholder="Enter the end year"
+								required
+							/>
+						</div>
+						<div className="flex flex-col col-span-4 space-y-1.5">
+							<label>Description</label>
+							<Textarea
+								name="other"
+								value={projects.other}
+								onChange={(e) => handleChange(index, e)}
+								placeholder="Enter any other information"
+								row={5}
+								col={25}
+								required
+							/>
+						</div>
 					</div>
-					<br />
-					<div>
-						<label>Start Month</label>
-						<input
-							name="startmonth"
-							value={projects.startmonth}
-							onChange={(e) => handleChange(index, e)}
-							placeholder="Enter the start month"
-							required
-						/>
-					</div>
-					<br />
-					<div>
-						<label>Start Year</label>
-						<input
-							name="startyear"
-							value={projects.startyear}
-							onChange={(e) => handleChange(index, e)}
-							placeholder="Enter the start year"
-							required
-						/>
-					</div>
-					<br />
-					<div>
-						<label>End Month</label>
-						<input
-							name="endmonth"
-							value={projects.endmonth}
-							onChange={(e) => handleChange(index, e)}
-							placeholder="Enter the end month"
-							required
-						/>
-					</div>
-					<br />
-					<div>
-						<label>End Year</label>
-						<input
-							name="endyear"
-							value={projects.endyear}
-							onChange={(e) => handleChange(index, e)}
-							placeholder="Enter the end year"
-							required
-						/>
-					</div>
-					<br />
-					<div>
-						<label>Description</label>
-						<br />
-						<textarea
-							name="other"
-							value={projects.other}
-							onChange={(e) => handleChange(index, e)}
-							placeholder="Enter any other information"
-							row={5}
-							col={25}
-							required
-						/>
-					</div>
-					<br />
 				</div>
 			))}
-			<button
-				type="type"
+			<Button
+				variant="link"
 				onClick={handleAddProjects}
+				className="p-0"
 			>
-				Add Projects
-			</button>
+				+ Add Projects
+			</Button>
+			<Button
+				variant="link"
+				onClick={handleRemoveProjects}
+				className="p-0 pl-5"
+			>
+				+ Remove Latest Project
+			</Button>
 		</div>
 	);
 };
@@ -846,8 +881,8 @@ const SkillsForm = ({
 	};
 
 	// Handler to update the state based on selection
-	const handleSelection = (e) => {
-		setSelectedSkill(e.target.value);
+	const handleSelection = (value) => {
+		setSelectedSkill(value);
 	};
 
 	return (
@@ -858,27 +893,30 @@ const SkillsForm = ({
 			<div>
 				<form>
 					<label htmlFor="skills">Skill Options: </label>
-					<select
+					<Select
 						name="skills"
 						id="skills"
-						onChange={handleSelection}
+						onValueChange={handleSelection}
 					>
-						<option value="technical">Technical Skills</option>
-						<option value="business">Business Skills</option>
-					</select>
+						<SelectTrigger className="w-[180px]">
+							<SelectValue placeholder="Skills" />
+						</SelectTrigger>
+						<SelectContent>
+							<SelectItem value="technical">Technical Skills</SelectItem>
+							<SelectItem value="business">Business Skills</SelectItem>
+						</SelectContent>
+					</Select>
 				</form>
 			</div>
 
 			{/* Conditionally render the JSX based on selectedSkill */}
 
 			{selectedSkill === '' && (
-				<div>
-					<br></br>
-
+				<div className="grid  grid-cols-1 w-full items-center gap-4">
 					<form>
-						<div>
+						<div className="flex flex-col col-span-1 space-y-1.5 pt-5">
 							Coding Languages
-							<input
+							<Input
 								name="codinglanguages"
 								value={insertSkills1Form.codinglanguages}
 								onChange={handleChange1}
@@ -886,10 +924,9 @@ const SkillsForm = ({
 								required
 							/>
 						</div>
-						<br />
-						<div>
+						<div className="flex flex-col col-span-1 space-y-1.5 pt-5">
 							Programming Concepts
-							<input
+							<Input
 								name="programmingconcepts"
 								value={insertSkills1Form.programmingconcepts}
 								onChange={handleChange1}
@@ -897,10 +934,9 @@ const SkillsForm = ({
 								required
 							/>
 						</div>
-						<br />
-						<div>
+						<div className="flex flex-col col-span-1 space-y-1.5 pt-5">
 							Tools / Applications
-							<input
+							<Input
 								name="tools"
 								value={insertSkills1Form.tools}
 								onChange={handleChange1}
@@ -908,10 +944,9 @@ const SkillsForm = ({
 								required
 							/>
 						</div>
-						<br />
-						<div>
+						<div className="flex flex-col col-span-1 space-y-1.5 pt-5">
 							Frameworks
-							<input
+							<Input
 								name="frameworks"
 								value={insertSkills1Form.frameworks}
 								onChange={handleChange1}
@@ -919,19 +954,16 @@ const SkillsForm = ({
 								required
 							/>
 						</div>
-						<br />
 					</form>
 				</div>
 			)}
 
 			{selectedSkill === 'technical' && (
-				<div>
-					<br></br>
-
+				<div className="grid  grid-cols-1 w-full items-center gap-4">
 					<form>
-						<div>
+						<div className="flex flex-col col-span-1 space-y-1.5 pt-5">
 							Coding Languages
-							<input
+							<Input
 								name="codinglanguages"
 								value={insertSkills1Form.codinglanguages}
 								onChange={handleChange1}
@@ -939,10 +971,9 @@ const SkillsForm = ({
 								required
 							/>
 						</div>
-						<br />
-						<div>
+						<div className="flex flex-col col-span-1 space-y-1.5 pt-5">
 							Programming Concepts
-							<input
+							<Input
 								name="programmingconcepts"
 								value={insertSkills1Form.programmingconcepts}
 								onChange={handleChange1}
@@ -950,10 +981,9 @@ const SkillsForm = ({
 								required
 							/>
 						</div>
-						<br />
-						<div>
+						<div className="flex flex-col col-span-1 space-y-1.5 pt-5">
 							Tools / Applications
-							<input
+							<Input
 								name="tools"
 								value={insertSkills1Form.tools}
 								onChange={handleChange1}
@@ -961,10 +991,9 @@ const SkillsForm = ({
 								required
 							/>
 						</div>
-						<br />
-						<div>
+						<div className="flex flex-col col-span-1 space-y-1.5 pt-5">
 							Frameworks
-							<input
+							<Input
 								name="frameworks"
 								value={insertSkills1Form.frameworks}
 								onChange={handleChange1}
@@ -972,19 +1001,16 @@ const SkillsForm = ({
 								required
 							/>
 						</div>
-						<br />
 					</form>
 				</div>
 			)}
 
 			{selectedSkill === 'business' && (
-				<div>
-					<br></br>
-
+				<div className="grid  grid-cols-1 w-full items-center gap-4">
 					<form>
-						<div>
+						<div className="flex flex-col col-span-1 space-y-1.5 pt-5">
 							Business Communications
-							<input
+							<Input
 								name="businesscommunications"
 								value={insertSkills2Form.businesscommunications}
 								onChange={handleChange2}
@@ -992,10 +1018,9 @@ const SkillsForm = ({
 								required
 							/>
 						</div>
-						<br />
-						<div>
+						<div className="flex flex-col col-span-1 space-y-1.5 pt-5">
 							Leadership / Case Competition
-							<input
+							<Input
 								name="leadership"
 								value={insertSkills2Form.leadershipskills}
 								onChange={handleChange2}
@@ -1003,10 +1028,9 @@ const SkillsForm = ({
 								required
 							/>
 						</div>
-						<br />
-						<div>
+						<div className="flex flex-col col-span-1 space-y-1.5 pt-5">
 							Project Management
-							<input
+							<Input
 								name="projectmanagement"
 								value={insertSkills2Form.projectmanagement}
 								onChange={handleChange2}
@@ -1014,10 +1038,9 @@ const SkillsForm = ({
 								required
 							/>
 						</div>
-						<br />
-						<div>
+						<div className="flex flex-col col-span-1 space-y-1.5 pt-5">
 							Technical / Data Analysis Knowledge
-							<input
+							<Input
 								name="technical"
 								value={insertSkills2Form.frameworks}
 								onChange={handleChange2}
@@ -1025,7 +1048,6 @@ const SkillsForm = ({
 								required
 							/>
 						</div>
-						<br />
 					</form>
 				</div>
 			)}
@@ -1188,7 +1210,7 @@ const WorkExperienceForm = ({ insertWorkData, setInsertWorkData }) => {
 				onClick={handleRemoveWorkExperience}
 				className="p-0 pl-5"
 			>
-				- Remove Latest Education Entry
+				- Remove Latest Work Entry
 			</Button>
 		</div>
 	);
