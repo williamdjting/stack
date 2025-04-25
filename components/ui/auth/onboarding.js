@@ -1266,132 +1266,241 @@ const SummaryStep = ({
 
 	return (
 		<div>
-			<h1>Summary</h1>
-
-			<br></br>
-
-			<h2>Contact Info</h2>
-			<ul>First Name: {insertNewData.firstname}</ul>
-			<ul>Last Name: {insertNewData.lastname}</ul>
-			<ul>Email: {insertNewData.email}</ul>
-			<ul>LinkedIn: {insertNewData.linkedin}</ul>
-			<ul>Personal Website: {insertNewData.personalwebsite}</ul>
-			<ul>Github: {insertNewData.github}</ul>
-			<ul>Location: {insertNewData.location}</ul>
-			<ul>Personal Summary: {insertNewData.personalsummary}</ul>
-
-			<br />
-
-			<h2>Education Info</h2>
+			<div className="grid  grid-cols-4 w-full items-center gap-4">
+				<p className="text-lg flex flex-col col-span-4 space-y-1.5">
+					Personal Info
+				</p>
+				<p className="flex flex-col col-span-2 space-y-1.5">
+					First Name: {insertNewData.firstname}
+				</p>
+				<p className="flex flex-col col-span-2 space-y-1.5">
+					Last Name: {insertNewData.lastname}
+				</p>
+				<p className="flex flex-col col-span-2 space-y-1.5">
+					Email: {insertNewData.email}
+				</p>
+				<p className="flex flex-col col-span-2 space-y-1.5">
+					LinkedIn: {insertNewData.linkedin}
+				</p>
+				<p className="flex flex-col col-span-2 space-y-1.5">
+					Personal Website: {insertNewData.personalwebsite}
+				</p>
+				<p className="flex flex-col col-span-2 space-y-1.5">
+					Github: {insertNewData.github}
+				</p>
+				<p className="flex flex-col col-span-4 space-y-1.5">
+					Location: {insertNewData.location}
+				</p>
+				<p className="flex flex-col col-span-4 space-y-1.5">
+					Personal Summary: {insertNewData.personalsummary}
+				</p>
+			</div>
+			<p className="text-lg pt-5 pb-2 flex flex-col col-span-4 space-y-1.5">
+				Education Info
+			</p>
 			{insertEducationData.length > 0 ? (
 				insertEducationData.map((education, index) => (
 					<div key={index}>
-						<h3>Education {index + 1}</h3>
-						<ul>
-							<li>School Name: {education.school}</li>
-							<li>Major: {education.major}</li>
-							<li>Degree Type: {education.degreetype}</li>
-							<li>GPA: {education.GPA}</li>
-							<li>Start Month: {education.startmonth}</li>
-							<li>Start Year: {education.startyear}</li>
-							<li>End Month: {education.endmonth}</li>
-							<li>End Year: {education.endyear}</li>
-							<li>
-								Courses Taken / Concepts Learned / Scholarships / Other: :{' '}
+						<div className="grid  grid-cols-4 w-full items-center gap-4">
+							<p className="flex flex-col col-span-4 space-y-1.5">
+								Education {index + 1}
+							</p>
+							<p className="flex flex-col col-span-2 space-y-1.5">
+								School Name: {education.school}
+							</p>
+							<p className="flex flex-col col-span-2 space-y-1.5">
+								Major: {education.major}
+							</p>
+							<p className="flex flex-col col-span-2 space-y-1.5">
+								Degree Type: {education.degreetype}
+							</p>
+							<p className="flex flex-col col-span-2 space-y-1.5">
+								GPA: {education.GPA}
+							</p>
+							<p className="flex flex-col col-span-1 space-y-1.5">
+								Start Month: {education.startmonth}
+							</p>
+							<p className="flex flex-col col-span-1 space-y-1.5">
+								Start Year: {education.startyear}
+							</p>
+							<p className="flex flex-col col-span-1 space-y-1.5">
+								End Month: {education.endmonth}
+							</p>
+							<p className="flex flex-col col-span-1 space-y-1.5">
+								End Year: {education.endyear}
+							</p>
+							<p className="flex flex-col col-span-4 space-y-1.5">
+								Courses Taken / Concepts Learned / Scholarships / Other:{' '}
 								{education.other}
-							</li>
-						</ul>
+							</p>
+						</div>
 					</div>
 				))
 			) : (
 				<p>No Education data available.</p>
 			)}
-
-			<br />
-			<h2>Work Info</h2>
+			<p className="text-lg pt-5 pb-2 flex flex-col col-span-4 space-y-1.5">
+				Work Info
+			</p>
 			{insertWorkData.length > 0 ? (
 				insertWorkData.map((workexperience, index) => (
 					<div key={index}>
-						<h3>Work Experience {index + 1}</h3>
-						<ul>
-							<li>Company: {workexperience.company}</li>
-							<li>Location: {workexperience.location}</li>
-							<li>Position: {workexperience.position}</li>
-							<li>Experience Type: {workexperience.experiencetype}</li>
-							<li>Start Month: {workexperience.startmonth}</li>
-							<li>Start Year: {workexperience.startyear}</li>
-							<li>End Month: {workexperience.endmonth}</li>
-							<li>End Year: {workexperience.endyear}</li>
-							<li>Other: {workexperience.other}</li>
-						</ul>
+						<div className="grid  grid-cols-4 w-full items-center gap-4">
+							<p className="flex flex-col col-span-4 space-y-1.5">
+								Work Experience {index + 1}
+							</p>
+							<p className="flex flex-col col-span-2 space-y-1.5">
+								Company: {workexperience.company}
+							</p>
+							<p className="flex flex-col col-span-2 space-y-1.5">
+								Location: {workexperience.location}
+							</p>
+							<p className="flex flex-col col-span-2 space-y-1.5">
+								Position: {workexperience.position}
+							</p>
+							<p className="flex flex-col col-span-2 space-y-1.5">
+								Experience Type: {workexperience.experiencetype}
+							</p>
+							<p className="flex flex-col col-span-1 space-y-1.5">
+								Start Month: {workexperience.startmonth}
+							</p>
+							<p className="flex flex-col col-span-1 space-y-1.5">
+								Start Year: {workexperience.startyear}
+							</p>
+							<p className="flex flex-col col-span-1 space-y-1.5">
+								End Month: {workexperience.endmonth}
+							</p>
+							<p className="flex flex-col col-span-1 space-y-1.5">
+								End Year: {workexperience.endyear}
+							</p>
+							<p className="flex flex-col col-span-4 space-y-1.5">
+								Other: {workexperience.other}
+							</p>
+						</div>
 					</div>
 				))
 			) : (
 				<p>No Work Experience data available.</p>
 			)}
-			<br />
-			<h2>Leadership & Volunteer Info</h2>
+			<p className="text-lg pt-5 pb-2 flex flex-col col-span-4 space-y-1.5">
+				Leadership & Volunteer Info
+			</p>
 			{insertLeadershipVolunteerData.length > 0 ? (
 				insertLeadershipVolunteerData.map((leadershipvolunteer, index) => (
 					<div key={index}>
-						<h3>Leadership & Volunteer {index + 1}</h3>
-						<ul>
-							<li>Company: {leadershipvolunteer.company}</li>
-							<li>Location: {leadershipvolunteer.major}</li>
-							<li>Position: {leadershipvolunteer.position}</li>
-							<li>Experience Type: {leadershipvolunteer.experiencetype}</li>
-							<li>Start Month: {leadershipvolunteer.startmonth}</li>
-							<li>Start Year: {leadershipvolunteer.startyear}</li>
-							<li>End Month: {leadershipvolunteer.endmonth}</li>
-							<li>End Year: {leadershipvolunteer.endyear}</li>
-							<li>Other: {leadershipvolunteer.other}</li>
-						</ul>
+						<div className="grid  grid-cols-4 w-full items-center gap-4">
+							<p className="text-lg pt-5 flex flex-col col-span-4 space-y-1.5">
+								Leadership & Volunteer Info
+							</p>
+							<p className="flex flex-col col-span-4 space-y-1.5">
+								Leadership & Volunteer {index + 1}
+							</p>
+							<p className="flex flex-col col-span-2 space-y-1.5">
+								Company: {leadershipvolunteer.company}
+							</p>
+							<p className="flex flex-col col-span-2 space-y-1.5">
+								Location: {leadershipvolunteer.major}
+							</p>
+							<p className="flex flex-col col-span-2 space-y-1.5">
+								Position: {leadershipvolunteer.position}
+							</p>
+							<p className="flex flex-col col-span-2 space-y-1.5">
+								Experience Type: {leadershipvolunteer.experiencetype}
+							</p>
+							<p className="flex flex-col col-span-1 space-y-1.5">
+								Start Month: {leadershipvolunteer.startmonth}
+							</p>
+							<p className="flex flex-col col-span-1 space-y-1.5">
+								Start Year: {leadershipvolunteer.startyear}
+							</p>
+							<p className="flex flex-col col-span-1 space-y-1.5">
+								End Month: {leadershipvolunteer.endmonth}
+							</p>
+							<p className="flex flex-col col-span-1 space-y-1.5">
+								End Year: {leadershipvolunteer.endyear}
+							</p>
+							<p className="flex flex-col col-span-4 space-y-1.5">
+								Other: {leadershipvolunteer.other}
+							</p>
+						</div>
 					</div>
 				))
 			) : (
 				<p>No Leadership and Volunteer data available.</p>
 			)}
-
-			<br />
-
-			<h2>Project Info</h2>
+			<p className="text-lg pt-5 pb-2 flex flex-col col-span-4 space-y-1.5">
+				Project Info
+			</p>
 			{insertProjectData.length > 0 ? (
 				insertProjectData.map((projects, index) => (
 					<div key={index}>
-						<h3>Project {index + 1}</h3>
-						<ul>
-							<li>Company: {projects.company}</li>
-							<li>Location: {projects.location}</li>
-							<li>Start Month: {projects.startmonth}</li>
-							<li>Start Year: {projects.startyear}</li>
-							<li>End Month: {projects.endmonth}</li>
-							<li>End Year: {projects.endyear}</li>
-							<li>Other: {projects.other}</li>
-						</ul>
+						<div className="grid  grid-cols-4 w-full items-center gap-4">
+							<p className="flex flex-col col-span-4 space-y-1.5">
+								Project {index + 1}
+							</p>
+							<p className="flex flex-col col-span-2 space-y-1.5">
+								Company: {projects.company}
+							</p>
+							<p className="flex flex-col col-span-2 space-y-1.5">
+								Location: {projects.location}
+							</p>
+							<p className="flex flex-col col-span-1 space-y-1.5">
+								Start Month: {projects.startmonth}
+							</p>
+							<p className="flex flex-col col-span-1 space-y-1.5">
+								Start Year: {projects.startyear}
+							</p>
+							<p className="flex flex-col col-span-1 space-y-1.5">
+								End Month: {projects.endmonth}
+							</p>
+							<p className="flex flex-col col-span-1 space-y-1.5">
+								End Year: {projects.endyear}
+							</p>
+							<p className="flex flex-col col-span-4 space-y-1.5">
+								Other: {projects.other}
+							</p>
+						</div>
 					</div>
 				))
 			) : (
 				<p>No Project data available.</p>
 			)}
-			<br />
 
-			<h2>Skills - Section 1</h2>
-			<ul>Coding Languages: {insertSkills1Form.codinglanguages}</ul>
-			<ul>Programming Concepts: {insertSkills1Form.programmingconcepts}</ul>
-			<ul>Tools: {insertSkills1Form.tools}</ul>
-			<ul>Frameworks: {insertSkills1Form.frameworks}</ul>
+			<div className="grid  grid-cols-4 w-full items-center gap-4">
+				<p className="text-lg pt-5 flex flex-col col-span-4 space-y-1.5">
+					Skills - Section 1
+				</p>
+				<p className="flex flex-col col-span-4 space-y-1.5">Technical Skills</p>
+				<p className="flex flex-col col-span-4 space-y-1.5">
+					Coding Languages: {insertSkills1Form.codinglanguages}
+				</p>
+				<p className="flex flex-col col-span-4 space-y-1.5">
+					Programming Concepts: {insertSkills1Form.programmingconcepts}
+				</p>
+				<p className="flex flex-col col-span-4 space-y-1.5">
+					Tools: {insertSkills1Form.tools}
+				</p>
+				<p className="flex flex-col col-span-4 space-y-1.5">
+					Frameworks: {insertSkills1Form.frameworks}
+				</p>
 
-			<br />
-
-			<h2>Skills - Section 2</h2>
-			<ul>
-				Business Communications: {insertSkills2Form.businesscommunications}
-			</ul>
-			<ul>Leadership: {insertSkills2Form.leadership}</ul>
-			<ul>Project Management: {insertSkills2Form.projectmanagement}</ul>
-			<ul>Technical: {insertSkills2Form.technical}</ul>
-
-			<br />
+				<p className="text-lg pt-5 flex flex-col col-span-4 space-y-1.5">
+					Skills - Section 2
+				</p>
+				<p className="flex flex-col col-span-4 space-y-1.5">Business Skills</p>
+				<p className="flex flex-col col-span-4 space-y-1.5">
+					Business Communications: {insertSkills2Form.businesscommunications}
+				</p>
+				<p className="flex flex-col col-span-4 space-y-1.5">
+					Leadership: {insertSkills2Form.leadership}
+				</p>
+				<p className="flex flex-col col-span-4 space-y-1.5">
+					Project Management: {insertSkills2Form.projectmanagement}
+				</p>
+				<p className="flex flex-col col-span-4 space-y-1.5">
+					Technical: {insertSkills2Form.technical}
+				</p>
+			</div>
 		</div>
 	);
 };
