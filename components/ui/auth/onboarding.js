@@ -1066,119 +1066,130 @@ const WorkExperienceForm = ({ insertWorkData, setInsertWorkData }) => {
 		]);
 	};
 
+	const handleRemoveWorkExperience = () => {
+		setInsertWorkData((prevData) => {
+			if (prevData.length > 1) {
+				return prevData.slice(0, -1);
+			}
+			return prevData;
+		});
+	};
+
 	return (
 		<div>
 			{insertWorkData.map((workexperience, index) => (
 				<div key={index}>
-					<div>
-						<label>Company Name</label>
-						<input
-							name="company"
-							value={workexperience.company}
-							onChange={(e) => handleChange(index, e)}
-							placeholder="Enter your company"
-							required
-						/>
+					<p className="text-lg pt-5 pb-5">Work Experience {index + 1}</p>
+					<div className="grid  grid-cols-4 w-full items-center gap-4">
+						<div className="flex flex-col col-span-2 space-y-1.5">
+							<label>Company Name</label>
+							<Input
+								name="company"
+								value={workexperience.company}
+								onChange={(e) => handleChange(index, e)}
+								placeholder="Enter your company"
+								required
+							/>
+						</div>
+						<div className="flex flex-col col-span-2 space-y-1.5">
+							<label>Location</label>
+							<Input
+								name="location"
+								value={workexperience.location}
+								onChange={(e) => handleChange(index, e)}
+								placeholder="Enter the location"
+								required
+							/>
+						</div>
+						<div className="flex flex-col col-span-2 space-y-1.5">
+							<label>Position Title</label>
+							<Input
+								name="position"
+								value={workexperience.position}
+								onChange={(e) => handleChange(index, e)}
+								placeholder="Enter your position"
+								required
+							/>
+						</div>
+						<div className="flex flex-col col-span-2 space-y-1.5">
+							<label>Experience Type</label>
+							<Input
+								name="experiencetype"
+								value={workexperience.experiencetype}
+								onChange={(e) => handleChange(index, e)}
+								placeholder="Enter your experience type"
+								required
+							/>
+						</div>
+						<div className="flex flex-col col-span-1 space-y-1.5">
+							<label>Start Month</label>
+							<Input
+								name="startmonth"
+								value={workexperience.startmonth}
+								onChange={(e) => handleChange(index, e)}
+								placeholder="Enter your start month"
+								required
+							/>
+						</div>
+						<div className="flex flex-col col-span-1 space-y-1.5">
+							<label>Start Year</label>
+							<Input
+								name="startyear"
+								value={workexperience.startyear}
+								onChange={(e) => handleChange(index, e)}
+								placeholder="Enter your start year"
+								required
+							/>
+						</div>
+						<div className="flex flex-col col-span-1 space-y-1.5">
+							<label>End Month</label>
+							<Input
+								name="endmonth"
+								value={workexperience.endmonth}
+								onChange={(e) => handleChange(index, e)}
+								placeholder="Enter your end month"
+								required
+							/>
+						</div>
+						<div className="flex flex-col col-span-1 space-y-1.5">
+							<label>End Year</label>
+							<Input
+								name="endyear"
+								value={workexperience.endyear}
+								onChange={(e) => handleChange(index, e)}
+								placeholder="Enter your end year"
+								required
+							/>
+						</div>
+						<div className="flex flex-col col-span-4 space-y-1.5">
+							<label>Description</label>
+							<Textarea
+								name="other"
+								value={workexperience.other}
+								onChange={(e) => handleChange(index, e)}
+								placeholder="Enter any other information"
+								row={5}
+								col={25}
+								required
+							/>
+						</div>
 					</div>
-					<br />
-					<div>
-						<label>Location</label>
-						<input
-							name="location"
-							value={workexperience.location}
-							onChange={(e) => handleChange(index, e)}
-							placeholder="Enter the location"
-							required
-						/>
-					</div>
-					<br />
-					<div>
-						<label>Position Title</label>
-						<input
-							name="position"
-							value={workexperience.position}
-							onChange={(e) => handleChange(index, e)}
-							placeholder="Enter your position"
-							required
-						/>
-					</div>
-					<br />
-					<div>
-						<label>Experience Type</label>
-						<input
-							name="experiencetype"
-							value={workexperience.experiencetype}
-							onChange={(e) => handleChange(index, e)}
-							placeholder="Enter your experience type"
-							required
-						/>
-					</div>
-					<br />
-					<div>
-						<label>Start Month</label>
-						<input
-							name="startmonth"
-							value={workexperience.startmonth}
-							onChange={(e) => handleChange(index, e)}
-							placeholder="Enter your start month"
-							required
-						/>
-					</div>
-					<br />
-					<div>
-						<label>Start Year</label>
-						<input
-							name="startyear"
-							value={workexperience.startyear}
-							onChange={(e) => handleChange(index, e)}
-							placeholder="Enter your start year"
-							required
-						/>
-					</div>
-					<br />
-					<div>
-						<label>End Month</label>
-						<input
-							name="endmonth"
-							value={workexperience.endmonth}
-							onChange={(e) => handleChange(index, e)}
-							placeholder="Enter your end month"
-							required
-						/>
-					</div>
-					<br />
-					<div>
-						<label>End Year</label>
-						<input
-							name="endyear"
-							value={workexperience.endyear}
-							onChange={(e) => handleChange(index, e)}
-							placeholder="Enter your end year"
-							required
-						/>
-					</div>
-					<br />
-					<div>
-						<label>Description</label>
-						<textarea
-							name="other"
-							value={workexperience.other}
-							onChange={(e) => handleChange(index, e)}
-							placeholder="Enter any other information"
-							row={5}
-							col={25}
-							required
-						/>
-					</div>
-					<br />
-					<button
-						type="button"
-						onClick={handleAddWorkExperience}
-					>
-						Add Another Work Experience
-					</button>
 				</div>
 			))}
+			<Button
+				variant="link"
+				onClick={handleAddWorkExperience}
+				className="p-0"
+			>
+				+ Add Another Work Experience
+			</Button>
+			<Button
+				variant="link"
+				onClick={handleRemoveWorkExperience}
+				className="p-0 pl-5"
+			>
+				- Remove Latest Education Entry
+			</Button>
 		</div>
 	);
 };
