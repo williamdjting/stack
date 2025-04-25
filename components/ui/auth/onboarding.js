@@ -6,6 +6,17 @@ import React, { useState } from 'react';
 import { createClient } from '../../../app/supabase/client';
 import { useRouter } from 'next/navigation';
 import { Progress } from '@/components/ui/progress';
+import {
+	Card,
+	CardContent,
+	CardDescription,
+	CardFooter,
+	CardHeader,
+	CardTitle,
+} from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
 
 const supabase = createClient();
 
@@ -161,9 +172,29 @@ export function OnboardingFlow() {
 		'Education',
 		'Work Experience',
 		'Other Experience',
+		'Projects',
 		'Skills',
+		'Review',
 	];
 	const progressPercent = ((step + 1) / stepProgressTitles.length) * 100;
+	const stepInstructionTitle = [
+		'Welcome to StackAI! To get started, tell us a little bit about yourself',
+		'Add your education history',
+		'Add your work experience',
+		'Add your leadership/volunteer experience',
+		'Add your projects',
+		'Finally, add your skills',
+		'Review your profile',
+	];
+	const stepInstructionDescription = [
+		'Please enter as much information as possible. The more information, the better the result.',
+		'',
+		'',
+		'',
+		'',
+		'',
+		'Please review your profile information and go back if you need to fix anything.',
+	];
 
 	const steps = [
 		<ContactInfoForm
@@ -198,11 +229,6 @@ export function OnboardingFlow() {
 			insertSkills2Form={insertSkills2Form}
 			setInsertSkills2Form={setInsertSkills2Form}
 		/>,
-		// <PreferencesStep
-		//   key="preferences"
-		//   preferences={preferences}
-		//   setPreferences={setPreferences}
-		// />,
 		<SummaryStep
 			key="summary"
 			insertNewData={insertNewData}
@@ -216,38 +242,70 @@ export function OnboardingFlow() {
 	];
 
 	return (
-		<div>
-			<div className="max-w-2xl mx-auto px-4 py-6 space-y-6">
-				<h3>TEST</h3>
-				<div className="flex justify-between text-sm font-medium mb-2">
-					{stepProgressTitles.map((title, idx) => (
-						<div
-							key={idx}
-							className="text-center w-full"
-						>
-							<span
-								className={`${idx <= step ? 'text-blue-600' : 'text-gray-400'}`}
-							>
-								{title}
-							</span>
+		// <div className="bg-gray-200 min-h-screen flex items-center justify-center">
+		<div className="bg-gray-200 min-h-screen flex flex-col items-center justify-center p-10">
+			<h1>STACK AI</h1>
+			<Card className="w-full max-w-[1200px] p-10">
+				<CardHeader>
+					<div className="space-y-6">
+						<div className="flex justify-between text-sm font-medium mb-2">
+							{stepProgressTitles.map((title, idx) => (
+								<div
+									key={idx}
+									className="text-center w-full"
+								>
+									<span
+										className={`${
+											idx <= step ? 'text-gray-950' : 'text-gray-400'
+										}`}
+									>
+										{title}
+									</span>
+								</div>
+							))}
 						</div>
-					))}
-				</div>
-				<Progress
-					value={progressPercent}
-					className="h-2 rounded-full"
-				/>
-			</div>
-			<div>{steps[step]}</div>
-			<div>
-				{step > 0 && <button onClick={prevStep}>Back</button>}
-				{step < steps.length - 1 && <button onClick={nextStep}>Next</button>}
-				{step === steps.length - 1 && (
-					// <button onClick={() => alert('Onboarding Complete!')}>Finish</button>
-					// change to the below onSubmit that sends to DB
-					<button onClick={handleSubmit}>Finish</button>
-				)}
-			</div>
+						<Progress
+							value={progressPercent}
+							className="h-2 rounded-full w-full"
+						/>
+					</div>
+					<CardTitle className="pt-5">{stepInstructionTitle[step]}</CardTitle>
+					<CardDescription className="pb-5">
+						{stepInstructionDescription[step]}
+					</CardDescription>
+				</CardHeader>
+				<CardContent>
+					{' '}
+					<div>{steps[step]}</div>
+				</CardContent>
+				<CardFooter
+					className="flex
+					justify-center gap-4"
+				>
+					{step > 0 && (
+						<Button
+							variant="outline"
+							className="w-1/3"
+							onClick={prevStep}
+						>
+							Back
+						</Button>
+					)}
+					{step < steps.length - 1 && (
+						<Button
+							className="w-1/3"
+							onClick={nextStep}
+						>
+							Next
+						</Button>
+					)}
+					{step === steps.length - 1 && (
+						// <button onClick={() => alert('Onboarding Complete!')}>Finish</button>
+						// change to the below onSubmit that sends to DB
+						<Button onClick={handleSubmit}>Finish</Button>
+					)}
+				</CardFooter>
+			</Card>
 		</div>
 	);
 }
@@ -264,17 +322,10 @@ const ContactInfoForm = ({ insertNewData, setInsertNewData }) => {
 
 	return (
 		<div>
-			<div>Welcome to StackUp AI! </div>
-			<br></br>
-			<div>
-				This will take 5 minutes. Please enter all the information. The more
-				detail, the better the result! :)
-			</div>
-			<br></br>
-			<form>
-				<div>
-					First Name
-					<input
+			<div className="grid  grid-cols-2 w-full items-center gap-4">
+				<div className="flex flex-col col-span-1 space-y-1.5">
+					<p>First Name</p>
+					<Input
 						name="firstname"
 						value={insertNewData.firstname}
 						onChange={handleChange}
@@ -282,10 +333,9 @@ const ContactInfoForm = ({ insertNewData, setInsertNewData }) => {
 						required
 					/>
 				</div>
-				<br />
-				<div>
-					Last Name
-					<input
+				<div className="flex flex-col col-span-1 space-y-1.5">
+					<p>Last Name</p>
+					<Input
 						name="lastname"
 						value={insertNewData.lastname}
 						onChange={handleChange}
@@ -293,10 +343,9 @@ const ContactInfoForm = ({ insertNewData, setInsertNewData }) => {
 						required
 					/>
 				</div>
-				<br />
-				<div>
+				<div className="flex flex-col col-span-2 space-y-1.5">
 					Email
-					<input
+					<Input
 						name="email"
 						value={insertNewData.email}
 						onChange={handleChange}
@@ -304,10 +353,9 @@ const ContactInfoForm = ({ insertNewData, setInsertNewData }) => {
 						required
 					/>
 				</div>
-				<br />
-				<div>
-					LinkedIn
-					<input
+				<div className="flex flex-col col-span-2 space-y-1.5">
+					LinkedIn URL
+					<Input
 						name="linkedin"
 						value={insertNewData.linkedin}
 						onChange={handleChange}
@@ -315,10 +363,9 @@ const ContactInfoForm = ({ insertNewData, setInsertNewData }) => {
 						required
 					/>
 				</div>
-				<br />
-				<div>
-					Personal Website
-					<input
+				<div className="flex flex-col col-span-2 space-y-1.5">
+					Personal Website URL
+					<Input
 						name="personalwebsite"
 						value={insertNewData.personalwebsite}
 						onChange={handleChange}
@@ -326,10 +373,9 @@ const ContactInfoForm = ({ insertNewData, setInsertNewData }) => {
 						required
 					/>
 				</div>
-				<br />
-				<div>
-					Github
-					<input
+				<div className="flex flex-col col-span-2 space-y-1.5">
+					Github URL
+					<Input
 						name="github"
 						value={insertNewData.github}
 						onChange={handleChange}
@@ -337,10 +383,9 @@ const ContactInfoForm = ({ insertNewData, setInsertNewData }) => {
 						required
 					/>
 				</div>
-				<br />
-				<div>
+				<div className="flex flex-col col-span-2 space-y-1.5">
 					Location
-					<input
+					<Input
 						name="location"
 						value={insertNewData.location}
 						onChange={handleChange}
@@ -348,10 +393,9 @@ const ContactInfoForm = ({ insertNewData, setInsertNewData }) => {
 						required
 					/>
 				</div>
-				<br />
-				<div>
+				<div className="flex flex-col col-span-2 space-y-1.5">
 					Personal Summary
-					<input
+					<Textarea
 						name="personalsummary"
 						value={insertNewData.personalsummary}
 						onChange={handleChange}
@@ -359,8 +403,7 @@ const ContactInfoForm = ({ insertNewData, setInsertNewData }) => {
 						required
 					/>
 				</div>
-				<br />
-			</form>
+			</div>
 		</div>
 	);
 };
@@ -399,7 +442,6 @@ const LeadershipVolunteerExperienceForm = ({
 
 	return (
 		<div>
-			<h1>Add your leadership / volunteer experience</h1>
 			<br></br>
 			{insertLeadershipVolunteerData.map((leadershipvolunteer, index) => (
 				<div key={index}>
@@ -544,7 +586,6 @@ const EducationForm = ({ insertEducationData, setInsertEducationData }) => {
 
 	return (
 		<div>
-			<h1>Add your education history </h1>
 			{insertEducationData.map((education, index) => (
 				<div key={index}>
 					<div>
@@ -684,7 +725,6 @@ const ProjectsForm = ({ insertProjectData, setinsertProjectData }) => {
 
 	return (
 		<div>
-			<h1>Add your projects</h1>
 			<br></br>
 			{insertProjectData.map((projects, index) => (
 				<div key={index}>
@@ -800,7 +840,6 @@ const SkillsForm = ({
 
 	return (
 		<div>
-			<div>Finally, add your skills!</div>
 			<br></br>
 
 			{/* option selector for the skill choice, maybe this is not need*/}
@@ -1017,7 +1056,6 @@ const WorkExperienceForm = ({ insertWorkData, setInsertWorkData }) => {
 
 	return (
 		<div>
-			<h1>Add your work experience</h1>
 			{insertWorkData.map((workexperience, index) => (
 				<div key={index}>
 					<div>
