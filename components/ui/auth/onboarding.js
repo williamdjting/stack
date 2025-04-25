@@ -584,118 +584,130 @@ const EducationForm = ({ insertEducationData, setInsertEducationData }) => {
 		]);
 	};
 
+	const handleRemoveEducation = () => {
+		setInsertEducationData((prevData) => {
+			if (prevData.length > 1) {
+				return prevData.slice(0, -1);
+			}
+			return prevData;
+		});
+	};
+
 	return (
 		<div>
 			{insertEducationData.map((education, index) => (
 				<div key={index}>
-					<div>
-						<label>School Name</label>
-						<input
-							name="school"
-							value={education.school}
-							onChange={(e) => handleChange(index, e)}
-							placeholder="Enter your school"
-							required
-						/>
-					</div>
-					<br />
-					<div>
-						<label>Major</label>
-						<input
-							name="major"
-							value={education.major}
-							onChange={(e) => handleChange(index, e)}
-							placeholder="Enter your major"
-							required
-						/>
-					</div>
-					<br />
-					<div>
-						<label>Degree Type</label>
-						<input
-							name="degreetype"
-							value={education.degreetype}
-							onChange={(e) => handleChange(index, e)}
-							placeholder="Enter your degree type"
-							required
-						/>
-					</div>
-					<br />
-					<div>
-						<label>GPA</label>
-						<input
-							name="GPA"
-							value={education.GPA}
-							onChange={(e) => handleChange(index, e)}
-							placeholder="Enter your GPA"
-							required
-						/>
-					</div>
-					<br />
-					<div>
-						<label>Start Month</label>
-						<input
-							name="startmonth"
-							value={education.startmonth}
-							onChange={(e) => handleChange(index, e)}
-							placeholder="Enter your start month"
-							required
-						/>
-					</div>
-					<br />
-					<div>
-						<label>Start Year</label>
-						<input
-							name="startyear"
-							value={education.startyear}
-							onChange={(e) => handleChange(index, e)}
-							placeholder="Enter your start year"
-							required
-						/>
-					</div>
-					<br />
-					<div>
-						<label>End Month</label>
-						<input
-							name="endmonth"
-							value={education.endmonth}
-							onChange={(e) => handleChange(index, e)}
-							placeholder="Enter your end month"
-							required
-						/>
-					</div>
-					<br />
-					<div>
-						<label>End Year</label>
-						<input
-							name="endyear"
-							value={education.endyear}
-							onChange={(e) => handleChange(index, e)}
-							placeholder="Enter your end year"
-							required
-						/>
-					</div>
-					<br />
-					<div>
-						<label>
-							Courses Taken / Concepts Learned / Scholarships / Other
-						</label>
-						<input
-							name="other"
-							value={education.other}
-							onChange={(e) => handleChange(index, e)}
-							placeholder="Enter any other information"
-							required
-						/>
+					<p className="text-lg pt-5 pb-5">Education Experience {index + 1}</p>
+					<div className="grid  grid-cols-4 w-full items-center gap-4">
+						<div className="flex flex-col col-span-2 space-y-1.5">
+							<label>School Name</label>
+							<Input
+								name="school"
+								value={education.school}
+								onChange={(e) => handleChange(index, e)}
+								placeholder="Enter your school"
+								required
+							/>
+						</div>
+						<div className="flex flex-col col-span-2 space-y-1.5">
+							<label>Major</label>
+							<Input
+								name="major"
+								value={education.major}
+								onChange={(e) => handleChange(index, e)}
+								placeholder="Enter your major"
+								required
+							/>
+						</div>
+						<div className="flex flex-col col-span-2 space-y-1.5">
+							<label>Degree Type</label>
+							<Input
+								name="degreetype"
+								value={education.degreetype}
+								onChange={(e) => handleChange(index, e)}
+								placeholder="Enter your degree type"
+								required
+							/>
+						</div>
+						<div className="flex flex-col col-span-2 space-y-1.5">
+							<label>GPA</label>
+							<Input
+								name="GPA"
+								value={education.GPA}
+								onChange={(e) => handleChange(index, e)}
+								placeholder="Enter your GPA"
+								required
+							/>
+						</div>
+						<div className="flex flex-col col-span-1 space-y-1.5">
+							<label>Start Month</label>
+							<Input
+								name="startmonth"
+								value={education.startmonth}
+								onChange={(e) => handleChange(index, e)}
+								placeholder="Enter your start month"
+								required
+							/>
+						</div>
+						<div className="flex flex-col col-span-1 space-y-1.5">
+							<label>Start Year</label>
+							<Input
+								name="startyear"
+								value={education.startyear}
+								onChange={(e) => handleChange(index, e)}
+								placeholder="Enter your start year"
+								required
+							/>
+						</div>
+						<div className="flex flex-col col-span-1 space-y-1.5">
+							<label>End Month</label>
+							<Input
+								name="endmonth"
+								value={education.endmonth}
+								onChange={(e) => handleChange(index, e)}
+								placeholder="Enter your end month"
+								required
+							/>
+						</div>
+						<div className="flex flex-col col-span-1 space-y-1.5">
+							<label>End Year</label>
+							<Input
+								name="endyear"
+								value={education.endyear}
+								onChange={(e) => handleChange(index, e)}
+								placeholder="Enter your end year"
+								required
+							/>
+						</div>
+						<div className="flex flex-col col-span-4 space-y-1.5">
+							<label>
+								Courses Taken / Concepts Learned / Scholarships / Other
+							</label>
+							<Input
+								name="other"
+								value={education.other}
+								onChange={(e) => handleChange(index, e)}
+								placeholder="Enter any other information"
+								required
+							/>
+						</div>
 					</div>
 				</div>
 			))}
-			<button
-				type="button"
+			<Button
+				variant="link"
 				onClick={handleAddEducation}
+				className="p-0"
 			>
-				Add Another Education Entry;
-			</button>
+				+ Add Another Education Entry
+			</Button>
+			<Button
+				variant="link"
+				onClick={handleRemoveEducation}
+				className="p-0 pl-5"
+			>
+				- Remove Latest Education Entry
+			</Button>
 		</div>
 	);
 };
