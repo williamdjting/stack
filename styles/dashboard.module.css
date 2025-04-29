@@ -13,7 +13,7 @@
 
 .box1 {
 	width: 15%; /* Box 1 occupies 20% of the width */
-	background-color: rgb(229 231 235);
+	background-color: #c34141;
 	padding: 20px;
 	text-align: center;
 }

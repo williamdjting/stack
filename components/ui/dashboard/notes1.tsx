@@ -12,39 +12,37 @@ import { createClient } from '../../../app/supabase/server';
 
 // import supabase from "@/app/lib/supabase/server";
 
-import React, { createContext, useState, useEffect, useContext } from "react";
-import styles from "./dashboard.module.css";
+import React, { createContext, useState, useEffect, useContext } from 'react';
+import styles from './dashboard.module.css';
 // import styles from "./ui-dashboard.module.css";
 
-import Link from "next/link";
+import Link from 'next/link';
 
 export default async function Notes1() {
-  const supabase = await createClient();
+	const supabase = await createClient();
 
-  const { data, error } = await supabase
-    .from("notes1")
-    .insert({
-      
-      jobtitle: "Dev Ops Developer",
-      company: "Company D",
-      joblink: "http://companyD.com",
-      resume: "resume4.pdf",
-      coverletter: "coverletter3.pdf",
-    })
-    .select();
+	const { data, error } = await supabase
+		.from('notes1')
+		.insert({
+			jobtitle: 'Dev Ops Developer',
+			company: 'Company D',
+			joblink: 'http://companyD.com',
+			resume: 'resume4.pdf',
+			coverletter: 'coverletter3.pdf',
+		})
+		.select();
 
-  if (error) {
-    console.error("Insert error:", error);
-  }
+	if (error) {
+		console.error('Insert error:', error);
+	}
 
-  if (data) {
-    console.log(data);
-  }
+	if (data) {
+		console.log(data);
+	}
 
-
-  return (
-    <>
-      {/* <div>
+	return (
+		<>
+			{/* <div>
         This is a the notes1 component. Here we hold the data from countries
         table
       </div>
@@ -58,6 +56,6 @@ export default async function Notes1() {
         ))}
       </tbody>
     </table> */}
-    </> 
-  );
+		</>
+	);
 }
