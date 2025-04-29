@@ -1,17 +1,41 @@
 "use client"
 
 import React, { useState, useEffect } from "react";
-// import { supabase } from '../../../lib/supabase/server'; // Make sure this path is correct
 import { createClient } from '../../../app/supabase/client';
-import styles from "../../../styles/dashboard.module.css"; // Ensure this path is correct
-import Link from "next/link";
+import { Button } from '@/components/ui/button';
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableFooter,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import {
+	Card,
+} from '@/components/ui/card';
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination"
+
+
 
 const supabase = createClient();
+const ITEMS_PER_PAGE = 5;
 
 export default function Notes() {
   const [notes, setNotes] = useState<any[]>([]); // Use a specific type if you have one for notes
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -29,43 +53,80 @@ export default function Notes() {
     fetchData();
   }, []);
 
+  const pageCount = Math.ceil(notes.length / ITEMS_PER_PAGE);
+  const paginatedData = notes.slice(
+    (page - 1) * ITEMS_PER_PAGE,
+    page * ITEMS_PER_PAGE
+  );
+
+  const handlePrev = () => setPage((prev) => Math.max(prev - 1, 1));
+  const handleNext = () => setPage((prev) => Math.min(prev + 1, pageCount));
+
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
   if (notes.length === 0) return <p>No posts found.</p>;
-
+  
   return (
-    <div className={styles.jobcontainer}>
-      <h1>Jobs you have applied for</h1>
-      <table>
-        <thead>
-          <tr>
-            <th>Job Title</th>
-            <th>Company</th>
-            <th>Job Link</th>
-            <th>Resume</th>
-            <th>Cover Letter</th>
-            <th>Application</th>
-          </tr>
-        </thead>
-        <tbody>
-          {notes.map((note, index) => (
-            <tr className={index % 2 ? styles.tbody : ""} key={note.id}>
-              <td className={styles.tcol}>{note.jobtitle}</td>
-              <td className={styles.tcol}>{note.company}</td>
-              <td className={styles.tcol}>
-                <a href={note.joblink} target="_blank" rel="noopener noreferrer">{note.joblink}</a>
-              </td>
-              <td className={styles.tcol}>{note.resume}</td>
-              <td className={styles.tcol}>{note.coverletter}</td>
-              <td className={styles.tcol}>
-                <Link href={`/applications/${note.id}`}>
-                  Go to Application {note.id}
-                </Link>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+    <div className="min-h-screen flex flex-col justify-center p-10">
+      <div className="flex items-center justify-between">
+      <p className="font-semibold text-left text-3xl pb-5">Job Applications</p>
+      <Button className='mb-5'>Create a new Job Application</Button>
+      </div>
+      <Card className="p-5">
+      <Table>
+      <TableCaption>A list of your recent job applications.</TableCaption>
+      <TableHeader>
+        <TableRow>
+          <TableHead className="w-1/5 text-center text-gray-950">Job Title</TableHead>
+          <TableHead className="w-1/5 text-center text-gray-950">Company</TableHead>
+          <TableHead className="w-1/5 text-center text-gray-950">Resume</TableHead>
+          <TableHead className="w-1/5 text-center text-gray-950">Cover Letter</TableHead>
+          <TableHead className="text-right text-gray-950">Application Link</TableHead>
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        {paginatedData.map((note) => (
+          <TableRow key={note.id}>
+            <TableCell className="text-gray-700 font-normal">{note.jobtitle}</TableCell>
+            <TableCell className="text-gray-700 font-normal">{note.company}</TableCell>
+            <TableCell className="text-gray-700 font-normal">{note.resume}</TableCell>
+            <TableCell className="text-gray-700 font-normal">{note.coverletter}</TableCell>
+            <TableCell className="text-gray-700 font-normal text-right"><Button variant='ghost'><a className="text-lg" href={`/applications/${note.id}`}>Go to Application {note.id}</a></Button></TableCell>
+          </TableRow>
+        ))}
+      </TableBody>
+      <TableFooter>
+        <TableRow>
+        </TableRow>
+      </TableFooter>
+    </Table>
+    </Card>
+      <Pagination>
+      <PaginationContent>
+        <PaginationItem>
+          <PaginationPrevious onClick={handlePrev} disabled={page === 1}/>
+        </PaginationItem>
+        <PaginationItem>
+          <PaginationLink isActive>
+            {page}
+          </PaginationLink>
+        </PaginationItem>
+        {page < pageCount && (
+        <>
+        <PaginationItem>
+          <PaginationEllipsis />
+        </PaginationItem>
+        <PaginationItem>
+          <PaginationLink>{pageCount}</PaginationLink>
+        </PaginationItem>
+        </>
+        )}
+          <PaginationItem>
+            <PaginationNext onClick={handleNext} disabled={page === pageCount} />
+          </PaginationItem>
+        </PaginationContent>
+      </Pagination>
+
     </div>
   );
 }
