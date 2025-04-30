@@ -11,16 +11,16 @@
 	width: 100vw; /* Ensures the container takes the full viewport width */
 }
 
-.box1 {
-	width: 15%; /* Box 1 occupies 20% of the width */
+/* .box1 {
+	width: 15%;
 	background-color: #c34141;
 	padding: 20px;
 	text-align: center;
-}
+} */
 
 .box2 {
 	width: 85%; /* Box 2 occupies the remaining 80% of the width */
-	background-color: rgb(229 231 235);
+	background-color: rgb(255, 255, 255);
 	text-align: center;
 	border-left: 1px solid #000000;
 }

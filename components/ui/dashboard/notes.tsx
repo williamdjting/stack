@@ -25,7 +25,7 @@ import {
 } from '@/components/ui/pagination';
 
 const supabase = createClient();
-const ITEMS_PER_PAGE = 5;
+const ITEMS_PER_PAGE = 6;
 
 export default function Notes() {
 	const [notes, setNotes] = useState<any[]>([]); // Use a specific type if you have one for notes
@@ -63,14 +63,19 @@ export default function Notes() {
 	if (notes.length === 0) return <p>No posts found.</p>;
 
 	return (
-		<div className="min-h-screen flex flex-col justify-center p-10">
+		<div className="min-h-screen flex flex-col justify-center pr-10 pl-10 pt-0">
 			<div className="flex items-center justify-between">
 				<p className="font-semibold text-left text-3xl pb-5">
 					Job Applications
 				</p>
-				<Button className="mb-5">Create a new Job Application</Button>
+				<Button
+					// variant="customgray"
+					className="mb-5"
+				>
+					Create a new Job Application
+				</Button>
 			</div>
-			<Card className="p-5">
+			<Card className="p-5 min-h-[620px]">
 				<Table>
 					<TableCaption>A list of your recent job applications.</TableCaption>
 					<TableHeader>

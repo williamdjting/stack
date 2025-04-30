@@ -249,7 +249,6 @@ export function OnboardingFlow() {
 	];
 
 	return (
-		// <div className="bg-gray-200 min-h-screen flex items-center justify-center">
 		<div className="bg-gray-200 min-h-screen flex flex-col items-center justify-center p-10">
 			<h1>STACK AI</h1>
 			<Card className="w-full max-w-[1200px] p-10">
@@ -273,7 +272,7 @@ export function OnboardingFlow() {
 						</div>
 						<Progress
 							value={progressPercent}
-							className="h-2 rounded-full w-full"
+							className="h-2 rounded-full w-full "
 						/>
 					</div>
 					<CardTitle className="pt-5">{stepInstructionTitle[step]}</CardTitle>
@@ -302,6 +301,7 @@ export function OnboardingFlow() {
 						<Button
 							className="w-1/3"
 							onClick={nextStep}
+							// variant="customgray"
 						>
 							Next
 						</Button>
@@ -311,7 +311,8 @@ export function OnboardingFlow() {
 						// change to the below onSubmit that sends to DB
 						<Button
 							onClick={handleSubmit}
-							className="w-1/3"
+							// className="w-1/3"
+							// variant="customgray"
 						>
 							Finish
 						</Button>

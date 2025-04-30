@@ -1,32 +1,31 @@
-'use client'
+'use client';
 
-import React, { createContext, useState, useEffect, useContext } from "react";
+import React, { createContext, useState, useEffect, useContext } from 'react';
 // import { supabase } from '../../../lib/supabase/server';
 import { createClient } from '../../../app/supabase/client';
 import { useRouter } from 'next/navigation';
 
-import styles from "../../../styles/header.module.css";
+import styles from '../../../styles/header.module.css';
 
 import Link from 'next/link';
 
 const supabase = createClient();
 
-
 export function Header() {
+	const router = useRouter();
 
-  const router = useRouter();
+	const handleSignOut = async () => {
+		const { error } = await supabase.auth.signOut();
+		if (error) {
+			console.log('Error: ', error.message);
+		} else {
+			router.push('/auth/login');
+		}
+	};
 
-  const handleSignOut = async () => {
-    const { error } = await supabase.auth.signOut();
-    if (error){
-      console.log('Error: ', error.message);
-    } else {
-      router.push('/auth/login');
-    }
-  }
-
-  return (
-  <div className={styles.headerParent}>
+	return (
+		<div>
+			{/* // <div className={styles.headerParent}>
     <Link href="/applications/new" 
       className={styles.headerTitle}  
     >
@@ -34,10 +33,7 @@ export function Header() {
     </Link>
 
     <button onClick={handleSignOut}
-    className={styles.headerMyAccount}>Sign Out</button>
-    
-
-  </div>
-
-  )
+    className={styles.headerMyAccount}>Sign Out</button> */}
+		</div>
+	);
 }

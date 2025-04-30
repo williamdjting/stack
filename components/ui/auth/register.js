@@ -110,6 +110,7 @@ export function RegistrationForm() {
 					<Button
 						className="w-full"
 						onClick={handleSignUp}
+						// variant="customgray"
 					>
 						Register
 					</Button>
