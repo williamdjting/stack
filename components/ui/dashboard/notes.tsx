@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { createClient } from '../../../app/supabase/client';
+import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import {
 	Table,
@@ -32,6 +33,7 @@ export default function Notes() {
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState<string | null>(null);
 	const [page, setPage] = useState(1);
+	const router = useRouter();
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -48,6 +50,11 @@ export default function Notes() {
 
 		fetchData();
 	}, []);
+
+	const handleCreateResume = (e) => {
+		e.preventDefault();
+		router.push('/applications/new');
+	};
 
 	const pageCount = Math.ceil(notes.length / ITEMS_PER_PAGE);
 	const paginatedData = notes.slice(
@@ -71,7 +78,7 @@ export default function Notes() {
 				<Button
 					variant="skyblue"
 					className="mb-5"
-					//need to add onclick to new applcations?
+					onClick={handleCreateResume}
 				>
 					Create a new Job Application
 				</Button>
