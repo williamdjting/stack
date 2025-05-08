@@ -5,31 +5,32 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 export default function Page() {
-  const router = useRouter();
-  const [dots, setDots] = useState(".");
+	const router = useRouter();
+	const [dots, setDots] = useState('.');
 
-  useEffect(() => {
+	useEffect(() => {
+		const interval = setInterval(() => {
+			setDots((prev) => (prev.length >= 3 ? '.' : prev + '.'));
+		}, 500);
 
-    const interval = setInterval(() => {
-      setDots((prev) => (prev.length >= 3 ? "." : prev + "."))
-    }, 500)
+		const timer = setTimeout(() => {
+			router.push('/auth/onboarding');
+		}, 3000);
 
-    const timer = setTimeout(() => {
-      router.push('/auth/onboarding');
-    }, 3000);
+		return () => {
+			clearInterval(interval);
+			clearTimeout(timer);
+		};
+	}, [router]);
 
-    return () => {
-      clearInterval(interval);
-      clearTimeout(timer);
-    }
-  }, [router]);
-
-  return (
-    <main>
-      <div className="bg-gray-200 min-h-screen flex items-center justify-center">
-
-        <p>Your account has been verified, please wait a moment while you are redirected{dots}</p>
-      </div>
-    </main>
-  );
+	return (
+		<main>
+			<div className="bg-skyblue min-h-screen flex items-center justify-center">
+				<p className="text-2xl">
+					Your account has been verified, please wait a moment while you are
+					redirected{dots}
+				</p>
+			</div>
+		</main>
+	);
 }

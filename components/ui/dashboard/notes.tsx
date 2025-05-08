@@ -63,14 +63,15 @@ export default function Notes() {
 	if (notes.length === 0) return <p>No posts found.</p>;
 
 	return (
-		<div className="min-h-screen flex flex-col justify-center pr-10 pl-10 pt-0">
+		<div className="bg-skyblue min-h-screen flex flex-col justify-center pr-10 pl-10 pt-0">
 			<div className="flex items-center justify-between">
 				<p className="font-semibold text-left text-3xl pb-5">
 					Job Applications
 				</p>
 				<Button
-					// variant="customgray"
+					variant="skyblue"
 					className="mb-5"
+					//need to add onclick to new applcations?
 				>
 					Create a new Job Application
 				</Button>

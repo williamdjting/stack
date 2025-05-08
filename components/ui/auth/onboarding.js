@@ -249,8 +249,8 @@ export function OnboardingFlow() {
 	];
 
 	return (
-		<div className="bg-gray-200 min-h-screen flex flex-col items-center justify-center p-10">
-			<h1>STACK AI</h1>
+		<div className="bg-skyblue min-h-screen flex flex-col items-center justify-center p-10">
+			<h1>Stack AI</h1>
 			<Card className="w-full max-w-[1200px] p-10">
 				<CardHeader>
 					<div className="space-y-6">
@@ -272,7 +272,7 @@ export function OnboardingFlow() {
 						</div>
 						<Progress
 							value={progressPercent}
-							className="h-2 rounded-full w-full "
+							className="h-2 rounded-full w-full [&>div]:bg-skyblue-800"
 						/>
 					</div>
 					<CardTitle className="pt-5">{stepInstructionTitle[step]}</CardTitle>
@@ -301,18 +301,16 @@ export function OnboardingFlow() {
 						<Button
 							className="w-1/3"
 							onClick={nextStep}
-							// variant="customgray"
+							variant="skyblue"
 						>
 							Next
 						</Button>
 					)}
 					{step === steps.length - 1 && (
-						// <button onClick={() => alert('Onboarding Complete!')}>Finish</button>
-						// change to the below onSubmit that sends to DB
 						<Button
 							onClick={handleSubmit}
-							// className="w-1/3"
-							// variant="customgray"
+							className="w-1/3"
+							variant="skyblue"
 						>
 							Finish
 						</Button>
@@ -343,6 +341,7 @@ const ContactInfoForm = ({ insertNewData, setInsertNewData }) => {
 						value={insertNewData.firstname}
 						onChange={handleChange}
 						placeholder="Enter your firstname"
+						className="focus-visible:ring-skyblue"
 						required
 					/>
 				</div>
@@ -353,6 +352,7 @@ const ContactInfoForm = ({ insertNewData, setInsertNewData }) => {
 						value={insertNewData.lastname}
 						onChange={handleChange}
 						placeholder="Enter your lastname"
+						className="focus-visible:ring-skyblue"
 						required
 					/>
 				</div>
@@ -363,6 +363,7 @@ const ContactInfoForm = ({ insertNewData, setInsertNewData }) => {
 						value={insertNewData.email}
 						onChange={handleChange}
 						placeholder="Enter your email"
+						className="focus-visible:ring-skyblue"
 						required
 					/>
 				</div>
@@ -373,6 +374,7 @@ const ContactInfoForm = ({ insertNewData, setInsertNewData }) => {
 						value={insertNewData.linkedin}
 						onChange={handleChange}
 						placeholder="Enter your LinkedIn"
+						className="focus-visible:ring-skyblue"
 						required
 					/>
 				</div>
@@ -383,6 +385,7 @@ const ContactInfoForm = ({ insertNewData, setInsertNewData }) => {
 						value={insertNewData.personalwebsite}
 						onChange={handleChange}
 						placeholder="Enter your personalwebsite"
+						className="focus-visible:ring-skyblue"
 						required
 					/>
 				</div>
@@ -393,6 +396,7 @@ const ContactInfoForm = ({ insertNewData, setInsertNewData }) => {
 						value={insertNewData.github}
 						onChange={handleChange}
 						placeholder="Enter your github"
+						className="focus-visible:ring-skyblue"
 						required
 					/>
 				</div>
@@ -403,6 +407,7 @@ const ContactInfoForm = ({ insertNewData, setInsertNewData }) => {
 						value={insertNewData.location}
 						onChange={handleChange}
 						placeholder="Enter your location"
+						className="focus-visible:ring-skyblue"
 						required
 					/>
 				</div>
@@ -413,6 +418,7 @@ const ContactInfoForm = ({ insertNewData, setInsertNewData }) => {
 						value={insertNewData.personalsummary}
 						onChange={handleChange}
 						placeholder="Enter your personal summary"
+						className="focus-visible:ring-skyblue"
 						required
 					/>
 				</div>
@@ -475,6 +481,7 @@ const LeadershipVolunteerExperienceForm = ({
 								value={leadershipvolunteer.company}
 								onChange={(e) => handleChange(index, e)}
 								placeholder="Enter the company name"
+								className="focus-visible:ring-skyblue"
 								required
 							/>
 						</div>
@@ -485,6 +492,7 @@ const LeadershipVolunteerExperienceForm = ({
 								value={leadershipvolunteer.location}
 								onChange={(e) => handleChange(index, e)}
 								placeholder="Enter the location"
+								className="focus-visible:ring-skyblue"
 								required
 							/>
 						</div>
@@ -495,6 +503,7 @@ const LeadershipVolunteerExperienceForm = ({
 								value={leadershipvolunteer.position}
 								onChange={(e) => handleChange(index, e)}
 								placeholder="Enter your position"
+								className="focus-visible:ring-skyblue"
 								required
 							/>
 						</div>
@@ -505,6 +514,7 @@ const LeadershipVolunteerExperienceForm = ({
 								value={leadershipvolunteer.experiencetype}
 								onChange={(e) => handleChange(index, e)}
 								placeholder="Enter your experience type"
+								className="focus-visible:ring-skyblue"
 								required
 							/>
 						</div>
@@ -515,6 +525,7 @@ const LeadershipVolunteerExperienceForm = ({
 								value={leadershipvolunteer.startmonth}
 								onChange={(e) => handleChange(index, e)}
 								placeholder="Enter the start month"
+								className="focus-visible:ring-skyblue"
 								required
 							/>
 						</div>
@@ -525,6 +536,7 @@ const LeadershipVolunteerExperienceForm = ({
 								value={leadershipvolunteer.startyear}
 								onChange={(e) => handleChange(index, e)}
 								placeholder="Enter the start year"
+								className="focus-visible:ring-skyblue"
 								required
 							/>
 						</div>
@@ -534,7 +546,8 @@ const LeadershipVolunteerExperienceForm = ({
 								name="endmonth"
 								value={leadershipvolunteer.endmonth}
 								onChange={(e) => handleChange(index, e)}
-								placeholder="Enter the endmonth"
+								placeholder="Enter the end month"
+								className="focus-visible:ring-skyblue"
 								required
 							/>
 						</div>
@@ -545,6 +558,7 @@ const LeadershipVolunteerExperienceForm = ({
 								value={leadershipvolunteer.endyear}
 								onChange={(e) => handleChange(index, e)}
 								placeholder="Enter the end year"
+								className="focus-visible:ring-skyblue"
 								required
 							/>
 						</div>
@@ -555,6 +569,7 @@ const LeadershipVolunteerExperienceForm = ({
 								value={insertLeadershipVolunteerData.other}
 								onChange={(e) => handleChange(index, e)}
 								placeholder="Enter any other information"
+								className="focus-visible:ring-skyblue"
 								row={5}
 								col={25}
 								required
@@ -629,6 +644,7 @@ const EducationForm = ({ insertEducationData, setInsertEducationData }) => {
 								value={education.school}
 								onChange={(e) => handleChange(index, e)}
 								placeholder="Enter your school"
+								className="focus-visible:ring-skyblue"
 								required
 							/>
 						</div>
@@ -639,6 +655,7 @@ const EducationForm = ({ insertEducationData, setInsertEducationData }) => {
 								value={education.major}
 								onChange={(e) => handleChange(index, e)}
 								placeholder="Enter your major"
+								className="focus-visible:ring-skyblue"
 								required
 							/>
 						</div>
@@ -649,6 +666,7 @@ const EducationForm = ({ insertEducationData, setInsertEducationData }) => {
 								value={education.degreetype}
 								onChange={(e) => handleChange(index, e)}
 								placeholder="Enter your degree type"
+								className="focus-visible:ring-skyblue"
 								required
 							/>
 						</div>
@@ -659,6 +677,7 @@ const EducationForm = ({ insertEducationData, setInsertEducationData }) => {
 								value={education.GPA}
 								onChange={(e) => handleChange(index, e)}
 								placeholder="Enter your GPA"
+								className="focus-visible:ring-skyblue"
 								required
 							/>
 						</div>
@@ -669,6 +688,7 @@ const EducationForm = ({ insertEducationData, setInsertEducationData }) => {
 								value={education.startmonth}
 								onChange={(e) => handleChange(index, e)}
 								placeholder="Enter your start month"
+								className="focus-visible:ring-skyblue"
 								required
 							/>
 						</div>
@@ -679,6 +699,7 @@ const EducationForm = ({ insertEducationData, setInsertEducationData }) => {
 								value={education.startyear}
 								onChange={(e) => handleChange(index, e)}
 								placeholder="Enter your start year"
+								className="focus-visible:ring-skyblue"
 								required
 							/>
 						</div>
@@ -689,6 +710,7 @@ const EducationForm = ({ insertEducationData, setInsertEducationData }) => {
 								value={education.endmonth}
 								onChange={(e) => handleChange(index, e)}
 								placeholder="Enter your end month"
+								className="focus-visible:ring-skyblue"
 								required
 							/>
 						</div>
@@ -699,6 +721,7 @@ const EducationForm = ({ insertEducationData, setInsertEducationData }) => {
 								value={education.endyear}
 								onChange={(e) => handleChange(index, e)}
 								placeholder="Enter your end year"
+								className="focus-visible:ring-skyblue"
 								required
 							/>
 						</div>
@@ -711,6 +734,7 @@ const EducationForm = ({ insertEducationData, setInsertEducationData }) => {
 								value={education.other}
 								onChange={(e) => handleChange(index, e)}
 								placeholder="Enter any other information"
+								className="focus-visible:ring-skyblue"
 								required
 							/>
 						</div>
@@ -781,6 +805,7 @@ const ProjectsForm = ({ insertProjectData, setinsertProjectData }) => {
 								value={projects.company}
 								onChange={(e) => handleChange(index, e)}
 								placeholder="Enter the company name"
+								className="focus-visible:ring-skyblue"
 								required
 							/>
 						</div>
@@ -791,6 +816,7 @@ const ProjectsForm = ({ insertProjectData, setinsertProjectData }) => {
 								value={projects.startmonth}
 								onChange={(e) => handleChange(index, e)}
 								placeholder="Enter the start month"
+								className="focus-visible:ring-skyblue"
 								required
 							/>
 						</div>
@@ -801,6 +827,7 @@ const ProjectsForm = ({ insertProjectData, setinsertProjectData }) => {
 								value={projects.startyear}
 								onChange={(e) => handleChange(index, e)}
 								placeholder="Enter the start year"
+								className="focus-visible:ring-skyblue"
 								required
 							/>
 						</div>
@@ -811,6 +838,7 @@ const ProjectsForm = ({ insertProjectData, setinsertProjectData }) => {
 								value={projects.endmonth}
 								onChange={(e) => handleChange(index, e)}
 								placeholder="Enter the end month"
+								className="focus-visible:ring-skyblue"
 								required
 							/>
 						</div>
@@ -821,6 +849,7 @@ const ProjectsForm = ({ insertProjectData, setinsertProjectData }) => {
 								value={projects.endyear}
 								onChange={(e) => handleChange(index, e)}
 								placeholder="Enter the end year"
+								className="focus-visible:ring-skyblue"
 								required
 							/>
 						</div>
@@ -831,6 +860,7 @@ const ProjectsForm = ({ insertProjectData, setinsertProjectData }) => {
 								value={projects.other}
 								onChange={(e) => handleChange(index, e)}
 								placeholder="Enter any other information"
+								className="focus-visible:ring-skyblue"
 								row={5}
 								col={25}
 								required
@@ -899,7 +929,7 @@ const SkillsForm = ({
 						id="skills"
 						onValueChange={handleSelection}
 					>
-						<SelectTrigger className="w-[180px]">
+						<SelectTrigger className="w-[180px] focus:outline-none focus:ring-0 focus:ring-offset-0">
 							<SelectValue placeholder="Skills" />
 						</SelectTrigger>
 						<SelectContent>
@@ -922,6 +952,7 @@ const SkillsForm = ({
 								value={insertSkills1Form.codinglanguages}
 								onChange={handleChange1}
 								placeholder="Enter your coding languages"
+								className="focus-visible:ring-skyblue"
 								required
 							/>
 						</div>
@@ -932,6 +963,7 @@ const SkillsForm = ({
 								value={insertSkills1Form.programmingconcepts}
 								onChange={handleChange1}
 								placeholder="Enter your programming concepts"
+								className="focus-visible:ring-skyblue"
 								required
 							/>
 						</div>
@@ -942,6 +974,7 @@ const SkillsForm = ({
 								value={insertSkills1Form.tools}
 								onChange={handleChange1}
 								placeholder="Enter your tools / applications"
+								className="focus-visible:ring-skyblue"
 								required
 							/>
 						</div>
@@ -952,6 +985,7 @@ const SkillsForm = ({
 								value={insertSkills1Form.frameworks}
 								onChange={handleChange1}
 								placeholder="Enter your frameworks"
+								className="focus-visible:ring-skyblue"
 								required
 							/>
 						</div>
@@ -969,6 +1003,7 @@ const SkillsForm = ({
 								value={insertSkills1Form.codinglanguages}
 								onChange={handleChange1}
 								placeholder="Enter your coding languages"
+								className="focus-visible:ring-skyblue"
 								required
 							/>
 						</div>
@@ -979,6 +1014,7 @@ const SkillsForm = ({
 								value={insertSkills1Form.programmingconcepts}
 								onChange={handleChange1}
 								placeholder="Enter your programming concepts"
+								className="focus-visible:ring-skyblue"
 								required
 							/>
 						</div>
@@ -989,6 +1025,7 @@ const SkillsForm = ({
 								value={insertSkills1Form.tools}
 								onChange={handleChange1}
 								placeholder="Enter your tools / applications"
+								className="focus-visible:ring-skyblue"
 								required
 							/>
 						</div>
@@ -999,6 +1036,7 @@ const SkillsForm = ({
 								value={insertSkills1Form.frameworks}
 								onChange={handleChange1}
 								placeholder="Enter your frameworks"
+								className="focus-visible:ring-skyblue"
 								required
 							/>
 						</div>
@@ -1016,6 +1054,7 @@ const SkillsForm = ({
 								value={insertSkills2Form.businesscommunications}
 								onChange={handleChange2}
 								placeholder="Enter your business communications"
+								className="focus-visible:ring-skyblue"
 								required
 							/>
 						</div>
@@ -1026,6 +1065,7 @@ const SkillsForm = ({
 								value={insertSkills2Form.leadershipskills}
 								onChange={handleChange2}
 								placeholder="Enter your leadership / case competition skills"
+								className="focus-visible:ring-skyblue"
 								required
 							/>
 						</div>
@@ -1036,6 +1076,7 @@ const SkillsForm = ({
 								value={insertSkills2Form.projectmanagement}
 								onChange={handleChange2}
 								placeholder="Enter your project management"
+								className="focus-visible:ring-skyblue"
 								required
 							/>
 						</div>
@@ -1046,6 +1087,7 @@ const SkillsForm = ({
 								value={insertSkills2Form.frameworks}
 								onChange={handleChange2}
 								placeholder="Enter your technical / data analysis knowledge"
+								className="focus-visible:ring-skyblue"
 								required
 							/>
 						</div>
@@ -1111,6 +1153,7 @@ const WorkExperienceForm = ({ insertWorkData, setInsertWorkData }) => {
 								value={workexperience.company}
 								onChange={(e) => handleChange(index, e)}
 								placeholder="Enter your company"
+								className="focus-visible:ring-skyblue"
 								required
 							/>
 						</div>
@@ -1121,6 +1164,7 @@ const WorkExperienceForm = ({ insertWorkData, setInsertWorkData }) => {
 								value={workexperience.location}
 								onChange={(e) => handleChange(index, e)}
 								placeholder="Enter the location"
+								className="focus-visible:ring-skyblue"
 								required
 							/>
 						</div>
@@ -1131,6 +1175,7 @@ const WorkExperienceForm = ({ insertWorkData, setInsertWorkData }) => {
 								value={workexperience.position}
 								onChange={(e) => handleChange(index, e)}
 								placeholder="Enter your position"
+								className="focus-visible:ring-skyblue"
 								required
 							/>
 						</div>
@@ -1141,6 +1186,7 @@ const WorkExperienceForm = ({ insertWorkData, setInsertWorkData }) => {
 								value={workexperience.experiencetype}
 								onChange={(e) => handleChange(index, e)}
 								placeholder="Enter your experience type"
+								className="focus-visible:ring-skyblue"
 								required
 							/>
 						</div>
@@ -1151,6 +1197,7 @@ const WorkExperienceForm = ({ insertWorkData, setInsertWorkData }) => {
 								value={workexperience.startmonth}
 								onChange={(e) => handleChange(index, e)}
 								placeholder="Enter your start month"
+								className="focus-visible:ring-skyblue"
 								required
 							/>
 						</div>
@@ -1161,6 +1208,7 @@ const WorkExperienceForm = ({ insertWorkData, setInsertWorkData }) => {
 								value={workexperience.startyear}
 								onChange={(e) => handleChange(index, e)}
 								placeholder="Enter your start year"
+								className="focus-visible:ring-skyblue"
 								required
 							/>
 						</div>
@@ -1171,6 +1219,7 @@ const WorkExperienceForm = ({ insertWorkData, setInsertWorkData }) => {
 								value={workexperience.endmonth}
 								onChange={(e) => handleChange(index, e)}
 								placeholder="Enter your end month"
+								className="focus-visible:ring-skyblue"
 								required
 							/>
 						</div>
@@ -1181,6 +1230,7 @@ const WorkExperienceForm = ({ insertWorkData, setInsertWorkData }) => {
 								value={workexperience.endyear}
 								onChange={(e) => handleChange(index, e)}
 								placeholder="Enter your end year"
+								className="focus-visible:ring-skyblue"
 								required
 							/>
 						</div>
@@ -1191,6 +1241,7 @@ const WorkExperienceForm = ({ insertWorkData, setInsertWorkData }) => {
 								value={workexperience.other}
 								onChange={(e) => handleChange(index, e)}
 								placeholder="Enter any other information"
+								className="focus-visible:ring-skyblue"
 								row={5}
 								col={25}
 								required

@@ -57,6 +57,13 @@ const config: Config = {
 					DEFAULT: 'hsl(var(--customgray))',
 					foreground: 'hsl(var(--customgray-foreground))',
 				},
+				skyblue: {
+					DEFAULT: 'hsl(var(--skyblue))',
+					100: 'hsl(var(--skyblue-secondary))',
+					200: 'hsl(var(--skyblue-light))',
+					800: 'hsl(var(--skyblue-primary))',
+					900: 'hsl(var(--skyblue-hover))',
+				},
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
 				ring: 'hsl(var(--ring))',

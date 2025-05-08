@@ -60,7 +60,7 @@ export function LoginForm() {
 	};
 
 	return (
-		<div className="bg-gray-200 min-h-screen flex items-center justify-center">
+		<div className="bg-skyblue min-h-screen flex items-center justify-center">
 			<Card className="min-w-[531px] min-h-[404px]">
 				<CardHeader>
 					<CardTitle>Welcome Back!</CardTitle>
@@ -78,7 +78,7 @@ export function LoginForm() {
 									value={insertNewData.emailaddress}
 									onChange={handleChange}
 									placeholder="Enter your email address"
-									className="focus-visible:ring-gray-300"
+									className="focus-visible:ring-skyblue"
 									required
 								/>
 							</div>
@@ -90,7 +90,7 @@ export function LoginForm() {
 									value={insertNewData.password}
 									onChange={handleChange}
 									placeholder="Enter your password"
-									className="focus-visible:ring-gray-300"
+									className="focus-visible:ring-skyblue"
 									required
 								/>
 							</div>
@@ -101,7 +101,7 @@ export function LoginForm() {
 					<Button
 						className="w-full"
 						onClick={handleLogIn}
-						// variant="customgray"
+						variant="skyblue"
 					>
 						Sign in
 					</Button>

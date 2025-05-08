@@ -65,7 +65,7 @@ export function RegistrationForm() {
 	};
 
 	return (
-		<div className="bg-gray-200 min-h-screen flex items-center justify-center">
+		<div className="bg-skyblue min-h-screen flex items-center justify-center">
 			<Card>
 				<CardHeader>
 					<CardTitle>Get Started</CardTitle>
@@ -84,7 +84,7 @@ export function RegistrationForm() {
 									value={insertNewData.emailaddress}
 									onChange={handleChange}
 									placeholder="Enter your email address"
-									className="focus-visible:ring-gray-300"
+									className="focus-visible:ring-skyblue"
 									required
 								/>
 							</div>
@@ -96,7 +96,7 @@ export function RegistrationForm() {
 									value={insertNewData.password}
 									onChange={handleChange}
 									placeholder="Enter your password"
-									className="focus-visible:ring-gray-300"
+									className="focus-visible:ring-skyblue"
 									required
 								/>
 							</div>
@@ -110,7 +110,7 @@ export function RegistrationForm() {
 					<Button
 						className="w-full"
 						onClick={handleSignUp}
-						// variant="customgray"
+						variant="skyblue"
 					>
 						Register
 					</Button>

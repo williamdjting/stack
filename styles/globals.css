@@ -81,6 +81,11 @@ td {
 		--destructive-foreground: 0 0% 98%;
 		--customgray: 221 80% 11%;
 		--customgray-foreground: 0 0% 100%;
+		--skyblue-light: 216, 54%, 85%;
+		--skyblue: 212, 44%, 83%;
+		--skyblue-primary: 216, 45%, 43%;
+		--skyblue-hover: 212, 44%, 33%;
+		--skyblue-secondary: 212, 43%, 93%;
 		--border: 0 0% 89.8%;
 		--input: 0 0% 89.8%;
 		--ring: 0 0% 3.9%;
