@@ -1,26 +1,23 @@
 .footerParent {
-
-  display: flex;
-  position: relative;
-  height: 50px;
-  width: 100%;
-  padding-top: 20px;
-  padding-bottom: 30px;
-  margin-bottom: 10px;
-  padding-left: 20px;
-  padding-right: 20px;
-  background-color: black;
+	display: flex;
+	position: relative;
+	height: 50px;
+	width: 100%;
+	padding-top: 20px;
+	padding-bottom: 40px;
+	padding-left: 20px;
+	padding-right: 20px;
+	background-color: #c4d5ed;
 }
 
 .footerTitle {
-  font-size: regular;
-  color: white;
+	font-size: regular;
+	color: black;
 }
 
-
 .footerMyAccount {
-  position: absolute; 
-  right: 0;
-  color: white;
-  margin-right: 20px;
+	position: absolute;
+	right: 0;
+	color: black;
+	margin-right: 20px;
 }

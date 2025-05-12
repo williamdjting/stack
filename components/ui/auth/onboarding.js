@@ -5,6 +5,25 @@
 import React, { useState } from 'react';
 import { createClient } from '../../../app/supabase/client';
 import { useRouter } from 'next/navigation';
+import { Progress } from '@/components/ui/progress';
+import {
+	Card,
+	CardContent,
+	CardDescription,
+	CardFooter,
+	CardHeader,
+	CardTitle,
+} from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import {
+	Select,
+	SelectContent,
+	SelectItem,
+	SelectTrigger,
+	SelectValue,
+} from '@/components/ui/select';
 
 const supabase = createClient();
 
@@ -155,6 +174,35 @@ export function OnboardingFlow() {
 		console.log('this is handleSubmit');
 	};
 
+	const stepProgressTitles = [
+		'About you',
+		'Education',
+		'Work Experience',
+		'Other Experience',
+		'Projects',
+		'Skills',
+		'Review',
+	];
+	const progressPercent = ((step + 1) / stepProgressTitles.length) * 100;
+	const stepInstructionTitle = [
+		'Welcome to StackAI! To get started, tell us a little bit about yourself',
+		'Add your education history',
+		'Add your work experience',
+		'Add your leadership/volunteer experience',
+		'Add your projects',
+		'Finally, add your skills',
+		'Review your profile',
+	];
+	const stepInstructionDescription = [
+		'Please enter as much information as possible. The more information, the better the result.',
+		'',
+		'',
+		'',
+		'',
+		'',
+		'Please review your profile information and go back if you need to fix anything.',
+	];
+
 	const steps = [
 		<ContactInfoForm
 			key="contactinfoform"
@@ -188,11 +236,6 @@ export function OnboardingFlow() {
 			insertSkills2Form={insertSkills2Form}
 			setInsertSkills2Form={setInsertSkills2Form}
 		/>,
-		// <PreferencesStep
-		//   key="preferences"
-		//   preferences={preferences}
-		//   setPreferences={setPreferences}
-		// />,
 		<SummaryStep
 			key="summary"
 			insertNewData={insertNewData}
@@ -206,17 +249,74 @@ export function OnboardingFlow() {
 	];
 
 	return (
-		<div>
-			<div>{steps[step]}</div>
-			<div>
-				{step > 0 && <button onClick={prevStep}>Back</button>}
-				{step < steps.length - 1 && <button onClick={nextStep}>Next</button>}
-				{step === steps.length - 1 && (
-					// <button onClick={() => alert('Onboarding Complete!')}>Finish</button>
-					// change to the below onSubmit that sends to DB
-					<button onClick={handleSubmit}>Finish</button>
-				)}
-			</div>
+		<div className="bg-skyblue min-h-screen flex flex-col items-center justify-center p-10">
+			<h1>Stack AI</h1>
+			<Card className="w-full max-w-[1200px] p-10">
+				<CardHeader>
+					<div className="space-y-6">
+						<div className="flex justify-between text-sm font-medium mb-2">
+							{stepProgressTitles.map((title, idx) => (
+								<div
+									key={idx}
+									className="text-center w-full"
+								>
+									<span
+										className={`${
+											idx <= step ? 'text-gray-950' : 'text-gray-400'
+										}`}
+									>
+										{title}
+									</span>
+								</div>
+							))}
+						</div>
+						<Progress
+							value={progressPercent}
+							className="h-2 rounded-full w-full [&>div]:bg-skyblue-800"
+						/>
+					</div>
+					<CardTitle className="pt-5">{stepInstructionTitle[step]}</CardTitle>
+					<CardDescription className="pb-5">
+						{stepInstructionDescription[step]}
+					</CardDescription>
+				</CardHeader>
+				<CardContent>
+					{' '}
+					<div>{steps[step]}</div>
+				</CardContent>
+				<CardFooter
+					className="flex
+					justify-center gap-4"
+				>
+					{step > 0 && (
+						<Button
+							variant="outline"
+							className="w-1/3"
+							onClick={prevStep}
+						>
+							Back
+						</Button>
+					)}
+					{step < steps.length - 1 && (
+						<Button
+							className="w-1/3"
+							onClick={nextStep}
+							variant="skyblue"
+						>
+							Next
+						</Button>
+					)}
+					{step === steps.length - 1 && (
+						<Button
+							onClick={handleSubmit}
+							className="w-1/3"
+							variant="skyblue"
+						>
+							Finish
+						</Button>
+					)}
+				</CardFooter>
+			</Card>
 		</div>
 	);
 }
@@ -233,103 +333,96 @@ const ContactInfoForm = ({ insertNewData, setInsertNewData }) => {
 
 	return (
 		<div>
-			<div>Welcome to StackUp AI! </div>
-			<br></br>
-			<div>
-				This will take 5 minutes. Please enter all the information. The more
-				detail, the better the result! :)
-			</div>
-			<br></br>
-			<form>
-				<div>
-					First Name
-					<input
+			<div className="grid  grid-cols-2 w-full items-center gap-4">
+				<div className="flex flex-col col-span-1 space-y-1.5">
+					<p>First Name</p>
+					<Input
 						name="firstname"
 						value={insertNewData.firstname}
 						onChange={handleChange}
 						placeholder="Enter your firstname"
+						className="focus-visible:ring-skyblue"
 						required
 					/>
 				</div>
-				<br />
-				<div>
-					Last Name
-					<input
+				<div className="flex flex-col col-span-1 space-y-1.5">
+					<p>Last Name</p>
+					<Input
 						name="lastname"
 						value={insertNewData.lastname}
 						onChange={handleChange}
 						placeholder="Enter your lastname"
+						className="focus-visible:ring-skyblue"
 						required
 					/>
 				</div>
-				<br />
-				<div>
+				<div className="flex flex-col col-span-2 space-y-1.5">
 					Email
-					<input
+					<Input
 						name="email"
 						value={insertNewData.email}
 						onChange={handleChange}
 						placeholder="Enter your email"
+						className="focus-visible:ring-skyblue"
 						required
 					/>
 				</div>
-				<br />
-				<div>
-					LinkedIn
-					<input
+				<div className="flex flex-col col-span-2 space-y-1.5">
+					LinkedIn URL
+					<Input
 						name="linkedin"
 						value={insertNewData.linkedin}
 						onChange={handleChange}
 						placeholder="Enter your LinkedIn"
+						className="focus-visible:ring-skyblue"
 						required
 					/>
 				</div>
-				<br />
-				<div>
-					Personal Website
-					<input
+				<div className="flex flex-col col-span-2 space-y-1.5">
+					Personal Website URL
+					<Input
 						name="personalwebsite"
 						value={insertNewData.personalwebsite}
 						onChange={handleChange}
 						placeholder="Enter your personalwebsite"
+						className="focus-visible:ring-skyblue"
 						required
 					/>
 				</div>
-				<br />
-				<div>
-					Github
-					<input
+				<div className="flex flex-col col-span-2 space-y-1.5">
+					Github URL
+					<Input
 						name="github"
 						value={insertNewData.github}
 						onChange={handleChange}
 						placeholder="Enter your github"
+						className="focus-visible:ring-skyblue"
 						required
 					/>
 				</div>
-				<br />
-				<div>
+				<div className="flex flex-col col-span-2 space-y-1.5">
 					Location
-					<input
+					<Input
 						name="location"
 						value={insertNewData.location}
 						onChange={handleChange}
 						placeholder="Enter your location"
+						className="focus-visible:ring-skyblue"
 						required
 					/>
 				</div>
-				<br />
-				<div>
+				<div className="flex flex-col col-span-2 space-y-1.5">
 					Personal Summary
-					<input
+					<Textarea
 						name="personalsummary"
 						value={insertNewData.personalsummary}
 						onChange={handleChange}
 						placeholder="Enter your personal summary"
+						className="focus-visible:ring-skyblue"
 						required
 					/>
 				</div>
-				<br />
-			</form>
+			</div>
 		</div>
 	);
 };
@@ -366,121 +459,139 @@ const LeadershipVolunteerExperienceForm = ({
 		]);
 	};
 
+	const handleRemoveLeadershipVolunteer = () => {
+		setinsertLeadershipVolunteerData((prevData) => {
+			if (prevData.length > 1) {
+				return prevData.slice(0, -1);
+			}
+			return prevData;
+		});
+	};
+
 	return (
 		<div>
-			<h1>Add your leadership / volunteer experience</h1>
-			<br></br>
 			{insertLeadershipVolunteerData.map((leadershipvolunteer, index) => (
 				<div key={index}>
-					<div>
-						<label>Company Name</label>
-						<input
-							name="company"
-							value={leadershipvolunteer.company}
-							onChange={(e) => handleChange(index, e)}
-							placeholder="Enter the company name"
-							required
-						/>
+					<p className="text-lg pt-5 pb-5">Other Experience {index + 1}</p>
+					<div className="grid  grid-cols-4 w-full items-center gap-4">
+						<div className="flex flex-col col-span-2 space-y-1.5">
+							<label>Company Name</label>
+							<Input
+								name="company"
+								value={leadershipvolunteer.company}
+								onChange={(e) => handleChange(index, e)}
+								placeholder="Enter the company name"
+								className="focus-visible:ring-skyblue"
+								required
+							/>
+						</div>
+						<div className="flex flex-col col-span-2 space-y-1.5">
+							<label>Location</label>
+							<Input
+								name="location"
+								value={leadershipvolunteer.location}
+								onChange={(e) => handleChange(index, e)}
+								placeholder="Enter the location"
+								className="focus-visible:ring-skyblue"
+								required
+							/>
+						</div>
+						<div className="flex flex-col col-span-2 space-y-1.5">
+							<label>Position Title</label>
+							<Input
+								name="position"
+								value={leadershipvolunteer.position}
+								onChange={(e) => handleChange(index, e)}
+								placeholder="Enter your position"
+								className="focus-visible:ring-skyblue"
+								required
+							/>
+						</div>
+						<div className="flex flex-col col-span-2 space-y-1.5">
+							<label>Experience Type</label>
+							<Input
+								name="experiencetype"
+								value={leadershipvolunteer.experiencetype}
+								onChange={(e) => handleChange(index, e)}
+								placeholder="Enter your experience type"
+								className="focus-visible:ring-skyblue"
+								required
+							/>
+						</div>
+						<div className="flex flex-col col-span-1 space-y-1.5">
+							<label>Start Month</label>
+							<Input
+								name="startmonth"
+								value={leadershipvolunteer.startmonth}
+								onChange={(e) => handleChange(index, e)}
+								placeholder="Enter the start month"
+								className="focus-visible:ring-skyblue"
+								required
+							/>
+						</div>
+						<div className="flex flex-col col-span-1 space-y-1.5">
+							<label>Start Year</label>
+							<Input
+								name="startyear"
+								value={leadershipvolunteer.startyear}
+								onChange={(e) => handleChange(index, e)}
+								placeholder="Enter the start year"
+								className="focus-visible:ring-skyblue"
+								required
+							/>
+						</div>
+						<div className="flex flex-col col-span-1 space-y-1.5">
+							<label>End Month</label>
+							<Input
+								name="endmonth"
+								value={leadershipvolunteer.endmonth}
+								onChange={(e) => handleChange(index, e)}
+								placeholder="Enter the end month"
+								className="focus-visible:ring-skyblue"
+								required
+							/>
+						</div>
+						<div className="flex flex-col col-span-1 space-y-1.5">
+							<label>End Year</label>
+							<Input
+								name="endyear"
+								value={leadershipvolunteer.endyear}
+								onChange={(e) => handleChange(index, e)}
+								placeholder="Enter the end year"
+								className="focus-visible:ring-skyblue"
+								required
+							/>
+						</div>
+						<div className="flex flex-col col-span-4 space-y-1.5">
+							<label>Description</label>
+							<Textarea
+								name="other"
+								value={insertLeadershipVolunteerData.other}
+								onChange={(e) => handleChange(index, e)}
+								placeholder="Enter any other information"
+								className="focus-visible:ring-skyblue"
+								row={5}
+								col={25}
+								required
+							/>
+						</div>
 					</div>
-					<br />
-					<div>
-						<label>Location</label>
-						<input
-							name="location"
-							value={leadershipvolunteer.location}
-							onChange={(e) => handleChange(index, e)}
-							placeholder="Enter the location"
-							required
-						/>
-					</div>
-					<br />
-					<div>
-						<label>Position Title</label>
-						<input
-							name="position"
-							value={leadershipvolunteer.position}
-							onChange={(e) => handleChange(index, e)}
-							placeholder="Enter your position"
-							required
-						/>
-					</div>
-					<br />
-					<div>
-						<label>Experience Type</label>
-						<input
-							name="experiencetype"
-							value={leadershipvolunteer.experiencetype}
-							onChange={(e) => handleChange(index, e)}
-							placeholder="Enter your experience type"
-							required
-						/>
-					</div>
-					<br />
-					<div>
-						<label>Start Month</label>
-						<input
-							name="startmonth"
-							value={leadershipvolunteer.startmonth}
-							onChange={(e) => handleChange(index, e)}
-							placeholder="Enter the start month"
-							required
-						/>
-					</div>
-					<br />
-					<div>
-						<label>Start Year</label>
-						<input
-							name="startyear"
-							value={leadershipvolunteer.startyear}
-							onChange={(e) => handleChange(index, e)}
-							placeholder="Enter the start year"
-							required
-						/>
-					</div>
-					<br />
-					<div>
-						<label>End Month</label>
-						<input
-							name="endmonth"
-							value={leadershipvolunteer.endmonth}
-							onChange={(e) => handleChange(index, e)}
-							placeholder="Enter the endmonth"
-							required
-						/>
-					</div>
-					<br />
-					<div>
-						<label>End Year</label>
-						<input
-							name="endyear"
-							value={leadershipvolunteer.endyear}
-							onChange={(e) => handleChange(index, e)}
-							placeholder="Enter the end year"
-							required
-						/>
-					</div>
-					<br />
-					<div>
-						<label>Description</label>
-						<textarea
-							name="other"
-							value={insertLeadershipVolunteerData.other}
-							onChange={(e) => handleChange(index, e)}
-							placeholder="Enter any other information"
-							row={5}
-							col={25}
-							required
-						/>
-					</div>
-					<br />
 				</div>
 			))}
-			<button
-				type="button"
+			<Button
+				variant="link"
 				onClick={handleAddLeadershipVolunteer}
+				className="p-0"
 			>
-				Add Leadership / Volunteer Experience
-			</button>
+				+ Add Leadership / Volunteer Experience
+			</Button>
+			<Button
+				variant="link"
+				onClick={handleRemoveLeadershipVolunteer}
+				className="p-0 pl-5"
+			>
+				- Remove Latest Leadership / Volunteer Entry
+			</Button>
 		</div>
 	);
 };
@@ -511,119 +622,139 @@ const EducationForm = ({ insertEducationData, setInsertEducationData }) => {
 		]);
 	};
 
+	const handleRemoveEducation = () => {
+		setInsertEducationData((prevData) => {
+			if (prevData.length > 1) {
+				return prevData.slice(0, -1);
+			}
+			return prevData;
+		});
+	};
+
 	return (
 		<div>
-			<h1>Add your education history </h1>
 			{insertEducationData.map((education, index) => (
 				<div key={index}>
-					<div>
-						<label>School Name</label>
-						<input
-							name="school"
-							value={education.school}
-							onChange={(e) => handleChange(index, e)}
-							placeholder="Enter your school"
-							required
-						/>
-					</div>
-					<br />
-					<div>
-						<label>Major</label>
-						<input
-							name="major"
-							value={education.major}
-							onChange={(e) => handleChange(index, e)}
-							placeholder="Enter your major"
-							required
-						/>
-					</div>
-					<br />
-					<div>
-						<label>Degree Type</label>
-						<input
-							name="degreetype"
-							value={education.degreetype}
-							onChange={(e) => handleChange(index, e)}
-							placeholder="Enter your degree type"
-							required
-						/>
-					</div>
-					<br />
-					<div>
-						<label>GPA</label>
-						<input
-							name="GPA"
-							value={education.GPA}
-							onChange={(e) => handleChange(index, e)}
-							placeholder="Enter your GPA"
-							required
-						/>
-					</div>
-					<br />
-					<div>
-						<label>Start Month</label>
-						<input
-							name="startmonth"
-							value={education.startmonth}
-							onChange={(e) => handleChange(index, e)}
-							placeholder="Enter your start month"
-							required
-						/>
-					</div>
-					<br />
-					<div>
-						<label>Start Year</label>
-						<input
-							name="startyear"
-							value={education.startyear}
-							onChange={(e) => handleChange(index, e)}
-							placeholder="Enter your start year"
-							required
-						/>
-					</div>
-					<br />
-					<div>
-						<label>End Month</label>
-						<input
-							name="endmonth"
-							value={education.endmonth}
-							onChange={(e) => handleChange(index, e)}
-							placeholder="Enter your end month"
-							required
-						/>
-					</div>
-					<br />
-					<div>
-						<label>End Year</label>
-						<input
-							name="endyear"
-							value={education.endyear}
-							onChange={(e) => handleChange(index, e)}
-							placeholder="Enter your end year"
-							required
-						/>
-					</div>
-					<br />
-					<div>
-						<label>
-							Courses Taken / Concepts Learned / Scholarships / Other
-						</label>
-						<input
-							name="other"
-							value={education.other}
-							onChange={(e) => handleChange(index, e)}
-							placeholder="Enter any other information"
-							required
-						/>
+					<p className="text-lg pt-5 pb-5">Education Experience {index + 1}</p>
+					<div className="grid  grid-cols-4 w-full items-center gap-4">
+						<div className="flex flex-col col-span-2 space-y-1.5">
+							<label>School Name</label>
+							<Input
+								name="school"
+								value={education.school}
+								onChange={(e) => handleChange(index, e)}
+								placeholder="Enter your school"
+								className="focus-visible:ring-skyblue"
+								required
+							/>
+						</div>
+						<div className="flex flex-col col-span-2 space-y-1.5">
+							<label>Major</label>
+							<Input
+								name="major"
+								value={education.major}
+								onChange={(e) => handleChange(index, e)}
+								placeholder="Enter your major"
+								className="focus-visible:ring-skyblue"
+								required
+							/>
+						</div>
+						<div className="flex flex-col col-span-2 space-y-1.5">
+							<label>Degree Type</label>
+							<Input
+								name="degreetype"
+								value={education.degreetype}
+								onChange={(e) => handleChange(index, e)}
+								placeholder="Enter your degree type"
+								className="focus-visible:ring-skyblue"
+								required
+							/>
+						</div>
+						<div className="flex flex-col col-span-2 space-y-1.5">
+							<label>GPA</label>
+							<Input
+								name="GPA"
+								value={education.GPA}
+								onChange={(e) => handleChange(index, e)}
+								placeholder="Enter your GPA"
+								className="focus-visible:ring-skyblue"
+								required
+							/>
+						</div>
+						<div className="flex flex-col col-span-1 space-y-1.5">
+							<label>Start Month</label>
+							<Input
+								name="startmonth"
+								value={education.startmonth}
+								onChange={(e) => handleChange(index, e)}
+								placeholder="Enter your start month"
+								className="focus-visible:ring-skyblue"
+								required
+							/>
+						</div>
+						<div className="flex flex-col col-span-1 space-y-1.5">
+							<label>Start Year</label>
+							<Input
+								name="startyear"
+								value={education.startyear}
+								onChange={(e) => handleChange(index, e)}
+								placeholder="Enter your start year"
+								className="focus-visible:ring-skyblue"
+								required
+							/>
+						</div>
+						<div className="flex flex-col col-span-1 space-y-1.5">
+							<label>End Month</label>
+							<Input
+								name="endmonth"
+								value={education.endmonth}
+								onChange={(e) => handleChange(index, e)}
+								placeholder="Enter your end month"
+								className="focus-visible:ring-skyblue"
+								required
+							/>
+						</div>
+						<div className="flex flex-col col-span-1 space-y-1.5">
+							<label>End Year</label>
+							<Input
+								name="endyear"
+								value={education.endyear}
+								onChange={(e) => handleChange(index, e)}
+								placeholder="Enter your end year"
+								className="focus-visible:ring-skyblue"
+								required
+							/>
+						</div>
+						<div className="flex flex-col col-span-4 space-y-1.5">
+							<label>
+								Courses Taken / Concepts Learned / Scholarships / Other
+							</label>
+							<Input
+								name="other"
+								value={education.other}
+								onChange={(e) => handleChange(index, e)}
+								placeholder="Enter any other information"
+								className="focus-visible:ring-skyblue"
+								required
+							/>
+						</div>
 					</div>
 				</div>
 			))}
-			<button
-				type="button"
+			<Button
+				variant="link"
 				onClick={handleAddEducation}
+				className="p-0"
 			>
-				Add Another Education Entry;
-			</button>
+				+ Add Another Education Entry
+			</Button>
+			<Button
+				variant="link"
+				onClick={handleRemoveEducation}
+				className="p-0 pl-5"
+			>
+				- Remove Latest Education Entry
+			</Button>
 		</div>
 	);
 };
@@ -651,89 +782,107 @@ const ProjectsForm = ({ insertProjectData, setinsertProjectData }) => {
 		]);
 	};
 
+	const handleRemoveProjects = () => {
+		setinsertProjectData((prevData) => {
+			if (prevData.length > 1) {
+				return prevData.slice(0, -1);
+			}
+			return prevData;
+		});
+	};
+
 	return (
 		<div>
-			<h1>Add your projects</h1>
 			<br></br>
 			{insertProjectData.map((projects, index) => (
 				<div key={index}>
-					<div>
-						<label>Company Name</label>
-						<input
-							name="company"
-							value={projects.company}
-							onChange={(e) => handleChange(index, e)}
-							placeholder="Enter the company name"
-							required
-						/>
+					<p className="text-lg pt-5 pb-5">Project {index + 1}</p>
+					<div className="grid  grid-cols-4 w-full items-center gap-4">
+						<div className="flex flex-col col-span-4 space-y-1.5">
+							<label>Company Name</label>
+							<Input
+								name="company"
+								value={projects.company}
+								onChange={(e) => handleChange(index, e)}
+								placeholder="Enter the company name"
+								className="focus-visible:ring-skyblue"
+								required
+							/>
+						</div>
+						<div className="flex flex-col col-span-1 space-y-1.5">
+							<label>Start Month</label>
+							<Input
+								name="startmonth"
+								value={projects.startmonth}
+								onChange={(e) => handleChange(index, e)}
+								placeholder="Enter the start month"
+								className="focus-visible:ring-skyblue"
+								required
+							/>
+						</div>
+						<div className="flex flex-col col-span-1 space-y-1.5">
+							<label>Start Year</label>
+							<Input
+								name="startyear"
+								value={projects.startyear}
+								onChange={(e) => handleChange(index, e)}
+								placeholder="Enter the start year"
+								className="focus-visible:ring-skyblue"
+								required
+							/>
+						</div>
+						<div className="flex flex-col col-span-1 space-y-1.5">
+							<label>End Month</label>
+							<Input
+								name="endmonth"
+								value={projects.endmonth}
+								onChange={(e) => handleChange(index, e)}
+								placeholder="Enter the end month"
+								className="focus-visible:ring-skyblue"
+								required
+							/>
+						</div>
+						<div className="flex flex-col col-span-1 space-y-1.5">
+							<label>End Year</label>
+							<Input
+								name="endyear"
+								value={projects.endyear}
+								onChange={(e) => handleChange(index, e)}
+								placeholder="Enter the end year"
+								className="focus-visible:ring-skyblue"
+								required
+							/>
+						</div>
+						<div className="flex flex-col col-span-4 space-y-1.5">
+							<label>Description</label>
+							<Textarea
+								name="other"
+								value={projects.other}
+								onChange={(e) => handleChange(index, e)}
+								placeholder="Enter any other information"
+								className="focus-visible:ring-skyblue"
+								row={5}
+								col={25}
+								required
+							/>
+						</div>
 					</div>
-					<br />
-					<div>
-						<label>Start Month</label>
-						<input
-							name="startmonth"
-							value={projects.startmonth}
-							onChange={(e) => handleChange(index, e)}
-							placeholder="Enter the start month"
-							required
-						/>
-					</div>
-					<br />
-					<div>
-						<label>Start Year</label>
-						<input
-							name="startyear"
-							value={projects.startyear}
-							onChange={(e) => handleChange(index, e)}
-							placeholder="Enter the start year"
-							required
-						/>
-					</div>
-					<br />
-					<div>
-						<label>End Month</label>
-						<input
-							name="endmonth"
-							value={projects.endmonth}
-							onChange={(e) => handleChange(index, e)}
-							placeholder="Enter the end month"
-							required
-						/>
-					</div>
-					<br />
-					<div>
-						<label>End Year</label>
-						<input
-							name="endyear"
-							value={projects.endyear}
-							onChange={(e) => handleChange(index, e)}
-							placeholder="Enter the end year"
-							required
-						/>
-					</div>
-					<br />
-					<div>
-						<label>Description</label>
-						<br />
-						<textarea
-							name="other"
-							value={projects.other}
-							onChange={(e) => handleChange(index, e)}
-							placeholder="Enter any other information"
-							row={5}
-							col={25}
-							required
-						/>
-					</div>
-					<br />
 				</div>
 			))}
-			<button
-				type="type"
+			<Button
+				variant="link"
 				onClick={handleAddProjects}
+				className="p-0"
 			>
-				Add Projects
-			</button>
+				+ Add Projects
+			</Button>
+			<Button
+				variant="link"
+				onClick={handleRemoveProjects}
+				className="p-0 pl-5"
+			>
+				+ Remove Latest Project
+			</Button>
 		</div>
 	);
 };
@@ -763,187 +912,185 @@ const SkillsForm = ({
 	};
 
 	// Handler to update the state based on selection
-	const handleSelection = (e) => {
-		setSelectedSkill(e.target.value);
+	const handleSelection = (value) => {
+		setSelectedSkill(value);
 	};
 
 	return (
 		<div>
-			<div>Finally, add your skills!</div>
 			<br></br>
 
 			{/* option selector for the skill choice, maybe this is not need*/}
 			<div>
 				<form>
 					<label htmlFor="skills">Skill Options: </label>
-					<select
+					<Select
 						name="skills"
 						id="skills"
-						onChange={handleSelection}
+						onValueChange={handleSelection}
 					>
-						<option value="technical">Technical Skills</option>
-						<option value="business">Business Skills</option>
-					</select>
+						<SelectTrigger className="w-[180px] focus:outline-none focus:ring-0 focus:ring-offset-0">
+							<SelectValue placeholder="Skills" />
+						</SelectTrigger>
+						<SelectContent>
+							<SelectItem value="technical">Technical Skills</SelectItem>
+							<SelectItem value="business">Business Skills</SelectItem>
+						</SelectContent>
+					</Select>
 				</form>
 			</div>
 
 			{/* Conditionally render the JSX based on selectedSkill */}
 
 			{selectedSkill === '' && (
-				<div>
-					<br></br>
-
+				<div className="grid  grid-cols-1 w-full items-center gap-4">
 					<form>
-						<div>
+						<div className="flex flex-col col-span-1 space-y-1.5 pt-5">
 							Coding Languages
-							<input
+							<Input
 								name="codinglanguages"
 								value={insertSkills1Form.codinglanguages}
 								onChange={handleChange1}
 								placeholder="Enter your coding languages"
+								className="focus-visible:ring-skyblue"
 								required
 							/>
 						</div>
-						<br />
-						<div>
+						<div className="flex flex-col col-span-1 space-y-1.5 pt-5">
 							Programming Concepts
-							<input
+							<Input
 								name="programmingconcepts"
 								value={insertSkills1Form.programmingconcepts}
 								onChange={handleChange1}
 								placeholder="Enter your programming concepts"
+								className="focus-visible:ring-skyblue"
 								required
 							/>
 						</div>
-						<br />
-						<div>
+						<div className="flex flex-col col-span-1 space-y-1.5 pt-5">
 							Tools / Applications
-							<input
+							<Input
 								name="tools"
 								value={insertSkills1Form.tools}
 								onChange={handleChange1}
 								placeholder="Enter your tools / applications"
+								className="focus-visible:ring-skyblue"
 								required
 							/>
 						</div>
-						<br />
-						<div>
+						<div className="flex flex-col col-span-1 space-y-1.5 pt-5">
 							Frameworks
-							<input
+							<Input
 								name="frameworks"
 								value={insertSkills1Form.frameworks}
 								onChange={handleChange1}
 								placeholder="Enter your frameworks"
+								className="focus-visible:ring-skyblue"
 								required
 							/>
 						</div>
-						<br />
 					</form>
 				</div>
 			)}
 
 			{selectedSkill === 'technical' && (
-				<div>
-					<br></br>
-
+				<div className="grid  grid-cols-1 w-full items-center gap-4">
 					<form>
-						<div>
+						<div className="flex flex-col col-span-1 space-y-1.5 pt-5">
 							Coding Languages
-							<input
+							<Input
 								name="codinglanguages"
 								value={insertSkills1Form.codinglanguages}
 								onChange={handleChange1}
 								placeholder="Enter your coding languages"
+								className="focus-visible:ring-skyblue"
 								required
 							/>
 						</div>
-						<br />
-						<div>
+						<div className="flex flex-col col-span-1 space-y-1.5 pt-5">
 							Programming Concepts
-							<input
+							<Input
 								name="programmingconcepts"
 								value={insertSkills1Form.programmingconcepts}
 								onChange={handleChange1}
 								placeholder="Enter your programming concepts"
+								className="focus-visible:ring-skyblue"
 								required
 							/>
 						</div>
-						<br />
-						<div>
+						<div className="flex flex-col col-span-1 space-y-1.5 pt-5">
 							Tools / Applications
-							<input
+							<Input
 								name="tools"
 								value={insertSkills1Form.tools}
 								onChange={handleChange1}
 								placeholder="Enter your tools / applications"
+								className="focus-visible:ring-skyblue"
 								required
 							/>
 						</div>
-						<br />
-						<div>
+						<div className="flex flex-col col-span-1 space-y-1.5 pt-5">
 							Frameworks
-							<input
+							<Input
 								name="frameworks"
 								value={insertSkills1Form.frameworks}
 								onChange={handleChange1}
 								placeholder="Enter your frameworks"
+								className="focus-visible:ring-skyblue"
 								required
 							/>
 						</div>
-						<br />
 					</form>
 				</div>
 			)}
 
 			{selectedSkill === 'business' && (
-				<div>
-					<br></br>
-
+				<div className="grid  grid-cols-1 w-full items-center gap-4">
 					<form>
-						<div>
+						<div className="flex flex-col col-span-1 space-y-1.5 pt-5">
 							Business Communications
-							<input
+							<Input
 								name="businesscommunications"
 								value={insertSkills2Form.businesscommunications}
 								onChange={handleChange2}
 								placeholder="Enter your business communications"
+								className="focus-visible:ring-skyblue"
 								required
 							/>
 						</div>
-						<br />
-						<div>
+						<div className="flex flex-col col-span-1 space-y-1.5 pt-5">
 							Leadership / Case Competition
-							<input
+							<Input
 								name="leadership"
 								value={insertSkills2Form.leadershipskills}
 								onChange={handleChange2}
 								placeholder="Enter your leadership / case competition skills"
+								className="focus-visible:ring-skyblue"
 								required
 							/>
 						</div>
-						<br />
-						<div>
+						<div className="flex flex-col col-span-1 space-y-1.5 pt-5">
 							Project Management
-							<input
+							<Input
 								name="projectmanagement"
 								value={insertSkills2Form.projectmanagement}
 								onChange={handleChange2}
 								placeholder="Enter your project management"
+								className="focus-visible:ring-skyblue"
 								required
 							/>
 						</div>
-						<br />
-						<div>
+						<div className="flex flex-col col-span-1 space-y-1.5 pt-5">
 							Technical / Data Analysis Knowledge
-							<input
+							<Input
 								name="technical"
 								value={insertSkills2Form.frameworks}
 								onChange={handleChange2}
 								placeholder="Enter your technical / data analysis knowledge"
+								className="focus-visible:ring-skyblue"
 								required
 							/>
 						</div>
-						<br />
 					</form>
 				</div>
 			)}
@@ -984,120 +1131,139 @@ const WorkExperienceForm = ({ insertWorkData, setInsertWorkData }) => {
 		]);
 	};
 
+	const handleRemoveWorkExperience = () => {
+		setInsertWorkData((prevData) => {
+			if (prevData.length > 1) {
+				return prevData.slice(0, -1);
+			}
+			return prevData;
+		});
+	};
+
 	return (
 		<div>
-			<h1>Add your work experience</h1>
 			{insertWorkData.map((workexperience, index) => (
 				<div key={index}>
-					<div>
-						<label>Company Name</label>
-						<input
-							name="company"
-							value={workexperience.company}
-							onChange={(e) => handleChange(index, e)}
-							placeholder="Enter your company"
-							required
-						/>
+					<p className="text-lg pt-5 pb-5">Work Experience {index + 1}</p>
+					<div className="grid  grid-cols-4 w-full items-center gap-4">
+						<div className="flex flex-col col-span-2 space-y-1.5">
+							<label>Company Name</label>
+							<Input
+								name="company"
+								value={workexperience.company}
+								onChange={(e) => handleChange(index, e)}
+								placeholder="Enter your company"
+								className="focus-visible:ring-skyblue"
+								required
+							/>
+						</div>
+						<div className="flex flex-col col-span-2 space-y-1.5">
+							<label>Location</label>
+							<Input
+								name="location"
+								value={workexperience.location}
+								onChange={(e) => handleChange(index, e)}
+								placeholder="Enter the location"
+								className="focus-visible:ring-skyblue"
+								required
+							/>
+						</div>
+						<div className="flex flex-col col-span-2 space-y-1.5">
+							<label>Position Title</label>
+							<Input
+								name="position"
+								value={workexperience.position}
+								onChange={(e) => handleChange(index, e)}
+								placeholder="Enter your position"
+								className="focus-visible:ring-skyblue"
+								required
+							/>
+						</div>
+						<div className="flex flex-col col-span-2 space-y-1.5">
+							<label>Experience Type</label>
+							<Input
+								name="experiencetype"
+								value={workexperience.experiencetype}
+								onChange={(e) => handleChange(index, e)}
+								placeholder="Enter your experience type"
+								className="focus-visible:ring-skyblue"
+								required
+							/>
+						</div>
+						<div className="flex flex-col col-span-1 space-y-1.5">
+							<label>Start Month</label>
+							<Input
+								name="startmonth"
+								value={workexperience.startmonth}
+								onChange={(e) => handleChange(index, e)}
+								placeholder="Enter your start month"
+								className="focus-visible:ring-skyblue"
+								required
+							/>
+						</div>
+						<div className="flex flex-col col-span-1 space-y-1.5">
+							<label>Start Year</label>
+							<Input
+								name="startyear"
+								value={workexperience.startyear}
+								onChange={(e) => handleChange(index, e)}
+								placeholder="Enter your start year"
+								className="focus-visible:ring-skyblue"
+								required
+							/>
+						</div>
+						<div className="flex flex-col col-span-1 space-y-1.5">
+							<label>End Month</label>
+							<Input
+								name="endmonth"
+								value={workexperience.endmonth}
+								onChange={(e) => handleChange(index, e)}
+								placeholder="Enter your end month"
+								className="focus-visible:ring-skyblue"
+								required
+							/>
+						</div>
+						<div className="flex flex-col col-span-1 space-y-1.5">
+							<label>End Year</label>
+							<Input
+								name="endyear"
+								value={workexperience.endyear}
+								onChange={(e) => handleChange(index, e)}
+								placeholder="Enter your end year"
+								className="focus-visible:ring-skyblue"
+								required
+							/>
+						</div>
+						<div className="flex flex-col col-span-4 space-y-1.5">
+							<label>Description</label>
+							<Textarea
+								name="other"
+								value={workexperience.other}
+								onChange={(e) => handleChange(index, e)}
+								placeholder="Enter any other information"
+								className="focus-visible:ring-skyblue"
+								row={5}
+								col={25}
+								required
+							/>
+						</div>
 					</div>
-					<br />
-					<div>
-						<label>Location</label>
-						<input
-							name="location"
-							value={workexperience.location}
-							onChange={(e) => handleChange(index, e)}
-							placeholder="Enter the location"
-							required
-						/>
-					</div>
-					<br />
-					<div>
-						<label>Position Title</label>
-						<input
-							name="position"
-							value={workexperience.position}
-							onChange={(e) => handleChange(index, e)}
-							placeholder="Enter your position"
-							required
-						/>
-					</div>
-					<br />
-					<div>
-						<label>Experience Type</label>
-						<input
-							name="experiencetype"
-							value={workexperience.experiencetype}
-							onChange={(e) => handleChange(index, e)}
-							placeholder="Enter your experience type"
-							required
-						/>
-					</div>
-					<br />
-					<div>
-						<label>Start Month</label>
-						<input
-							name="startmonth"
-							value={workexperience.startmonth}
-							onChange={(e) => handleChange(index, e)}
-							placeholder="Enter your start month"
-							required
-						/>
-					</div>
-					<br />
-					<div>
-						<label>Start Year</label>
-						<input
-							name="startyear"
-							value={workexperience.startyear}
-							onChange={(e) => handleChange(index, e)}
-							placeholder="Enter your start year"
-							required
-						/>
-					</div>
-					<br />
-					<div>
-						<label>End Month</label>
-						<input
-							name="endmonth"
-							value={workexperience.endmonth}
-							onChange={(e) => handleChange(index, e)}
-							placeholder="Enter your end month"
-							required
-						/>
-					</div>
-					<br />
-					<div>
-						<label>End Year</label>
-						<input
-							name="endyear"
-							value={workexperience.endyear}
-							onChange={(e) => handleChange(index, e)}
-							placeholder="Enter your end year"
-							required
-						/>
-					</div>
-					<br />
-					<div>
-						<label>Description</label>
-						<textarea
-							name="other"
-							value={workexperience.other}
-							onChange={(e) => handleChange(index, e)}
-							placeholder="Enter any other information"
-							row={5}
-							col={25}
-							required
-						/>
-					</div>
-					<br />
-					<button
-						type="button"
-						onClick={handleAddWorkExperience}
-					>
-						Add Another Work Experience
-					</button>
 				</div>
 			))}
+			<Button
+				variant="link"
+				onClick={handleAddWorkExperience}
+				className="p-0"
+			>
+				+ Add Another Work Experience
+			</Button>
+			<Button
+				variant="link"
+				onClick={handleRemoveWorkExperience}
+				className="p-0 pl-5"
+			>
+				- Remove Latest Work Entry
+			</Button>
 		</div>
 	);
 };
@@ -1152,132 +1318,241 @@ const SummaryStep = ({
 
 	return (
 		<div>
-			<h1>Summary</h1>
-
-			<br></br>
-
-			<h2>Contact Info</h2>
-			<ul>First Name: {insertNewData.firstname}</ul>
-			<ul>Last Name: {insertNewData.lastname}</ul>
-			<ul>Email: {insertNewData.email}</ul>
-			<ul>LinkedIn: {insertNewData.linkedin}</ul>
-			<ul>Personal Website: {insertNewData.personalwebsite}</ul>
-			<ul>Github: {insertNewData.github}</ul>
-			<ul>Location: {insertNewData.location}</ul>
-			<ul>Personal Summary: {insertNewData.personalsummary}</ul>
-
-			<br />
-
-			<h2>Education Info</h2>
+			<div className="grid  grid-cols-4 w-full items-center gap-4">
+				<p className="text-lg flex flex-col col-span-4 space-y-1.5">
+					Personal Info
+				</p>
+				<p className="flex flex-col col-span-2 space-y-1.5">
+					First Name: {insertNewData.firstname}
+				</p>
+				<p className="flex flex-col col-span-2 space-y-1.5">
+					Last Name: {insertNewData.lastname}
+				</p>
+				<p className="flex flex-col col-span-2 space-y-1.5">
+					Email: {insertNewData.email}
+				</p>
+				<p className="flex flex-col col-span-2 space-y-1.5">
+					LinkedIn: {insertNewData.linkedin}
+				</p>
+				<p className="flex flex-col col-span-2 space-y-1.5">
+					Personal Website: {insertNewData.personalwebsite}
+				</p>
+				<p className="flex flex-col col-span-2 space-y-1.5">
+					Github: {insertNewData.github}
+				</p>
+				<p className="flex flex-col col-span-4 space-y-1.5">
+					Location: {insertNewData.location}
+				</p>
+				<p className="flex flex-col col-span-4 space-y-1.5">
+					Personal Summary: {insertNewData.personalsummary}
+				</p>
+			</div>
+			<p className="text-lg pt-5 pb-2 flex flex-col col-span-4 space-y-1.5">
+				Education Info
+			</p>
 			{insertEducationData.length > 0 ? (
 				insertEducationData.map((education, index) => (
 					<div key={index}>
-						<h3>Education {index + 1}</h3>
-						<ul>
-							<li>School Name: {education.school}</li>
-							<li>Major: {education.major}</li>
-							<li>Degree Type: {education.degreetype}</li>
-							<li>GPA: {education.GPA}</li>
-							<li>Start Month: {education.startmonth}</li>
-							<li>Start Year: {education.startyear}</li>
-							<li>End Month: {education.endmonth}</li>
-							<li>End Year: {education.endyear}</li>
-							<li>
-								Courses Taken / Concepts Learned / Scholarships / Other: :{' '}
+						<div className="grid  grid-cols-4 w-full items-center gap-4">
+							<p className="flex flex-col col-span-4 space-y-1.5">
+								Education {index + 1}
+							</p>
+							<p className="flex flex-col col-span-2 space-y-1.5">
+								School Name: {education.school}
+							</p>
+							<p className="flex flex-col col-span-2 space-y-1.5">
+								Major: {education.major}
+							</p>
+							<p className="flex flex-col col-span-2 space-y-1.5">
+								Degree Type: {education.degreetype}
+							</p>
+							<p className="flex flex-col col-span-2 space-y-1.5">
+								GPA: {education.GPA}
+							</p>
+							<p className="flex flex-col col-span-1 space-y-1.5">
+								Start Month: {education.startmonth}
+							</p>
+							<p className="flex flex-col col-span-1 space-y-1.5">
+								Start Year: {education.startyear}
+							</p>
+							<p className="flex flex-col col-span-1 space-y-1.5">
+								End Month: {education.endmonth}
+							</p>
+							<p className="flex flex-col col-span-1 space-y-1.5">
+								End Year: {education.endyear}
+							</p>
+							<p className="flex flex-col col-span-4 space-y-1.5">
+								Courses Taken / Concepts Learned / Scholarships / Other:{' '}
 								{education.other}
-							</li>
-						</ul>
+							</p>
+						</div>
 					</div>
 				))
 			) : (
 				<p>No Education data available.</p>
 			)}
-
-			<br />
-			<h2>Work Info</h2>
+			<p className="text-lg pt-5 pb-2 flex flex-col col-span-4 space-y-1.5">
+				Work Info
+			</p>
 			{insertWorkData.length > 0 ? (
 				insertWorkData.map((workexperience, index) => (
 					<div key={index}>
-						<h3>Work Experience {index + 1}</h3>
-						<ul>
-							<li>Company: {workexperience.company}</li>
-							<li>Location: {workexperience.location}</li>
-							<li>Position: {workexperience.position}</li>
-							<li>Experience Type: {workexperience.experiencetype}</li>
-							<li>Start Month: {workexperience.startmonth}</li>
-							<li>Start Year: {workexperience.startyear}</li>
-							<li>End Month: {workexperience.endmonth}</li>
-							<li>End Year: {workexperience.endyear}</li>
-							<li>Other: {workexperience.other}</li>
-						</ul>
+						<div className="grid  grid-cols-4 w-full items-center gap-4">
+							<p className="flex flex-col col-span-4 space-y-1.5">
+								Work Experience {index + 1}
+							</p>
+							<p className="flex flex-col col-span-2 space-y-1.5">
+								Company: {workexperience.company}
+							</p>
+							<p className="flex flex-col col-span-2 space-y-1.5">
+								Location: {workexperience.location}
+							</p>
+							<p className="flex flex-col col-span-2 space-y-1.5">
+								Position: {workexperience.position}
+							</p>
+							<p className="flex flex-col col-span-2 space-y-1.5">
+								Experience Type: {workexperience.experiencetype}
+							</p>
+							<p className="flex flex-col col-span-1 space-y-1.5">
+								Start Month: {workexperience.startmonth}
+							</p>
+							<p className="flex flex-col col-span-1 space-y-1.5">
+								Start Year: {workexperience.startyear}
+							</p>
+							<p className="flex flex-col col-span-1 space-y-1.5">
+								End Month: {workexperience.endmonth}
+							</p>
+							<p className="flex flex-col col-span-1 space-y-1.5">
+								End Year: {workexperience.endyear}
+							</p>
+							<p className="flex flex-col col-span-4 space-y-1.5">
+								Other: {workexperience.other}
+							</p>
+						</div>
 					</div>
 				))
 			) : (
 				<p>No Work Experience data available.</p>
 			)}
-			<br />
-			<h2>Leadership & Volunteer Info</h2>
+			<p className="text-lg pt-5 pb-2 flex flex-col col-span-4 space-y-1.5">
+				Leadership & Volunteer Info
+			</p>
 			{insertLeadershipVolunteerData.length > 0 ? (
 				insertLeadershipVolunteerData.map((leadershipvolunteer, index) => (
 					<div key={index}>
-						<h3>Leadership & Volunteer {index + 1}</h3>
-						<ul>
-							<li>Company: {leadershipvolunteer.company}</li>
-							<li>Location: {leadershipvolunteer.major}</li>
-							<li>Position: {leadershipvolunteer.position}</li>
-							<li>Experience Type: {leadershipvolunteer.experiencetype}</li>
-							<li>Start Month: {leadershipvolunteer.startmonth}</li>
-							<li>Start Year: {leadershipvolunteer.startyear}</li>
-							<li>End Month: {leadershipvolunteer.endmonth}</li>
-							<li>End Year: {leadershipvolunteer.endyear}</li>
-							<li>Other: {leadershipvolunteer.other}</li>
-						</ul>
+						<div className="grid  grid-cols-4 w-full items-center gap-4">
+							<p className="text-lg pt-5 flex flex-col col-span-4 space-y-1.5">
+								Leadership & Volunteer Info
+							</p>
+							<p className="flex flex-col col-span-4 space-y-1.5">
+								Leadership & Volunteer {index + 1}
+							</p>
+							<p className="flex flex-col col-span-2 space-y-1.5">
+								Company: {leadershipvolunteer.company}
+							</p>
+							<p className="flex flex-col col-span-2 space-y-1.5">
+								Location: {leadershipvolunteer.major}
+							</p>
+							<p className="flex flex-col col-span-2 space-y-1.5">
+								Position: {leadershipvolunteer.position}
+							</p>
+							<p className="flex flex-col col-span-2 space-y-1.5">
+								Experience Type: {leadershipvolunteer.experiencetype}
+							</p>
+							<p className="flex flex-col col-span-1 space-y-1.5">
+								Start Month: {leadershipvolunteer.startmonth}
+							</p>
+							<p className="flex flex-col col-span-1 space-y-1.5">
+								Start Year: {leadershipvolunteer.startyear}
+							</p>
+							<p className="flex flex-col col-span-1 space-y-1.5">
+								End Month: {leadershipvolunteer.endmonth}
+							</p>
+							<p className="flex flex-col col-span-1 space-y-1.5">
+								End Year: {leadershipvolunteer.endyear}
+							</p>
+							<p className="flex flex-col col-span-4 space-y-1.5">
+								Other: {leadershipvolunteer.other}
+							</p>
+						</div>
 					</div>
 				))
 			) : (
 				<p>No Leadership and Volunteer data available.</p>
 			)}
-
-			<br />
-
-			<h2>Project Info</h2>
+			<p className="text-lg pt-5 pb-2 flex flex-col col-span-4 space-y-1.5">
+				Project Info
+			</p>
 			{insertProjectData.length > 0 ? (
 				insertProjectData.map((projects, index) => (
 					<div key={index}>
-						<h3>Project {index + 1}</h3>
-						<ul>
-							<li>Company: {projects.company}</li>
-							<li>Location: {projects.location}</li>
-							<li>Start Month: {projects.startmonth}</li>
-							<li>Start Year: {projects.startyear}</li>
-							<li>End Month: {projects.endmonth}</li>
-							<li>End Year: {projects.endyear}</li>
-							<li>Other: {projects.other}</li>
-						</ul>
+						<div className="grid  grid-cols-4 w-full items-center gap-4">
+							<p className="flex flex-col col-span-4 space-y-1.5">
+								Project {index + 1}
+							</p>
+							<p className="flex flex-col col-span-2 space-y-1.5">
+								Company: {projects.company}
+							</p>
+							<p className="flex flex-col col-span-2 space-y-1.5">
+								Location: {projects.location}
+							</p>
+							<p className="flex flex-col col-span-1 space-y-1.5">
+								Start Month: {projects.startmonth}
+							</p>
+							<p className="flex flex-col col-span-1 space-y-1.5">
+								Start Year: {projects.startyear}
+							</p>
+							<p className="flex flex-col col-span-1 space-y-1.5">
+								End Month: {projects.endmonth}
+							</p>
+							<p className="flex flex-col col-span-1 space-y-1.5">
+								End Year: {projects.endyear}
+							</p>
+							<p className="flex flex-col col-span-4 space-y-1.5">
+								Other: {projects.other}
+							</p>
+						</div>
 					</div>
 				))
 			) : (
 				<p>No Project data available.</p>
 			)}
-			<br />
 
-			<h2>Skills - Section 1</h2>
-			<ul>Coding Languages: {insertSkills1Form.codinglanguages}</ul>
-			<ul>Programming Concepts: {insertSkills1Form.programmingconcepts}</ul>
-			<ul>Tools: {insertSkills1Form.tools}</ul>
-			<ul>Frameworks: {insertSkills1Form.frameworks}</ul>
+			<div className="grid  grid-cols-4 w-full items-center gap-4">
+				<p className="text-lg pt-5 flex flex-col col-span-4 space-y-1.5">
+					Skills - Section 1
+				</p>
+				<p className="flex flex-col col-span-4 space-y-1.5">Technical Skills</p>
+				<p className="flex flex-col col-span-4 space-y-1.5">
+					Coding Languages: {insertSkills1Form.codinglanguages}
+				</p>
+				<p className="flex flex-col col-span-4 space-y-1.5">
+					Programming Concepts: {insertSkills1Form.programmingconcepts}
+				</p>
+				<p className="flex flex-col col-span-4 space-y-1.5">
+					Tools: {insertSkills1Form.tools}
+				</p>
+				<p className="flex flex-col col-span-4 space-y-1.5">
+					Frameworks: {insertSkills1Form.frameworks}
+				</p>
 
-			<br />
-
-			<h2>Skills - Section 2</h2>
-			<ul>
-				Business Communications: {insertSkills2Form.businesscommunications}
-			</ul>
-			<ul>Leadership: {insertSkills2Form.leadership}</ul>
-			<ul>Project Management: {insertSkills2Form.projectmanagement}</ul>
-			<ul>Technical: {insertSkills2Form.technical}</ul>
-
-			<br />
+				<p className="text-lg pt-5 flex flex-col col-span-4 space-y-1.5">
+					Skills - Section 2
+				</p>
+				<p className="flex flex-col col-span-4 space-y-1.5">Business Skills</p>
+				<p className="flex flex-col col-span-4 space-y-1.5">
+					Business Communications: {insertSkills2Form.businesscommunications}
+				</p>
+				<p className="flex flex-col col-span-4 space-y-1.5">
+					Leadership: {insertSkills2Form.leadership}
+				</p>
+				<p className="flex flex-col col-span-4 space-y-1.5">
+					Project Management: {insertSkills2Form.projectmanagement}
+				</p>
+				<p className="flex flex-col col-span-4 space-y-1.5">
+					Technical: {insertSkills2Form.technical}
+				</p>
+			</div>
 		</div>
 	);
 };

@@ -1,41 +1,36 @@
-import Notes from "../components/ui/dashboard/notes";
-
-
-import { Header } from "../components/ui/dashboard/header";
-
-import { Footer } from "../components/ui/dashboard/footer";
-
-import { Sidebar } from "../components/ui/dashboard/sidebar";
-
-// import { AddProject } from "../ui/dashboard/add-project";
-import styles from "../styles/dashboard.module.css";
-// import { isDataView } from "util/types";
-
-// import SideNav from '@/app/ui/dashboard/sidenav';
-
 // this is the homepage where the forms get rendedred
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 export default function Page() {
-  const router = useRouter();
+	const router = useRouter();
+	const [dots, setDots] = useState('.');
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      router.push('/auth/onboarding');
-    }, 3000);
+	useEffect(() => {
+		const interval = setInterval(() => {
+			setDots((prev) => (prev.length >= 3 ? '.' : prev + '.'));
+		}, 500);
 
-    return () => clearTimeout(timer);
-  }, [router]);
+		const timer = setTimeout(() => {
+			router.push('/auth/onboarding');
+		}, 3000);
 
-  return (
-    <main>
-      <div>
+		return () => {
+			clearInterval(interval);
+			clearTimeout(timer);
+		};
+	}, [router]);
 
-        Your account has been verified!
-      </div>
-    </main>
-  );
+	return (
+		<main>
+			<div className="bg-skyblue min-h-screen flex items-center justify-center">
+				<p className="text-2xl">
+					Your account has been verified, please wait a moment while you are
+					redirected{dots}
+				</p>
+			</div>
+		</main>
+	);
 }

@@ -3,7 +3,6 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
 
 import styles from '../../../styles/footer.module.css';
-//test
 
 export async function Footer() {
 	return (

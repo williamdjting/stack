@@ -1,41 +1,31 @@
-"use client";
+'use client';
 
-import React from "react";
-import Link from "next/link";
+import React from 'react';
+import Link from 'next/link';
+import { createClient } from '../../../app/supabase/client';
+import { useRouter } from 'next/navigation';
 
 // Import the CSS module
-import styles from "../../../styles/sidebar.module.css";
+import styles from '../../../styles/sidebar.module.css';
+import { SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
+import { AppSidebar } from '@/components/app-sidebar';
 
 export function Sidebar() {
-  return (
-    <>
-      <br></br>
-
-      <div className={styles.text}>
-        <div>My Documents</div>
-        <div>(Resume & Cover Letters)</div>
-      </div>
-
-      <br></br>
-      <br></br>
-
-      <Link href="/dashboard" className={styles.text}>
-        Existing Applications
-      </Link>
-
-      <br></br>
-      <br></br>
-      <br></br>
-
-      <Link href="/applications/new" className={styles.text}>
-        New Application
-      </Link>
-
-      <br></br>
-      <br></br>
-      <br></br>
-
-      <div className={styles.text}>Settings</div>
-    </>
-  );
+	const router = useRouter();
+	const supabase = createClient();
+	const handleSignOut = async () => {
+		const { error } = await supabase.auth.signOut();
+		if (error) {
+			console.error('Error signing out:', error.message);
+		} else {
+			router.push('/auth/login');
+		}
+	};
+	return (
+		<>
+			<SidebarProvider>
+				<AppSidebar onSignOut={handleSignOut} />
+			</SidebarProvider>
+		</>
+	);
 }
