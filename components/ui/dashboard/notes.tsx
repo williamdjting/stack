@@ -51,7 +51,7 @@ export default function Notes() {
 		fetchData();
 	}, []);
 
-	const handleCreateResume = (e) => {
+	const handleCreateResume = (e: React.MouseEvent<HTMLButtonElement>) => {
 		e.preventDefault();
 		router.push('/applications/new');
 	};
