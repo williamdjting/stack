@@ -143,7 +143,7 @@ export default function Notes() {
 					<PaginationItem>
 						<PaginationPrevious
 							onClick={handlePrev}
-							disabled={page === 1}
+							aria-disabled={page === 1}
 						/>
 					</PaginationItem>
 					<PaginationItem>
@@ -162,7 +162,7 @@ export default function Notes() {
 					<PaginationItem>
 						<PaginationNext
 							onClick={handleNext}
-							disabled={page === pageCount}
+							aria-disabled={page === pageCount}
 						/>
 					</PaginationItem>
 				</PaginationContent>
