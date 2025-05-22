@@ -24,6 +24,8 @@ import {
 	PaginationNext,
 	PaginationPrevious,
 } from '@/components/ui/pagination';
+import { buttonVariants } from '@/components/ui/button';
+import Link from 'next/link';
 
 const supabase = createClient();
 const ITEMS_PER_PAGE = 6;
@@ -121,13 +123,16 @@ export default function Notes() {
 									{note.coverletter}
 								</TableCell>
 								<TableCell className="text-gray-700 font-normal text-right">
-									<Button variant="ghost">
-										<a
+									<Button
+										variant="ghost"
+										asChild
+									>
+										<Link
 											className="text-lg"
 											href={`/applications/${note.id}`}
 										>
 											Go to Application {note.id}
-										</a>
+										</Link>
 									</Button>
 								</TableCell>
 							</TableRow>
