@@ -106,7 +106,7 @@ export function LoginForm() {
 						Sign in
 					</Button>
 					<p className="text-gray-600 text-sm">
-						Don't have an account?{' '}
+						Dont have an account?{' '}
 						<a
 							className="text-gray-800 hover:underline cursor-pointer"
 							onClick={handleSignUp}

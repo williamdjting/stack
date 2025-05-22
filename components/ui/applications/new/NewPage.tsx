@@ -36,7 +36,7 @@ export default function NewPage() {
 		coverletterstylerequest: '',
 	});
 
-	const [error, setError] = useState(null);
+	const [error, setError] = useState<string | null>(null);
 
 	const [redirectTo, setRedirectTo] = useState(null);
 	const router = useRouter();
@@ -48,7 +48,9 @@ export default function NewPage() {
 	}, [redirectTo, router]);
 
 	// Handler to update form data
-	const handleChange = (e) => {
+	const handleChange = (
+		e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+	) => {
 		const { name, value } = e.target;
 		setInsertNewData((prevFormData) => ({
 			...prevFormData,
@@ -57,7 +59,7 @@ export default function NewPage() {
 	};
 
 	// Handler to submit form data to Supabase
-	const handleSubmit = async (e) => {
+	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 
 		// Insert new data to Supabase
@@ -84,9 +86,9 @@ export default function NewPage() {
 		//   setRedirectTo("/projects");
 		// }
 
-		if (data) {
-			setInsertNewData(data);
-		} else if (error) {
+		if (data && data.length > 0) {
+			setInsertNewData(data[0]);  // Use the first object from the array
+		  } else if (error) {
 			console.error(error);
 			setError(error.message); // Set error if there's an issue
 		}

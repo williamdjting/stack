@@ -203,14 +203,14 @@ export default async function generateResume(aiResponse: Record<string, any>) {
           }],
       });
 
-      function parseProjectJsonToParagraphs(data) {
-        const paragraphs = [];
+      function parseProjectJsonToParagraphs(data: { projects: { project_description: any; project_title: any; project_details: any[]; }[]; }) {
+        const paragraphs: Paragraph[] = [];
     
         if (data && typeof data === "object") {
             // Check if the data is of type ProjectsArray
             if (data.projects && Array.isArray(data.projects)) {
                 // Iterate through each project
-                data.projects.forEach((project) => {
+                data.projects.forEach((project: { project_description: any; project_title: any; project_details: any[]; }) => {
                     if (project.project_description) {
                         // Add project description as a paragraph
                         paragraphs.push(
@@ -276,14 +276,14 @@ export default async function generateResume(aiResponse: Record<string, any>) {
         return paragraphs;
     }
 
-    function parseWorkExperienceJsonToParagraphs(data) {
-      const paragraphs = [];
+    function parseWorkExperienceJsonToParagraphs(data: { work_experience: { workexperience_description: any; workexperience_company: any; workexperience_location: any; workexperience_jobtitle: any; workexperience_date: any; workexperience_details: { workexperience_bullets: any; }[]; }[]; }) {
+      const paragraphs: Paragraph[] = [];
   
       if (data && typeof data === "object") {
           // Check if the data is of type WorkExperienceArray
           if (data.work_experience && Array.isArray(data.work_experience)) {
               // Iterate through each work experience
-              data.work_experience.forEach((experience) => {
+              data.work_experience.forEach((experience: { workexperience_description: any; workexperience_company: any; workexperience_location: any; workexperience_jobtitle: any; workexperience_date: any; workexperience_details: { workexperience_bullets: any; }[]; }) => {
                   if (experience.workexperience_description) {
                       // Add work experience description as a paragraph
                       paragraphs.push(
@@ -340,7 +340,7 @@ export default async function generateResume(aiResponse: Record<string, any>) {
   
                   // Process work experience details
                   if (experience.workexperience_details && Array.isArray(experience.workexperience_details)) {
-                      experience.workexperience_details.forEach(detail => {
+                      experience.workexperience_details.forEach((detail: { workexperience_bullets: any; }) => {
                           if (detail.workexperience_bullets) {
                               // Work experience bullets
                               paragraphs.push(new Paragraph({
@@ -370,6 +370,6 @@ export default async function generateResume(aiResponse: Record<string, any>) {
   }
     
 
-  const buffer = await Packer.toBuffer(doc);
-  return buffer;
+	const buffer = await Packer.toBuffer(doc);
+	return buffer;
 }

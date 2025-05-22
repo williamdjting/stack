@@ -24,6 +24,8 @@ import {
 	PaginationNext,
 	PaginationPrevious,
 } from '@/components/ui/pagination';
+import { buttonVariants } from '@/components/ui/button';
+import Link from 'next/link';
 
 const supabase = createClient();
 const ITEMS_PER_PAGE = 6;
@@ -51,7 +53,7 @@ export default function Notes() {
 		fetchData();
 	}, []);
 
-	const handleCreateResume = (e) => {
+	const handleCreateResume = (e: React.MouseEvent<HTMLButtonElement>) => {
 		e.preventDefault();
 		router.push('/applications/new');
 	};
@@ -121,13 +123,16 @@ export default function Notes() {
 									{note.coverletter}
 								</TableCell>
 								<TableCell className="text-gray-700 font-normal text-right">
-									<Button variant="ghost">
-										<a
+									<Button
+										variant="ghost"
+										asChild
+									>
+										<Link
 											className="text-lg"
 											href={`/applications/${note.id}`}
 										>
 											Go to Application {note.id}
-										</a>
+										</Link>
 									</Button>
 								</TableCell>
 							</TableRow>
@@ -143,7 +148,7 @@ export default function Notes() {
 					<PaginationItem>
 						<PaginationPrevious
 							onClick={handlePrev}
-							disabled={page === 1}
+							aria-disabled={page === 1}
 						/>
 					</PaginationItem>
 					<PaginationItem>
@@ -162,7 +167,7 @@ export default function Notes() {
 					<PaginationItem>
 						<PaginationNext
 							onClick={handleNext}
-							disabled={page === pageCount}
+							aria-disabled={page === pageCount}
 						/>
 					</PaginationItem>
 				</PaginationContent>
