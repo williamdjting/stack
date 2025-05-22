@@ -11,6 +11,8 @@ import {
 } from "docx";
 
 interface Project {
+  project_details: boolean;
+  project_title: string | undefined;
   project_description?: string;
   // add other relevant fields here
 }
@@ -322,8 +324,8 @@ export default async function generateResume(aiResponse: Record<string, any>) {
     return paragraphs;
   }
 
-  function parseWorkExperienceJsonToParagraphs(data) {
-    const paragraphs = [];
+  function parseWorkExperienceJsonToParagraphs(data: { work_experience: any[]; }) {
+    const paragraphs: Paragraph[] = [];
 
     if (data && typeof data === "object") {
       // Check if the data is of type WorkExperienceArray
@@ -389,7 +391,7 @@ export default async function generateResume(aiResponse: Record<string, any>) {
             experience.workexperience_details &&
             Array.isArray(experience.workexperience_details)
           ) {
-            experience.workexperience_details.forEach((detail) => {
+            experience.workexperience_details.forEach((detail: { workexperience_bullets: any; }) => {
               if (detail.workexperience_bullets) {
                 // Work experience bullets
                 paragraphs.push(
