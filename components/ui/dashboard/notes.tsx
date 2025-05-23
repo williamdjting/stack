@@ -69,7 +69,7 @@ export default function Notes() {
 
 	if (loading) return <p>Loading...</p>;
 	if (error) return <p>Error: {error}</p>;
-	if (notes.length === 0) return <p>No posts found.</p>;
+	// if (notes.length === 0) return <p>No posts found.</p>;
 
 	return (
 		<div className="bg-skyblue min-h-screen flex flex-col justify-center pr-10 pl-10 pt-0">

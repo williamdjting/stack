@@ -43,6 +43,9 @@ export function RegistrationForm() {
 		const { data, error } = await supabase.auth.signUp({
 			email: emailaddress,
 			password: password,
+			options: {
+				emailRedirectTo: 'https://stack-gold.vercel.app',
+			},
 		});
 
 		if (error) {
